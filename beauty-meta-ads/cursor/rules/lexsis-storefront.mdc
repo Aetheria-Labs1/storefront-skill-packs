@@ -1,0 +1,48 @@
+---
+description: Lexsis AI Storefront Builder — Beauty Brand — Meta Ads Landing Pages
+globs: []
+alwaysApply: true
+---
+
+# Beauty Brand — Meta Ads Landing Pages
+
+Build high-converting beauty/skincare landing pages from Meta (Facebook/Instagram) ad creatives.
+
+## MCP Server
+
+This skill pack works best with the Lexsis AI MCP server connected:
+
+```json
+{
+  "mcpServers": {
+    "lexsis-ai": {
+      "type": "http",
+      "url": "https://mcp.trylexsis.com/mcp",
+      "headers": { "Authorization": "Bearer <your-api-key>" }
+    }
+  }
+}
+```
+
+## Available Skills (auto-loaded by context)
+
+- **storefront-craft** — Start Here
+- **workflow-orchestration** — Execution Engine
+- **conversion-psychology** — Storefront Design Intelligence
+- **beauty-expertise** — Storefront Design Intelligence
+- **meta-traffic** — Storefront Design Intelligence
+- **visual-craft** — Typography, Spacing, Color & Polish
+- **premium-patterns** — High-Converting Section Templates
+- **island-patterns** — Wrapper HTML & Combination Recipes
+- **page-generation** — Storefront Page Generation
+- **design-assets** — Design Assets & Brand Management
+- **publishing** — Storefront Publishing & Lifecycle
+- **page-editing** — Storefront Page Editing
+- **analytics** — Storefront Analytics & Experiments
+
+## Commands
+
+When building storefront pages, follow these workflows:
+- **generate-beauty-page**: Generate a complete beauty/skincare landing page from a Meta ad creative (uses: storefront-craft, beauty-expertise, meta-traffic, conversion-psychology, page-generation)
+- **optimize-meta-landing**: Optimize an existing landing page for Meta ad traffic conversion (uses: meta-traffic, conversion-psychology, page-editing, analytics)
+- **create-beauty-assets**: Generate brand-matched visual assets for a beauty storefront (uses: beauty-expertise, visual-craft, design-assets)

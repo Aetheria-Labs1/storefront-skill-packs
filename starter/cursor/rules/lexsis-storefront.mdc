@@ -1,0 +1,43 @@
+---
+description: Lexsis AI Storefront Builder — Lexsis AI — Storefront Starter Pack
+globs: []
+alwaysApply: true
+---
+
+# Lexsis AI — Storefront Starter Pack
+
+Foundation skills for building Shopify landing pages with AI. Works with any vertical or traffic source.
+
+## MCP Server
+
+This skill pack works best with the Lexsis AI MCP server connected:
+
+```json
+{
+  "mcpServers": {
+    "lexsis-ai": {
+      "type": "http",
+      "url": "https://mcp.trylexsis.com/mcp",
+      "headers": { "Authorization": "Bearer <your-api-key>" }
+    }
+  }
+}
+```
+
+## Available Skills (auto-loaded by context)
+
+- **storefront-craft** — Start Here
+- **workflow-orchestration** — Execution Engine
+- **conversion-psychology** — Storefront Design Intelligence
+- **island-patterns** — Wrapper HTML & Combination Recipes
+- **page-generation** — Storefront Page Generation
+- **design-assets** — Design Assets & Brand Management
+- **publishing** — Storefront Publishing & Lifecycle
+- **page-editing** — Storefront Page Editing
+- **analytics** — Storefront Analytics & Experiments
+
+## Commands
+
+When building storefront pages, follow these workflows:
+- **generate-landing-page**: Generate a complete Shopify landing page from a brief or ad creative (uses: storefront-craft, workflow-orchestration, conversion-psychology, page-generation)
+- **optimize-page**: Analyze and optimize an existing landing page for better conversions (uses: conversion-psychology, page-editing, analytics)
