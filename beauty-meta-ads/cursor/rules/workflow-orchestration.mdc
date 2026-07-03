@@ -225,3 +225,28 @@ hero → featured-products → brand-story → social-proof → collections → 
 ```
 collection-header → filters → product-grid → featured-pick → trust-bar → newsletter
 ```
+
+---
+
+## Credit Costs
+
+Always call `get_credits_balance` before expensive operations. If balance is 0, inform the user before proceeding.
+
+| Tool | Cost | Notes |
+|------|------|-------|
+| `generate_asset` | credits | AI image generation |
+| `edit_asset` | credits | AI image editing/compositing |
+| `publish_vibe_page` | credits | Page generation (only on publish, not drafts) |
+| `create_page_variation` | credits | A/B variant creation (requires Pro plan) |
+| `create_ab_test` | credits | Experiment setup (requires Pro plan) |
+| `update_page_section` | credits | Section regeneration |
+| `validate_vibe_page` | FREE | Always validate before publishing |
+| `check_page_integrity` | FREE | Structure/accessibility check |
+| All read/list/get tools | FREE | No cost for browsing data |
+
+**Preflight pattern:**
+```
+get_credits_balance → check cost → warn if insufficient → proceed or abort
+```
+
+Hand-authored VibePage JSON persisted via `publish_vibe_page` still costs credits (it's the publish action, not the AI generation, that bills). Draft previews (`draft: true`) also consume credits.

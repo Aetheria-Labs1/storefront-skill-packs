@@ -60,6 +60,8 @@ Pages are **raw HTML + Tailwind CSS + CSS custom properties + React islands**. N
 | `traffic-source-meta` | Meta ads: message match, mobile-first, trust stacking | Facebook/Instagram ad landing pages |
 | `traffic-source-google` | Google: intent matching, info density, CompareTable, FAQ | Google Ads/SEO landing pages |
 | `traffic-source-tiktok` | TikTok: 3-sec hook, video-first, UGC aesthetic, 6-8 sections | TikTok/Reels/Shorts traffic |
+| **Workflows** | | |
+| `reference-pdp-remix` | Competitor PDP deconstruction and rebuild | Rebuilding a reference URL for your brand |
 
 ---
 
@@ -394,6 +396,31 @@ hero → featured-products → brand-story → social-proof → collections → 
 ```
 collection-header → filters → product-grid → featured-pick → trust-bar → newsletter
 ```
+
+---
+
+## Credit Costs
+
+Always call `get_credits_balance` before expensive operations. If balance is 0, inform the user before proceeding.
+
+| Tool | Cost | Notes |
+|------|------|-------|
+| `generate_asset` | credits | AI image generation |
+| `edit_asset` | credits | AI image editing/compositing |
+| `publish_vibe_page` | credits | Page generation (only on publish, not drafts) |
+| `create_page_variation` | credits | A/B variant creation (requires Pro plan) |
+| `create_ab_test` | credits | Experiment setup (requires Pro plan) |
+| `update_page_section` | credits | Section regeneration |
+| `validate_vibe_page` | FREE | Always validate before publishing |
+| `check_page_integrity` | FREE | Structure/accessibility check |
+| All read/list/get tools | FREE | No cost for browsing data |
+
+**Preflight pattern:**
+```
+get_credits_balance → check cost → warn if insufficient → proceed or abort
+```
+
+Hand-authored VibePage JSON persisted via `publish_vibe_page` still costs credits (it's the publish action, not the AI generation, that bills). Draft previews (`draft: true`) also consume credits.
 
 
 ---
@@ -2744,6 +2771,42 @@ Key event flows for PDP islands:
 - InventoryIndicator → (inventory:updated) → StickyBar, BuyBox
 
 Always set `listenForEvents:true` on listener islands when they co-exist with emitters.
+
+---
+
+## New PDP Islands (v2)
+
+### ProductHero — Split-Layout PDP Hero
+
+Premium split-hero for PDPs. Media pane on one side, BuyBox on the other.
+
+```html
+<div data-island="ProductHero" data-props='{"images":[{"url":"/product-1.jpg","objectFit":"contain","objectPosition":"center"},{"url":"/product-2.jpg","objectFit":"cover"}],"layout":"splitLeft","thumbnails":"rail","thumbnailPosition":"left","navigation":"floatingArrows","transition":"fade","listenForVariant":true}'></div>
+```
+
+**Layout options:** `splitLeft` (media left 60%), `splitRight`, `fullHeight`, `stacked`
+**ALWAYS PAIR WITH:** BuyBox in the adjacent grid cell. Use CSS grid in the containing HTML section to create the split.
+
+### EditorialProductGrid — Related Products + Bundle
+
+Mixed-type grid with center feature card for bundles or highlighted products.
+
+```html
+<div data-island="EditorialProductGrid" data-props='{"products":[{"id":"123","title":"Product A","price":"$29","image":"/a.jpg"},{"id":"456","title":"Product B","price":"$35","image":"/b.jpg"}],"featureCard":{"title":"Save 20%","subtitle":"Bundle & save","type":"bundle","cta":"Add Bundle"},"layout":"tripleCenter","showQuickAdd":true}'></div>
+```
+
+**Layout options:** `tripleCenter` (product | feature | product), `dualSide`, `quad`
+
+### PDPInfoCards — Product Detail Cards
+
+Information cards for product specs, taste profiles, pairings, certifications.
+
+```html
+<div data-island="PDPInfoCards" data-props='{"cards":[{"title":"Taste Profile","icon":"palette","items":["Bright citrus","Smooth finish","Medium body"]},{"title":"Pairs With","icon":"wine","items":["Dark chocolate","Aged cheese","Fresh berries"]}],"variant":"dashed","columns":2,"badgeRow":[{"icon":"leaf","label":"Organic"},{"icon":"shield","label":"Lab Tested"}]}'></div>
+```
+
+**Variant options:** `bordered`, `dashed`, `filled`, `minimal`
+**ALWAYS PAIR WITH:** Place below ProductHero/BuyBox section, above reviews.
 
 
 ---
