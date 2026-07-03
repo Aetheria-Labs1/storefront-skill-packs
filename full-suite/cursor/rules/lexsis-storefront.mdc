@@ -1,0 +1,59 @@
+---
+description: Lexsis AI Storefront Builder — Lexsis AI — Complete Storefront Suite
+globs: []
+alwaysApply: true
+---
+
+# Lexsis AI — Complete Storefront Suite
+
+Every skill in one pack — all verticals, all traffic sources, all workflows. Maximum AI page-building power.
+
+## MCP Server
+
+This skill pack works best with the Lexsis AI MCP server connected:
+
+```json
+{
+  "mcpServers": {
+    "lexsis-ai": {
+      "type": "http",
+      "url": "https://mcp.trylexsis.com/mcp",
+      "headers": { "Authorization": "Bearer <your-api-key>" }
+    }
+  }
+}
+```
+
+## Available Skills (auto-loaded by context)
+
+- **storefront-craft** — Start Here
+- **workflow-orchestration** — Execution Engine
+- **conversion-psychology** — Storefront Design Intelligence
+- **visual-craft** — Typography, Spacing, Color & Polish
+- **animation-system** — Vibe-Code Reference
+- **design-enrichment** — AI Image Generation & Compositing
+- **premium-patterns** — High-Converting Section Templates
+- **island-patterns** — Wrapper HTML & Combination Recipes
+- **qa-recipe** — QA Recipe
+- **beauty-expertise** — Storefront Design Intelligence
+- **supplements-expertise** — Storefront Design Intelligence
+- **fashion-expertise** — Storefront Blueprint Design Intelligence
+- **food-expertise** — Storefront Design Intelligence
+- **luxury-expertise** — Storefront Design Intelligence
+- **home-expertise** — Storefront Design Intelligence
+- **meta-traffic** — Storefront Design Intelligence
+- **google-traffic** — Storefront Design Intelligence
+- **tiktok-traffic** — Storefront Design Intelligence
+- **page-generation** — Storefront Page Generation
+- **design-assets** — Design Assets & Brand Management
+- **publishing** — Storefront Publishing & Lifecycle
+- **page-editing** — Storefront Page Editing
+- **analytics** — Storefront Analytics & Experiments
+
+## Commands
+
+When building storefront pages, follow these workflows:
+- **generate-page**: Generate a complete Shopify landing page — auto-detects vertical and applies best patterns (uses: storefront-craft, workflow-orchestration, conversion-psychology, page-generation)
+- **optimize-page**: Analyze and optimize an existing page for better conversions (uses: conversion-psychology, page-editing, analytics)
+- **create-assets**: Generate brand-matched visual assets — search library first, generate if needed (uses: visual-craft, design-enrichment, design-assets)
+- **run-experiment**: Set up an A/B test with a variant page and monitor results (uses: conversion-psychology, page-generation, analytics)

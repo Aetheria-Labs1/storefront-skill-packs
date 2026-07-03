@@ -1,0 +1,57 @@
+---
+name: luxury-expertise-part2
+description: Storefront Design Intelligence (Part 2 of 2)
+---
+
+```json
+{
+  "head": {
+    "title": "Eternal Beauty — Fine Jewelry",
+    "description": "Handcrafted by master artisans. A piece to treasure for generations.",
+    "og_image": "HERO_IMAGE_URL"
+  },
+  "theme_css": ":root { --lx-accent-color: #d4af37; --lx-text-color: #0a0a0a; --lx-text-muted: rgba(0,0,0,0.6); --lx-bg-color: #ffffff; --lx-bg-surface: #fafafa; --lx-border-color: rgba(0,0,0,0.1); --lx-font-heading: 'Cormorant Garamond', serif; --lx-font-body: 'Inter', sans-serif; }",
+  "sections": [
+    {
+      "id": "hero",
+      "html": "<section class=\"relative min-h-[90vh] flex items-center justify-center bg-[#0a0a0a]\"><div class=\"max-w-4xl mx-auto text-center space-y-8 px-6\"><p class=\"text-[11px] uppercase tracking-[0.25em] font-medium\" style=\"color:var(--lx-accent-color)\">Handcrafted in Italy</p><h1 class=\"text-[clamp(2.5rem,5vw,4rem)] font-light leading-[1.1] text-white\" style=\"font-family:var(--lx-font-heading);letter-spacing:-0.01em\">Eternal Beauty</h1><img src=\"HERO_IMAGE_URL\" alt=\"Ring on black pedestal\" class=\"mx-auto max-w-md w-full\" /><a href=\"#discover\" class=\"inline-block text-sm tracking-wider border-b pb-1 transition-opacity hover:opacity-70\" style=\"color:var(--lx-accent-color);border-color:var(--lx-accent-color)\">Discover</a></div></section>",
+      "css": "",
+      "js": ""
+    },
+    {
+      "id": "craftsmanship",
+      "html": "<section class=\"relative bg-white py-32\"><div class=\"container mx-auto px-6 grid md:grid-cols-[1fr,40%] gap-20 items-center\"><img src=\"ATELIER_IMAGE_URL\" alt=\"Atelier\" class=\"w-full h-[500px] object-cover\" /><div class=\"space-y-6\"><p class=\"text-[11px] uppercase tracking-[0.2em] font-medium text-black/50\">Since 1847</p><h2 class=\"text-[clamp(1.75rem,3vw,2.25rem)] font-light leading-[1.2] text-[#0a0a0a]\" style=\"font-family:var(--lx-font-heading)\">Crafted by Hand</h2><p class=\"text-base leading-[1.8] text-black/80 max-w-[600px]\">Each setting is executed by master jewelers in our Florence atelier.</p></div></div></section>",
+      "css": "",
+      "js": ""
+    },
+    {
+      "id": "gallery",
+      "html": "<section class=\"relative bg-white py-32\"><div class=\"container mx-auto px-6\"><div class=\"grid grid-cols-2 md:grid-cols-4 gap-4\"><div class=\"aspect-square relative overflow-hidden group\"><img src=\"DETAIL_1_URL\" alt=\"Clasp mechanism\" class=\"w-full h-full object-cover transition-transform duration-500 group-hover:scale-105\" /></div><div class=\"aspect-square relative overflow-hidden group\"><img src=\"DETAIL_2_URL\" alt=\"Stone setting\" class=\"w-full h-full object-cover transition-transform duration-500 group-hover:scale-105\" /></div><div class=\"aspect-square relative overflow-hidden group\"><img src=\"DETAIL_3_URL\" alt=\"Engraving\" class=\"w-full h-full object-cover transition-transform duration-500 group-hover:scale-105\" /></div><div class=\"aspect-square relative overflow-hidden group\"><img src=\"DETAIL_4_URL\" alt=\"Texture\" class=\"w-full h-full object-cover transition-transform duration-500 group-hover:scale-105\" /></div></div></div></section>",
+      "css": "",
+      "js": ""
+    },
+    {
+      "id": "features",
+      "html": "<section class=\"relative bg-[#0a0a0a] py-32\"><div class=\"container mx-auto px-6 max-w-4xl\"><div class=\"grid md:grid-cols-2 gap-16 text-center\"><div class=\"space-y-4\"><svg class=\"w-8 h-8 mx-auto\" style=\"color:var(--lx-accent-color)\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"1.5\" d=\"M5 13l4 4L19 7\"></path></svg><h3 class=\"text-sm uppercase tracking-wider font-medium text-white\">Ethically Sourced</h3><p class=\"text-sm text-white/70\">Materials selected for origin and quality</p></div><div class=\"space-y-4\"><svg class=\"w-8 h-8 mx-auto\" style=\"color:var(--lx-accent-color)\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"1.5\" d=\"M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z\"></path></svg><h3 class=\"text-sm uppercase tracking-wider font-medium text-white\">Lifetime Warranty</h3><p class=\"text-sm text-white/70\">Complimentary service and care</p></div></div></div></section>",
+      "css": "",
+      "js": ""
+    },
+    {
+      "id": "testimonial",
+      "html": "<section class=\"relative bg-[#fafafa] py-32\"><div class=\"container mx-auto px-6 max-w-3xl text-center\"><blockquote class=\"space-y-8\"><p class=\"text-[clamp(1.25rem,2.5vw,1.75rem)] font-light italic leading-[1.6] text-[#0a0a0a]\" style=\"font-family:var(--lx-font-heading)\">A masterpiece of craftsmanship. The attention to detail is extraordinary.</p><footer class=\"text-sm tracking-wider uppercase text-black/60\">— Harper's Bazaar</footer></blockquote></div></section>",
+      "css": "",
+      "js": ""
+    },
+    {
+      "id": "cta",
+      "html": "<section class=\"relative bg-[#0a0a0a] py-40\"><div class=\"container mx-auto px-6 text-center\"><a href=\"/inquire\" class=\"inline-block px-8 py-3 text-sm tracking-wider border transition-opacity hover:opacity-70\" style=\"border-color:var(--lx-accent-color);color:var(--lx-accent-color)\">Inquire</a></div></section>",
+      "css": "",
+      "js": ""
+    }
+  ]
+}
+```
+
+---
+
+**Final thought:** When in doubt, remove. Luxury is bought, not sold. The page's job is to be a gallery. The product's job is to be art. Your job is to not get in the way.

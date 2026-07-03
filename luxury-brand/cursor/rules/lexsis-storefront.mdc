@@ -1,0 +1,48 @@
+---
+description: Lexsis AI Storefront Builder — Luxury Brand — Premium Storefront Pages
+globs: []
+alwaysApply: true
+---
+
+# Luxury Brand — Premium Storefront Pages
+
+Build restrained, high-end landing pages for luxury goods (jewelry, watches, designer, AOV>$300).
+
+## MCP Server
+
+This skill pack works best with the Lexsis AI MCP server connected:
+
+```json
+{
+  "mcpServers": {
+    "lexsis-ai": {
+      "type": "http",
+      "url": "https://mcp.trylexsis.com/mcp",
+      "headers": { "Authorization": "Bearer <your-api-key>" }
+    }
+  }
+}
+```
+
+## Available Skills (auto-loaded by context)
+
+- **storefront-craft** — Start Here
+- **workflow-orchestration** — Execution Engine
+- **conversion-psychology** — Storefront Design Intelligence
+- **luxury-expertise** — Storefront Design Intelligence
+- **google-traffic** — Storefront Design Intelligence
+- **visual-craft** — Typography, Spacing, Color & Polish
+- **premium-patterns** — High-Converting Section Templates
+- **design-enrichment** — AI Image Generation & Compositing
+- **island-patterns** — Wrapper HTML & Combination Recipes
+- **page-generation** — Storefront Page Generation
+- **design-assets** — Design Assets & Brand Management
+- **publishing** — Storefront Publishing & Lifecycle
+- **page-editing** — Storefront Page Editing
+- **analytics** — Storefront Analytics & Experiments
+
+## Commands
+
+When building storefront pages, follow these workflows:
+- **generate-luxury-page**: Generate a luxury brand page — whitespace-driven, minimal sections, quiet CTAs (uses: storefront-craft, luxury-expertise, visual-craft, conversion-psychology, page-generation)
+- **create-luxury-assets**: Generate premium visual assets with editorial photography style and restrained compositing (uses: luxury-expertise, design-enrichment, visual-craft, design-assets)
