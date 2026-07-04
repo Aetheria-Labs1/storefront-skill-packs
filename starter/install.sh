@@ -24,17 +24,24 @@ elif [ -n "$1" ] && [ -d "$1" ]; then
 fi
 
 if [ -z "$TARGET_DIR" ]; then
-  # Walk up from CWD to find project root (.git + any AI platform marker)
+  # Walk up from CWD to find project root
+  # Skip any .git that is the skill-pack's own repo (PACK_DIR is inside it)
   SEARCH_DIR="$(pwd)"
   while [ "$SEARCH_DIR" != "/" ]; do
     if [ -d "$SEARCH_DIR/.git" ]; then
+      # Skip if this .git belongs to the skill-pack itself
+      case "$PACK_DIR" in
+        "$SEARCH_DIR"*)
+          SEARCH_DIR="$(dirname "$SEARCH_DIR")"
+          continue
+          ;;
+      esac
       if [ -d "$SEARCH_DIR/.claude" ] || [ -f "$SEARCH_DIR/CLAUDE.md" ] || \
          [ -d "$SEARCH_DIR/.agents" ] || [ -f "$SEARCH_DIR/AGENTS.md" ] || \
          [ -d "$SEARCH_DIR/.cursor" ]; then
         TARGET_DIR="$SEARCH_DIR"
         break
       fi
-      # .git found but no platform marker — use as project root anyway
       TARGET_DIR="$SEARCH_DIR"
       break
     fi
@@ -42,9 +49,21 @@ if [ -z "$TARGET_DIR" ]; then
   done
 fi
 
-# Fallback to CWD
 if [ -z "$TARGET_DIR" ]; then
-  TARGET_DIR="$(pwd)"
+  echo "No project root found. Please specify your project directory:"
+  echo ""
+  echo "  $0 --target /path/to/your/project"
+  echo ""
+  echo "Or run from inside your project:"
+  echo ""
+  echo "  cd /path/to/your/project && $PACK_DIR/install.sh"
+  echo ""
+  echo "Manual install:"
+  echo "  Claude Code: cp -r $PACK_DIR/claude/skills/* <project>/.claude/skills/"
+  echo "  Codex:       cp -r $PACK_DIR/codex/skills/* <project>/.agents/skills/"
+  echo "  Cursor:      cp -r $PACK_DIR/cursor/rules/* <project>/.cursor/rules/"
+  echo "  GPT:         Upload $PACK_DIR/gpt/knowledge.md as Custom GPT knowledge"
+  exit 1
 fi
 
 echo "  Target: $TARGET_DIR"
@@ -83,17 +102,19 @@ if [ -d ".cursor" ]; then
 fi
 
 if [ "$INSTALLED" = false ]; then
-  echo "No AI coding platform detected in current directory or any parent."
+  echo "No AI coding platform detected at $TARGET_DIR"
   echo ""
-  echo "Options:"
-  echo "  1. Run from your project root:  cd /path/to/project && $0"
-  echo "  2. Specify target:              $0 --target /path/to/project"
+  echo "To auto-create for Claude Code:"
+  echo "  mkdir -p $TARGET_DIR/.claude && $0"
+  echo ""
+  echo "Or specify a different project:"
+  echo "  $0 --target /path/to/your/project"
   echo ""
   echo "Manual install:"
-  echo "  Claude Code: cp -r $PACK_DIR/claude/skills/* <project>/.claude/skills/"
-  echo "  Codex:       cp -r $PACK_DIR/codex/skills/* <project>/.agents/skills/"
-  echo "  Cursor:      cp -r $PACK_DIR/cursor/rules/* <project>/.cursor/rules/"
-  echo "  GPT:         Upload gpt/knowledge.md as Custom GPT knowledge"
+  echo "  Claude Code: cp -r $PACK_DIR/claude/skills/* $TARGET_DIR/.claude/skills/"
+  echo "  Codex:       cp -r $PACK_DIR/codex/skills/* $TARGET_DIR/.agents/skills/"
+  echo "  Cursor:      cp -r $PACK_DIR/cursor/rules/* $TARGET_DIR/.cursor/rules/"
+  echo "  GPT:         Upload $PACK_DIR/gpt/knowledge.md as Custom GPT knowledge"
   exit 1
 fi
 
