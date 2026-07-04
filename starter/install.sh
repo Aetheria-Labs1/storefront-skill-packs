@@ -24,18 +24,26 @@ elif [ -n "$1" ] && [ -d "$1" ]; then
 fi
 
 if [ -z "$TARGET_DIR" ]; then
+  # Find the pack's own git root (to skip only that exact repo)
+  PACK_GIT_ROOT=""
+  _d="$PACK_DIR"
+  while [ "$_d" != "/" ]; do
+    if [ -d "$_d/.git" ]; then
+      PACK_GIT_ROOT="$_d"
+      break
+    fi
+    _d="$(dirname "$_d")"
+  done
+
   # Walk up from CWD to find project root
-  # Skip any .git that is the skill-pack's own repo (PACK_DIR is inside it)
   SEARCH_DIR="$(pwd)"
   while [ "$SEARCH_DIR" != "/" ]; do
     if [ -d "$SEARCH_DIR/.git" ]; then
-      # Skip if this .git belongs to the skill-pack itself
-      case "$PACK_DIR" in
-        "$SEARCH_DIR"*)
-          SEARCH_DIR="$(dirname "$SEARCH_DIR")"
-          continue
-          ;;
-      esac
+      # Skip the pack's own repo, not other ancestors
+      if [ "$SEARCH_DIR" = "$PACK_GIT_ROOT" ]; then
+        SEARCH_DIR="$(dirname "$SEARCH_DIR")"
+        continue
+      fi
       if [ -d "$SEARCH_DIR/.claude" ] || [ -f "$SEARCH_DIR/CLAUDE.md" ] || \
          [ -d "$SEARCH_DIR/.agents" ] || [ -f "$SEARCH_DIR/AGENTS.md" ] || \
          [ -d "$SEARCH_DIR/.cursor" ]; then
