@@ -13,6 +13,44 @@ echo "║  Lexsis AI — Storefront Starter Pack           ║"
 echo "╚══════════════════════════════════════════════════╝"
 echo ""
 
+# Accept --target <dir> or positional arg, else walk up to find project root
+TARGET_DIR=""
+if [ "$1" = "--target" ] && [ -n "$2" ]; then
+  TARGET_DIR="$(cd "$2" && pwd)"
+  shift 2
+elif [ -n "$1" ] && [ -d "$1" ]; then
+  TARGET_DIR="$(cd "$1" && pwd)"
+  shift
+fi
+
+if [ -z "$TARGET_DIR" ]; then
+  # Walk up from CWD to find project root (.git + any AI platform marker)
+  SEARCH_DIR="$(pwd)"
+  while [ "$SEARCH_DIR" != "/" ]; do
+    if [ -d "$SEARCH_DIR/.git" ]; then
+      if [ -d "$SEARCH_DIR/.claude" ] || [ -f "$SEARCH_DIR/CLAUDE.md" ] || \
+         [ -d "$SEARCH_DIR/.agents" ] || [ -f "$SEARCH_DIR/AGENTS.md" ] || \
+         [ -d "$SEARCH_DIR/.cursor" ]; then
+        TARGET_DIR="$SEARCH_DIR"
+        break
+      fi
+      # .git found but no platform marker — use as project root anyway
+      TARGET_DIR="$SEARCH_DIR"
+      break
+    fi
+    SEARCH_DIR="$(dirname "$SEARCH_DIR")"
+  done
+fi
+
+# Fallback to CWD
+if [ -z "$TARGET_DIR" ]; then
+  TARGET_DIR="$(pwd)"
+fi
+
+echo "  Target: $TARGET_DIR"
+echo ""
+cd "$TARGET_DIR"
+
 # Detect platform
 if [ -d ".claude" ] || [ -f "CLAUDE.md" ]; then
   echo "✓ Detected: Claude Code"
@@ -45,12 +83,16 @@ if [ -d ".cursor" ]; then
 fi
 
 if [ "$INSTALLED" = false ]; then
-  echo "No AI coding platform detected in current directory."
+  echo "No AI coding platform detected in current directory or any parent."
   echo ""
-  echo "Manual install options:"
-  echo "  Claude Code: cp -r claude/skills/* .claude/skills/"
-  echo "  Codex:       cp -r codex/skills/* .agents/skills/"
-  echo "  Cursor:      cp -r cursor/rules/* .cursor/rules/"
+  echo "Options:"
+  echo "  1. Run from your project root:  cd /path/to/project && $0"
+  echo "  2. Specify target:              $0 --target /path/to/project"
+  echo ""
+  echo "Manual install:"
+  echo "  Claude Code: cp -r $PACK_DIR/claude/skills/* <project>/.claude/skills/"
+  echo "  Codex:       cp -r $PACK_DIR/codex/skills/* <project>/.agents/skills/"
+  echo "  Cursor:      cp -r $PACK_DIR/cursor/rules/* <project>/.cursor/rules/"
   echo "  GPT:         Upload gpt/knowledge.md as Custom GPT knowledge"
   exit 1
 fi
