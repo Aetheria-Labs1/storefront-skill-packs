@@ -1,0 +1,34 @@
+---
+description: Lexsis AI Storefront Builder — Lexsis AI — Home Decor Vertical
+globs: []
+alwaysApply: true
+---
+
+# Lexsis AI — Home Decor Vertical
+
+Industry-specific patterns for home goods/decor brands. Install alongside core.
+
+## MCP Server
+
+This skill pack works best with the Lexsis AI MCP server connected:
+
+```json
+{
+  "mcpServers": {
+    "lexsis-ai": {
+      "type": "http",
+      "url": "https://mcp.trylexsis.com/mcp",
+      "headers": { "Authorization": "Bearer <your-api-key>" }
+    }
+  }
+}
+```
+
+## Available Skills (auto-loaded by context)
+
+- **home-expertise** — Storefront Design Intelligence
+
+## Commands
+
+When building storefront pages, follow these workflows:
+

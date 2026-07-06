@@ -1,0 +1,34 @@
+---
+description: Lexsis AI Storefront Builder — Lexsis AI — Beauty Vertical
+globs: []
+alwaysApply: true
+---
+
+# Lexsis AI — Beauty Vertical
+
+Industry-specific patterns for beauty/skincare brands. Install alongside core.
+
+## MCP Server
+
+This skill pack works best with the Lexsis AI MCP server connected:
+
+```json
+{
+  "mcpServers": {
+    "lexsis-ai": {
+      "type": "http",
+      "url": "https://mcp.trylexsis.com/mcp",
+      "headers": { "Authorization": "Bearer <your-api-key>" }
+    }
+  }
+}
+```
+
+## Available Skills (auto-loaded by context)
+
+- **beauty-expertise** — Storefront Design Intelligence
+
+## Commands
+
+When building storefront pages, follow these workflows:
+
