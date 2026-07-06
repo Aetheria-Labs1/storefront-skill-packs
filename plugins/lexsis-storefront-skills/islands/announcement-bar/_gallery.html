@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AnnouncementBar Layouts</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --lx-accent-color: #CA8A04;
+      --lx-text-color: #1a1a2e;
+      --lx-text-muted: #6b7280;
+      --lx-bg-color: #ffffff;
+      --lx-bg-surface: #ffffff;
+      --lx-surface-alt: #f9fafb;
+      --lx-border-color: #e5e7eb;
+      --lx-font-heading: 'Inter', system-ui, sans-serif;
+      --lx-font-body: 'Inter', system-ui, sans-serif;
+    }
+    body { font-family: var(--lx-font-body); color: var(--lx-text-color); }
+    .layout-card { border: 2px solid var(--lx-border-color); border-radius: 12px; overflow: hidden; }
+    .layout-label { background: #CA8A04; color: white; padding: 8px 16px; font-size: 14px; font-weight: 600; }
+    .layout-preview { padding: 24px; background: var(--lx-bg-color); }
+    .bar-island { background: linear-gradient(135deg, #FEF9C3, #FDE68A); border: 2px solid #CA8A04; border-radius: 8px; padding: 8px 16px; text-align: center; }
+    .bar-island .label { font-weight: 700; color: #CA8A04; font-size: 14px; margin-bottom: 2px; }
+    .bar-island .props { font-size: 11px; color: var(--lx-text-muted); }
+    .other-island { background: #f3f4f6; border: 1px dashed #d1d5db; border-radius: 8px; padding: 16px; text-align: center; color: #9ca3af; font-size: 12px; }
+  </style>
+</head>
+<body class="bg-gray-50 p-8">
+  <header class="max-w-6xl mx-auto mb-12">
+    <h1 class="text-3xl font-bold mb-2" style="font-family: var(--lx-font-heading)">AnnouncementBar Layouts</h1>
+    <p class="text-gray-500">3 wrapper patterns for the AnnouncementBar island. Always position 0 (before Navbar). Dismissible.</p>
+  </header>
+
+  <main class="max-w-6xl mx-auto space-y-12">
+
+    <!-- 1. Single Message -->
+    <div class="layout-card">
+      <div class="layout-label">single-message.json</div>
+      <div class="layout-preview">
+        <div class="max-w-5xl mx-auto">
+          <div class="relative rounded-lg overflow-hidden">
+            <div class="py-2.5 px-8 text-center text-sm text-white font-medium" style="background-color: #CA8A04">
+              <div class="flex items-center justify-center gap-2">
+                <span>Free shipping on orders over $50</span>
+                <span class="underline text-white/90 cursor-pointer">Shop Now</span>
+              </div>
+              <div class="absolute right-3 top-1/2 -translate-y-1/2 text-white/70 cursor-pointer text-xs">X</div>
+            </div>
+            <div class="mt-2">
+              <div class="bar-island">
+                <div class="label">AnnouncementBar</div>
+                <div class="props">variant: single | dismissible | accent bg | centered text</div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-4">
+            <div class="other-island">[ Navbar below ]</div>
+          </div>
+        </div>
+      </div>
+      <div class="px-4 py-3 bg-gray-50 text-xs text-gray-500">
+        Use when: Simple promotional message. Single line, full-width accent bg, centered text, dismiss X button. py-2 compact height.
+      </div>
+    </div>
+
+    <!-- 2. Rotating -->
+    <div class="layout-card">
+      <div class="layout-label">rotating.json</div>
+      <div class="layout-preview">
+        <div class="max-w-5xl mx-auto">
+          <div class="relative rounded-lg overflow-hidden">
+            <div class="py-2.5 px-12 text-center text-sm text-white font-medium" style="background-color: #CA8A04">
+              <div class="absolute left-3 top-1/2 -translate-y-1/2 text-white/70 cursor-pointer">&larr;</div>
+              <div class="flex items-center justify-center gap-2">
+                <span>Summer Sale: 20% off everything</span>
+              </div>
+              <div class="absolute right-3 top-1/2 -translate-y-1/2 text-white/70 cursor-pointer">&rarr;</div>
+            </div>
+            <div class="mt-2 flex items-center justify-center gap-1.5">
+              <div class="w-1.5 h-1.5 rounded-full bg-yellow-600"></div>
+              <div class="w-1.5 h-1.5 rounded-full bg-yellow-300"></div>
+              <div class="w-1.5 h-1.5 rounded-full bg-yellow-300"></div>
+            </div>
+            <div class="mt-2">
+              <div class="bar-island">
+                <div class="label">AnnouncementBar</div>
+                <div class="props">variant: rotating | auto-advance 4s | arrows | multiple messages</div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-4">
+            <div class="other-island">[ Navbar below ]</div>
+          </div>
+        </div>
+      </div>
+      <div class="px-4 py-3 bg-gray-50 text-xs text-gray-500">
+        Use when: Multiple promotions to show. Auto-advances every 4s with prev/next arrows. Same compact height as single.
+      </div>
+    </div>
+
+    <!-- 3. Countdown -->
+    <div class="layout-card">
+      <div class="layout-label">countdown.json</div>
+      <div class="layout-preview">
+        <div class="max-w-5xl mx-auto">
+          <div class="relative rounded-lg overflow-hidden">
+            <div class="py-2.5 px-8 text-center text-sm text-white font-medium" style="background-color: #CA8A04">
+              <div class="flex items-center justify-center gap-3">
+                <span>Flash Sale ends in</span>
+                <span class="font-mono font-bold tracking-wide bg-white/20 px-2 py-0.5 rounded">02:34:12</span>
+                <span class="underline text-white/90 cursor-pointer">Shop Now</span>
+              </div>
+              <div class="absolute right-3 top-1/2 -translate-y-1/2 text-white/70 cursor-pointer text-xs">X</div>
+            </div>
+            <div class="mt-2">
+              <div class="bar-island">
+                <div class="label">AnnouncementBar</div>
+                <div class="props">variant: countdown | inline timer | urgency-driven</div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-4">
+            <div class="other-island">[ Navbar below ]</div>
+          </div>
+        </div>
+      </div>
+      <div class="px-4 py-3 bg-gray-50 text-xs text-gray-500">
+        Use when: Time-limited offers. Inline countdown timer creates urgency. "Sale ends in 2:34:12 - Shop Now" pattern.
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="max-w-6xl mx-auto mt-16 pt-8 border-t text-center text-sm text-gray-400">
+    Lexsis AI Island Design System
+  </footer>
+</body>
+</html>

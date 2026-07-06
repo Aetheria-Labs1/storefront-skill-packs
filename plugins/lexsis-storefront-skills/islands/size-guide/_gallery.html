@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SizeGuide Layouts</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --lx-accent-color: #FB923C;
+      --lx-text-color: #1a1a2e;
+      --lx-text-muted: #6b7280;
+      --lx-bg-color: #ffffff;
+      --lx-bg-surface: #ffffff;
+      --lx-surface-alt: #f9fafb;
+      --lx-border-color: #e5e7eb;
+      --lx-font-heading: 'Inter', system-ui, sans-serif;
+      --lx-font-body: 'Inter', system-ui, sans-serif;
+    }
+    body { font-family: var(--lx-font-body); color: var(--lx-text-color); }
+    .layout-card { border: 2px solid var(--lx-border-color); border-radius: 12px; overflow: hidden; }
+    .layout-label { background: var(--lx-accent-color); color: white; padding: 8px 16px; font-size: 14px; font-weight: 600; }
+    .layout-preview { padding: 24px; background: var(--lx-bg-color); }
+    .sizeguide-island { background: linear-gradient(135deg, #fff7ed, #ffedd5); border: 2px solid var(--lx-accent-color); border-radius: 8px; padding: 24px; text-align: center; }
+    .sizeguide-island .label { font-weight: 700; color: var(--lx-accent-color); font-size: 14px; margin-bottom: 8px; }
+    .sizeguide-island .props { font-size: 11px; color: var(--lx-text-muted); }
+    .other-island { background: #f3f4f6; border: 1px dashed #d1d5db; border-radius: 8px; padding: 16px; text-align: center; color: #9ca3af; font-size: 12px; }
+  </style>
+</head>
+<body class="bg-gray-50 p-8">
+  <header class="max-w-6xl mx-auto mb-12">
+    <h1 class="text-3xl font-bold mb-2" style="font-family: var(--lx-font-heading)">SizeGuide Layouts</h1>
+    <p class="text-gray-500">3 measurement reference patterns. Shows sizing tables, unit conversion, and body diagrams.</p>
+  </header>
+
+  <main class="max-w-6xl mx-auto space-y-12">
+
+    <!-- 1. Modal Table -->
+    <div class="layout-card">
+      <div class="layout-label">modal-table.json</div>
+      <div class="layout-preview">
+        <div class="relative max-w-4xl mx-auto">
+          <!-- Backdrop -->
+          <div class="absolute inset-0 bg-black/15 rounded-lg" style="backdrop-filter: blur(2px);"></div>
+          <!-- Modal with size guide -->
+          <div class="relative max-w-lg mx-auto mt-8 mb-8">
+            <div class="bg-white rounded-xl shadow-xl p-6">
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold">Size Guide</h3>
+                <div class="w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center text-xs text-gray-400">X</div>
+              </div>
+              <div class="sizeguide-island">
+                <div class="label">SizeGuide</div>
+                <div class="props mb-4">units: in/cm toggle | showDiagram: false</div>
+                <!-- Unit toggle -->
+                <div class="flex justify-end mb-3">
+                  <div class="inline-flex rounded-md border text-xs" style="border-color: var(--lx-border-color)">
+                    <span class="px-3 py-1 font-medium text-white rounded-l-md" style="background: var(--lx-accent-color)">in</span>
+                    <span class="px-3 py-1 text-gray-500">cm</span>
+                  </div>
+                </div>
+                <!-- Table -->
+                <div class="text-left">
+                  <table class="w-full text-xs">
+                    <thead>
+                      <tr class="border-b" style="border-color: var(--lx-border-color)">
+                        <th class="py-2 font-medium text-gray-500">Size</th>
+                        <th class="py-2 font-medium text-gray-500">Chest</th>
+                        <th class="py-2 font-medium text-gray-500">Waist</th>
+                        <th class="py-2 font-medium text-gray-500">Length</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="border-b" style="border-color: var(--lx-border-color)"><td class="py-2">S</td><td class="py-2">36"</td><td class="py-2">30"</td><td class="py-2">27"</td></tr>
+                      <tr class="border-b" style="border-color: var(--lx-border-color)"><td class="py-2">M</td><td class="py-2">38"</td><td class="py-2">32"</td><td class="py-2">28"</td></tr>
+                      <tr><td class="py-2">L</td><td class="py-2">40"</td><td class="py-2">34"</td><td class="py-2">29"</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Dimmed page behind -->
+          <div class="p-4 opacity-20">
+            <div class="other-island">[ BuyBox + OptionResolver behind modal ]</div>
+          </div>
+        </div>
+      </div>
+      <div class="px-4 py-3 bg-gray-50 text-xs text-gray-500">
+        Opens as a modal overlay. Measurement table with unit toggle (in/cm). Triggered by "Size Guide" link near size selector.
+      </div>
+    </div>
+
+    <!-- 2. Inline Table -->
+    <div class="layout-card">
+      <div class="layout-label">inline-table.json</div>
+      <div class="layout-preview">
+        <div class="max-w-3xl mx-auto">
+          <div class="other-island mb-6">[ BuyBox + OptionResolver above ]</div>
+          <div class="sizeguide-island">
+            <div class="label">SizeGuide</div>
+            <div class="props mb-4">inline | units: in/cm toggle | showDiagram: false</div>
+            <!-- Unit toggle -->
+            <div class="flex justify-between items-center mb-3">
+              <span class="text-sm font-medium text-left" style="color: var(--lx-text-color)">Size Guide</span>
+              <div class="inline-flex rounded-md border text-xs" style="border-color: var(--lx-border-color)">
+                <span class="px-3 py-1 font-medium text-white rounded-l-md" style="background: var(--lx-accent-color)">in</span>
+                <span class="px-3 py-1 text-gray-500">cm</span>
+              </div>
+            </div>
+            <!-- Table -->
+            <div class="text-left">
+              <table class="w-full text-xs">
+                <thead>
+                  <tr class="border-b" style="border-color: var(--lx-border-color)">
+                    <th class="py-2 font-medium text-gray-500">Size</th>
+                    <th class="py-2 font-medium text-gray-500">Chest</th>
+                    <th class="py-2 font-medium text-gray-500">Waist</th>
+                    <th class="py-2 font-medium text-gray-500">Hip</th>
+                    <th class="py-2 font-medium text-gray-500">Length</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-b" style="border-color: var(--lx-border-color)"><td class="py-2">XS</td><td class="py-2">34"</td><td class="py-2">26"</td><td class="py-2">36"</td><td class="py-2">26"</td></tr>
+                  <tr class="border-b" style="border-color: var(--lx-border-color)"><td class="py-2">S</td><td class="py-2">36"</td><td class="py-2">28"</td><td class="py-2">38"</td><td class="py-2">27"</td></tr>
+                  <tr class="border-b" style="border-color: var(--lx-border-color)"><td class="py-2">M</td><td class="py-2">38"</td><td class="py-2">30"</td><td class="py-2">40"</td><td class="py-2">28"</td></tr>
+                  <tr><td class="py-2">L</td><td class="py-2">40"</td><td class="py-2">32"</td><td class="py-2">42"</td><td class="py-2">29"</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Tips -->
+            <div class="mt-3 pt-3 border-t text-left text-xs" style="border-color: var(--lx-border-color); color: var(--lx-text-muted)">
+              Tip: Measure with a flexible tape. Keep tape snug but not tight.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="px-4 py-3 bg-gray-50 text-xs text-gray-500">
+        Directly embedded in page flow. No modal trigger needed. Always visible below product options. Best for fashion/apparel PDPs.
+      </div>
+    </div>
+
+    <!-- 3. Visual -->
+    <div class="layout-card">
+      <div class="layout-label">visual.json</div>
+      <div class="layout-preview">
+        <div class="max-w-4xl mx-auto">
+          <div class="sizeguide-island">
+            <div class="label">SizeGuide</div>
+            <div class="props mb-4">showDiagram: true | interactive hotspots</div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+              <!-- Body diagram (placeholder) -->
+              <div class="flex items-center justify-center">
+                <div class="relative w-40">
+                  <!-- Simplified body outline -->
+                  <div class="border-2 rounded-full w-12 h-12 mx-auto mb-1" style="border-color: var(--lx-accent-color)"></div>
+                  <div class="border-2 rounded-lg w-24 h-32 mx-auto mb-1 relative" style="border-color: var(--lx-accent-color)">
+                    <!-- Measurement lines -->
+                    <div class="absolute top-4 left-0 right-0 border-t-2 border-dashed" style="border-color: var(--lx-accent-color)"></div>
+                    <div class="absolute top-4 -right-8 text-xs font-medium" style="color: var(--lx-accent-color)">Chest</div>
+                    <div class="absolute top-12 left-0 right-0 border-t-2 border-dashed" style="border-color: var(--lx-accent-color)"></div>
+                    <div class="absolute top-12 -right-8 text-xs font-medium" style="color: var(--lx-accent-color)">Waist</div>
+                    <div class="absolute top-20 left-0 right-0 border-t-2 border-dashed" style="border-color: var(--lx-accent-color)"></div>
+                    <div class="absolute top-20 -right-6 text-xs font-medium" style="color: var(--lx-accent-color)">Hip</div>
+                  </div>
+                  <div class="flex justify-center gap-2">
+                    <div class="border-2 rounded w-6 h-20" style="border-color: var(--lx-accent-color)"></div>
+                    <div class="border-2 rounded w-6 h-20" style="border-color: var(--lx-accent-color)"></div>
+                  </div>
+                </div>
+              </div>
+              <!-- Measurement tips -->
+              <div class="space-y-3">
+                <h4 class="font-medium text-sm" style="color: var(--lx-text-color)">How to Measure</h4>
+                <div class="space-y-2 text-xs" style="color: var(--lx-text-muted)">
+                  <div class="flex items-start gap-2">
+                    <div class="w-4 h-4 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs" style="background: var(--lx-accent-color)">1</div>
+                    <span>Chest: Measure around fullest part</span>
+                  </div>
+                  <div class="flex items-start gap-2">
+                    <div class="w-4 h-4 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs" style="background: var(--lx-accent-color)">2</div>
+                    <span>Waist: Measure at natural waistline</span>
+                  </div>
+                  <div class="flex items-start gap-2">
+                    <div class="w-4 h-4 rounded-full flex-shrink-0 flex items-center justify-center text-white text-xs" style="background: var(--lx-accent-color)">3</div>
+                    <span>Hip: Measure around widest point</span>
+                  </div>
+                </div>
+                <!-- Compact table -->
+                <table class="w-full text-xs mt-3">
+                  <thead>
+                    <tr class="border-b" style="border-color: var(--lx-border-color)">
+                      <th class="py-1 text-left font-medium text-gray-500">Size</th>
+                      <th class="py-1 text-left font-medium text-gray-500">Chest</th>
+                      <th class="py-1 text-left font-medium text-gray-500">Waist</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="border-b" style="border-color: var(--lx-border-color)"><td class="py-1">S</td><td class="py-1">36"</td><td class="py-1">30"</td></tr>
+                    <tr class="border-b" style="border-color: var(--lx-border-color)"><td class="py-1">M</td><td class="py-1">38"</td><td class="py-1">32"</td></tr>
+                    <tr><td class="py-1">L</td><td class="py-1">40"</td><td class="py-1">34"</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="px-4 py-3 bg-gray-50 text-xs text-gray-500">
+        Body diagram with measurement lines and interactive hotspots. Numbered measurement tips. Best for apparel/fashion with visual guidance.
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="max-w-6xl mx-auto mt-16 pt-8 border-t text-center text-sm text-gray-400">
+    Lexsis AI Island Design System
+  </footer>
+</body>
+</html>

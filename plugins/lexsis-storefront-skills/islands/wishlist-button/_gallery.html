@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WishlistButton Island — Layout Gallery</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --lx-accent-color: #FB7185;
+      --lx-text-color: #1a1a2e;
+      --lx-text-muted: #6b7280;
+      --lx-bg-color: #ffffff;
+      --lx-bg-surface: #ffffff;
+      --lx-surface-alt: #f9fafb;
+      --lx-border-color: #e5e7eb;
+      --lx-font-heading: 'Inter', system-ui, sans-serif;
+      --lx-font-body: 'Inter', system-ui, sans-serif;
+    }
+    body { font-family: var(--lx-font-body); background: #f3f4f6; color: var(--lx-text-color); }
+    .layout-card { border: 2px solid var(--lx-border-color); border-radius: 12px; overflow: hidden; background: var(--lx-bg-color); }
+    .layout-label { background: var(--lx-accent-color); color: white; padding: 8px 16px; font-size: 14px; font-weight: 600; }
+    .layout-preview { padding: 24px; background: var(--lx-bg-color); }
+    .layout-description { padding: 12px 16px; border-top: 1px solid var(--lx-border-color); font-size: 13px; color: var(--lx-text-muted); }
+    .island-highlight { background: linear-gradient(135deg, #fff1f2, #ffe4e6); border: 2px solid #FB7185; border-radius: 8px; padding: 24px; text-align: center; }
+    .island-highlight-sm { background: linear-gradient(135deg, #fff1f2, #ffe4e6); border: 2px solid #FB7185; border-radius: 8px; padding: 8px 12px; text-align: center; }
+    .other-island { background: #f3f4f6; border: 1px dashed #d1d5db; border-radius: 8px; padding: 16px; text-align: center; color: #9ca3af; font-size: 12px; }
+  </style>
+</head>
+<body class="p-8">
+  <header class="mb-10">
+    <h1 class="text-3xl font-bold" style="font-family: var(--lx-font-heading)">WishlistButton Island</h1>
+    <p class="text-sm mt-2" style="color: var(--lx-text-muted)">Category: commerce &bull; Accent: <span style="color: #FB7185; font-weight: 600;">#FB7185</span></p>
+    <p class="mt-1 text-sm" style="color: var(--lx-text-muted)">Props: productId, variant, showCount, position</p>
+  </header>
+
+  <div class="space-y-10">
+
+    <!-- Layout: icon-heart -->
+    <div class="layout-card">
+      <div class="layout-label">icon-heart</div>
+      <div class="layout-preview">
+        <div class="flex items-center gap-6">
+          <div class="other-island px-6 py-3">BuyBox</div>
+          <div class="island-highlight-sm inline-flex items-center gap-2">
+            <svg class="w-5 h-5" style="color: #FB7185;" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <span class="text-xs font-semibold" style="color: #be123c;">WishlistButton</span>
+          </div>
+        </div>
+      </div>
+      <div class="layout-description">Heart icon button that toggles filled/outline on click. Standalone, inline with other actions.</div>
+    </div>
+
+    <!-- Layout: text-button -->
+    <div class="layout-card">
+      <div class="layout-label">text-button</div>
+      <div class="layout-preview">
+        <div class="flex flex-col gap-3 max-w-xs">
+          <div class="other-island py-3">Add to Cart (BuyBox)</div>
+          <div class="island-highlight-sm inline-flex items-center gap-2 justify-center">
+            <svg class="w-4 h-4" style="color: #FB7185;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <span class="text-xs font-semibold" style="color: #be123c;">Save for Later (12)</span>
+          </div>
+        </div>
+      </div>
+      <div class="layout-description">"Save for Later" text link with heart icon prefix and optional save count.</div>
+    </div>
+
+    <!-- Layout: card-overlay -->
+    <div class="layout-card">
+      <div class="layout-label">card-overlay</div>
+      <div class="layout-preview">
+        <div class="grid grid-cols-3 gap-4 max-w-lg">
+          <div class="relative border rounded-xl overflow-hidden" style="border-color: var(--lx-border-color);">
+            <div class="aspect-square flex items-center justify-center" style="background: var(--lx-surface-alt);">
+              <span class="text-[10px]" style="color: var(--lx-text-muted);">Product</span>
+            </div>
+            <div class="absolute top-2 right-2">
+              <div class="w-7 h-7 rounded-full flex items-center justify-center" style="background: linear-gradient(135deg, #fff1f2, #ffe4e6); border: 1.5px solid #FB7185;">
+                <svg class="w-3.5 h-3.5" style="color: #FB7185;" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+              </div>
+            </div>
+            <div class="p-2">
+              <p class="text-[10px] font-medium" style="color: var(--lx-text-color);">Product Title</p>
+              <p class="text-[10px]" style="color: var(--lx-text-muted);">$49.00</p>
+            </div>
+          </div>
+          <div class="relative border rounded-xl overflow-hidden" style="border-color: var(--lx-border-color);">
+            <div class="aspect-square flex items-center justify-center" style="background: var(--lx-surface-alt);">
+              <span class="text-[10px]" style="color: var(--lx-text-muted);">Product</span>
+            </div>
+            <div class="absolute top-2 right-2">
+              <div class="w-7 h-7 rounded-full flex items-center justify-center" style="background: linear-gradient(135deg, #fff1f2, #ffe4e6); border: 1.5px solid #FB7185;">
+                <svg class="w-3.5 h-3.5" style="color: #FB7185;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+              </div>
+            </div>
+            <div class="p-2">
+              <p class="text-[10px] font-medium" style="color: var(--lx-text-color);">Product Title</p>
+              <p class="text-[10px]" style="color: var(--lx-text-muted);">$35.00</p>
+            </div>
+          </div>
+          <div class="relative border rounded-xl overflow-hidden" style="border-color: var(--lx-border-color);">
+            <div class="aspect-square flex items-center justify-center" style="background: var(--lx-surface-alt);">
+              <span class="text-[10px]" style="color: var(--lx-text-muted);">Product</span>
+            </div>
+            <div class="absolute top-2 right-2">
+              <div class="w-7 h-7 rounded-full flex items-center justify-center" style="background: linear-gradient(135deg, #fff1f2, #ffe4e6); border: 1.5px solid #FB7185;">
+                <svg class="w-3.5 h-3.5" style="color: #FB7185;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+              </div>
+            </div>
+            <div class="p-2">
+              <p class="text-[10px] font-medium" style="color: var(--lx-text-color);">Product Title</p>
+              <p class="text-[10px]" style="color: var(--lx-text-muted);">$62.00</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="layout-description">Heart icon positioned top-right of product cards. Used inside ProductGrid or CollectionGrid items.</div>
+    </div>
+
+  </div>
+
+  <footer class="mt-12 pt-6 border-t text-xs" style="color: var(--lx-text-muted); border-color: var(--lx-border-color);">
+    <p>WishlistButton &bull; Commerce island &bull; 3 layouts &bull; Schema: vibe://schema/island/WishlistButton</p>
+  </footer>
+</body>
+</html>

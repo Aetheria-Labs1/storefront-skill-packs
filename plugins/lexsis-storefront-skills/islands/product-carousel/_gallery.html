@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ProductCarousel Layouts</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --lx-accent-color: #8B5CF6;
+      --lx-text-color: #1a1a2e;
+      --lx-text-muted: #6b7280;
+      --lx-bg-color: #ffffff;
+      --lx-bg-surface: #ffffff;
+      --lx-surface-alt: #f9fafb;
+      --lx-border-color: #e5e7eb;
+      --lx-font-heading: 'Inter', system-ui, sans-serif;
+      --lx-font-body: 'Inter', system-ui, sans-serif;
+    }
+    body { font-family: var(--lx-font-body); color: var(--lx-text-color); }
+    .layout-card { border: 2px solid var(--lx-border-color); border-radius: 12px; overflow: hidden; }
+    .layout-label { background: var(--lx-accent-color); color: white; padding: 8px 16px; font-size: 14px; font-weight: 600; }
+    .layout-preview { padding: 24px; background: var(--lx-bg-color); }
+    .carousel-island { background: linear-gradient(135deg, #EDE9FE, #DDD6FE); border: 2px solid var(--lx-accent-color); border-radius: 8px; padding: 24px; text-align: center; }
+    .carousel-island .label { font-weight: 700; color: var(--lx-accent-color); font-size: 14px; margin-bottom: 8px; }
+    .carousel-island .props { font-size: 11px; color: var(--lx-text-muted); }
+    .other-island { background: #f3f4f6; border: 1px dashed #d1d5db; border-radius: 8px; padding: 16px; text-align: center; color: #9ca3af; font-size: 12px; }
+    .product-card-placeholder { background: #f3f4f6; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px; text-align: center; }
+  </style>
+</head>
+<body class="bg-gray-50 p-8">
+  <header class="max-w-6xl mx-auto mb-12">
+    <h1 class="text-3xl font-bold mb-2" style="font-family: var(--lx-font-heading)">ProductCarousel Layouts</h1>
+    <p class="text-gray-500">3 wrapper patterns for the ProductCarousel island. Focus: visible count, spacing, edge behavior.</p>
+  </header>
+
+  <main class="max-w-6xl mx-auto space-y-12">
+
+    <!-- 1. Default -->
+    <div class="layout-card">
+      <div class="layout-label">default.json</div>
+      <div class="layout-preview">
+        <div class="max-w-5xl mx-auto">
+          <div class="text-center mb-8">
+            <h2 class="text-2xl font-bold">Shop Our Bestsellers</h2>
+            <p class="text-sm mt-2" style="color: var(--lx-text-muted)">Curated favorites loved by thousands</p>
+          </div>
+          <div class="carousel-island">
+            <div class="label">ProductCarousel</div>
+            <div class="props">visibleCount: 4 | showArrows: true | showDots: true | gap: 24</div>
+            <div class="mt-4 grid grid-cols-4 gap-4">
+              <div class="product-card-placeholder aspect-[3/4]"><span class="text-xs text-gray-400">Card 1</span></div>
+              <div class="product-card-placeholder aspect-[3/4]"><span class="text-xs text-gray-400">Card 2</span></div>
+              <div class="product-card-placeholder aspect-[3/4]"><span class="text-xs text-gray-400">Card 3</span></div>
+              <div class="product-card-placeholder aspect-[3/4]"><span class="text-xs text-gray-400">Card 4</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="px-4 py-3 bg-gray-50 text-xs text-gray-500">
+        Standard. 4 cards visible, centered heading, arrows + dots navigation. Contained within max-w-7xl.
+      </div>
+    </div>
+
+    <!-- 2. Compact -->
+    <div class="layout-card">
+      <div class="layout-label">compact.json</div>
+      <div class="layout-preview" style="background-color: var(--lx-surface-alt)">
+        <div class="max-w-5xl mx-auto">
+          <div class="text-center mb-6">
+            <h2 class="text-xl font-bold">You May Also Like</h2>
+          </div>
+          <div class="carousel-island">
+            <div class="label">ProductCarousel</div>
+            <div class="props">visibleCount: 3 | cardVariant: compact | showDots: false | gap: 16</div>
+            <div class="mt-4 grid grid-cols-3 gap-3">
+              <div class="product-card-placeholder aspect-square"><span class="text-xs text-gray-400">Card 1</span></div>
+              <div class="product-card-placeholder aspect-square"><span class="text-xs text-gray-400">Card 2</span></div>
+              <div class="product-card-placeholder aspect-square"><span class="text-xs text-gray-400">Card 3</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="px-4 py-3 bg-gray-50 text-xs text-gray-500">
+        Compact. 3 smaller cards, no dots, tighter gap. Good for "You may also like" or cross-sell sections.
+      </div>
+    </div>
+
+    <!-- 3. Full Width -->
+    <div class="layout-card">
+      <div class="layout-label">full-width.json</div>
+      <div class="layout-preview">
+        <div class="mb-6">
+          <h2 class="text-2xl font-bold">Trending Now</h2>
+          <p class="text-sm mt-1" style="color: var(--lx-text-muted)">Fresh arrivals updated weekly</p>
+        </div>
+        <div class="carousel-island">
+          <div class="label">ProductCarousel</div>
+          <div class="props">visibleCount: 4 | autoScroll: true | speed: 4000 | edge-to-edge + peek</div>
+          <div class="mt-4 flex gap-4 overflow-hidden">
+            <div class="product-card-placeholder aspect-[3/4] w-1/5 flex-shrink-0 opacity-50"><span class="text-xs text-gray-400">Peek</span></div>
+            <div class="product-card-placeholder aspect-[3/4] w-1/4 flex-shrink-0"><span class="text-xs text-gray-400">Card 1</span></div>
+            <div class="product-card-placeholder aspect-[3/4] w-1/4 flex-shrink-0"><span class="text-xs text-gray-400">Card 2</span></div>
+            <div class="product-card-placeholder aspect-[3/4] w-1/4 flex-shrink-0"><span class="text-xs text-gray-400">Card 3</span></div>
+            <div class="product-card-placeholder aspect-[3/4] w-1/5 flex-shrink-0 opacity-50"><span class="text-xs text-gray-400">Peek</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="px-4 py-3 bg-gray-50 text-xs text-gray-500">
+        Edge-to-edge. Cards peek from sides indicating scroll. Auto-scrolls every 4s. Left-aligned heading.
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="max-w-6xl mx-auto mt-16 pt-8 border-t text-center text-sm text-gray-400">
+    Lexsis AI Island Design System
+  </footer>
+</body>
+</html>

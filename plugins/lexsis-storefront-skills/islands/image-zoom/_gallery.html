@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ImageZoom Layouts</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --lx-accent-color: #06B6D4;
+      --lx-text-color: #1a1a2e;
+      --lx-text-muted: #6b7280;
+      --lx-bg-color: #ffffff;
+      --lx-bg-surface: #ffffff;
+      --lx-surface-alt: #f9fafb;
+      --lx-border-color: #e5e7eb;
+      --lx-font-heading: 'Inter', system-ui, sans-serif;
+      --lx-font-body: 'Inter', system-ui, sans-serif;
+    }
+    body { font-family: var(--lx-font-body); color: var(--lx-text-color); }
+    .layout-card { border: 2px solid var(--lx-border-color); border-radius: 12px; overflow: hidden; }
+    .layout-label { background: var(--lx-accent-color); color: white; padding: 8px 16px; font-size: 14px; font-weight: 600; }
+    .layout-preview { padding: 24px; background: var(--lx-bg-color); }
+    .island-highlight { background: linear-gradient(135deg, #ECFEFF, #CFFAFE); border: 2px solid #06B6D4; border-radius: 8px; padding: 24px; text-align: center; }
+    .island-highlight .label { font-weight: 700; color: #06B6D4; font-size: 14px; margin-bottom: 8px; }
+    .island-highlight .props { font-size: 11px; color: var(--lx-text-muted); }
+    .other-island { background: #f3f4f6; border: 1px dashed #d1d5db; border-radius: 8px; padding: 16px; text-align: center; color: #9ca3af; font-size: 12px; }
+  </style>
+</head>
+<body class="bg-gray-50 p-8">
+  <header class="max-w-6xl mx-auto mb-12">
+    <h1 class="text-3xl font-bold mb-2" style="font-family: var(--lx-font-heading)">ImageZoom Layouts</h1>
+    <p class="text-gray-500">3 wrapper patterns for the ImageZoom island. Focus: zoom trigger, magnification UX.</p>
+  </header>
+
+  <main class="max-w-6xl mx-auto space-y-12">
+
+    <!-- 1. Hover Zoom -->
+    <div class="layout-card">
+      <div class="layout-label">hover-zoom.json</div>
+      <div class="layout-preview">
+        <div class="max-w-3xl mx-auto space-y-6">
+          <h2 class="text-2xl font-bold text-center">Product Close-Up</h2>
+          <div class="island-highlight aspect-square max-w-xs mx-auto relative">
+            <div class="label">ImageZoom</div>
+            <div class="props">trigger: "hover" | zoomLevel: 2.5</div>
+            <div class="mt-4 aspect-square rounded bg-cyan-50 flex items-center justify-center relative">
+              <div class="text-xs text-cyan-300">product image</div>
+              <div class="absolute w-14 h-14 rounded-full border-2 border-dashed top-1/4 left-1/3 flex items-center justify-center" style="border-color: var(--lx-accent-color); color: var(--lx-accent-color); background: rgba(6,182,212,0.08)">
+                <span class="text-[10px] font-medium">lens</span>
+              </div>
+            </div>
+          </div>
+          <p class="text-center text-sm text-gray-400">Hover to zoom in on details</p>
+        </div>
+      </div>
+      <div class="px-4 py-3 bg-gray-50 text-xs text-gray-500">
+        Zoom lens follows cursor on hover. Single centered image with inline magnification overlay. Best for product textures, fabric detail, jewelry close-ups.
+      </div>
+    </div>
+
+    <!-- 2. Click Lightbox -->
+    <div class="layout-card">
+      <div class="layout-label">click-lightbox.json</div>
+      <div class="layout-preview">
+        <div class="max-w-3xl mx-auto space-y-6">
+          <h2 class="text-2xl font-bold text-center">Detail View</h2>
+          <div class="island-highlight max-w-sm mx-auto aspect-[4/3] cursor-pointer relative">
+            <div class="label">ImageZoom</div>
+            <div class="props">trigger: "click" | zoomLevel: 3</div>
+            <div class="mt-4 aspect-[4/3] rounded bg-cyan-50 flex items-center justify-center">
+              <div class="text-xs text-cyan-300">product image</div>
+            </div>
+          </div>
+          <p class="text-center text-sm text-gray-400 flex items-center justify-center gap-1">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+            Click image to open full-screen view
+          </p>
+        </div>
+      </div>
+      <div class="px-4 py-3 bg-gray-50 text-xs text-gray-500">
+        Moderate-size image with click-to-open fullscreen lightbox. Hint text below guides interaction. Best for hero product shots, ingredient labels, size charts.
+      </div>
+    </div>
+
+    <!-- 3. Inline Magnifier -->
+    <div class="layout-card">
+      <div class="layout-label">inline-magnifier.json</div>
+      <div class="layout-preview">
+        <div class="max-w-4xl mx-auto space-y-6">
+          <h2 class="text-2xl font-bold text-center">Inspect Details</h2>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="island-highlight aspect-square">
+              <div class="label">ImageZoom</div>
+              <div class="props">trigger: "hover" | zoomLevel: 3</div>
+              <div class="mt-4 aspect-[4/3] rounded bg-cyan-50 flex items-center justify-center">
+                <div class="text-xs text-cyan-300">source image</div>
+              </div>
+            </div>
+            <div class="aspect-square rounded-lg flex items-center justify-center" style="background: var(--lx-surface-alt); border: 1px solid var(--lx-border-color)">
+              <div class="text-center">
+                <div class="text-sm font-medium" style="color: var(--lx-text-muted)">Magnified view</div>
+                <div class="text-xs mt-1" style="color: var(--lx-text-muted)">appears here on hover</div>
+              </div>
+            </div>
+          </div>
+          <p class="text-center text-sm text-gray-400">Hover over the image to see magnified details in the panel</p>
+        </div>
+      </div>
+      <div class="px-4 py-3 bg-gray-50 text-xs text-gray-500">
+        Two-panel grid layout: source image on left, zoomed result on right. Best for PDP where users need to inspect fine details without leaving the page.
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="max-w-6xl mx-auto mt-16 pt-8 border-t text-center text-sm text-gray-400">
+    Lexsis AI Island Design System
+  </footer>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDPInfoCards Layouts</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --lx-accent-color: #0891B2;
+      --lx-text-color: #1a1a2e;
+      --lx-text-muted: #6b7280;
+      --lx-bg-color: #ffffff;
+      --lx-bg-surface: #ffffff;
+      --lx-surface-alt: #f9fafb;
+      --lx-border-color: #e5e7eb;
+      --lx-font-heading: 'Inter', system-ui, sans-serif;
+      --lx-font-body: 'Inter', system-ui, sans-serif;
+    }
+    body { font-family: var(--lx-font-body); color: var(--lx-text-color); }
+    .layout-card { border: 2px solid var(--lx-border-color); border-radius: 12px; overflow: hidden; }
+    .layout-label { background: var(--lx-accent-color); color: white; padding: 8px 16px; font-size: 14px; font-weight: 600; }
+    .layout-preview { padding: 24px; background: var(--lx-bg-color); }
+    .info-island { background: linear-gradient(135deg, #ECFEFF, #CFFAFE); border: 2px solid var(--lx-accent-color); border-radius: 8px; padding: 16px; text-align: center; }
+    .info-island .label { font-weight: 700; color: var(--lx-accent-color); font-size: 14px; margin-bottom: 4px; }
+    .info-island .props { font-size: 11px; color: var(--lx-text-muted); }
+    .other-island { background: #f3f4f6; border: 1px dashed #d1d5db; border-radius: 8px; padding: 16px; text-align: center; color: #9ca3af; font-size: 12px; }
+    .info-card-demo { background: var(--lx-surface-alt); border-radius: 8px; padding: 16px; }
+    .info-card-dashed { border: 1px dashed var(--lx-border-color); border-radius: 8px; padding: 12px; }
+    .card-icon { width: 28px; height: 28px; background: var(--lx-accent-color); border-radius: 6px; opacity: 0.2; }
+  </style>
+</head>
+<body class="bg-gray-50 p-8">
+  <header class="max-w-6xl mx-auto mb-12">
+    <h1 class="text-3xl font-bold mb-2" style="font-family: var(--lx-font-heading)">PDPInfoCards Layouts</h1>
+    <p class="text-gray-500">3 wrapper patterns for the PDPInfoCards island. Focus: card style, density, content type.</p>
+  </header>
+
+  <main class="max-w-6xl mx-auto space-y-12">
+
+    <!-- 1. Filled Grid -->
+    <div class="layout-card">
+      <div class="layout-label">filled-grid.json</div>
+      <div class="layout-preview">
+        <div class="max-w-5xl mx-auto">
+          <div class="info-island">
+            <div class="label">PDPInfoCards</div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+              <div class="info-card-demo text-left">
+                <div class="flex items-start gap-3">
+                  <div class="card-icon flex-shrink-0"></div>
+                  <div>
+                    <div class="text-sm font-semibold" style="color: var(--lx-text-color)">Hyaluronic Acid</div>
+                    <div class="text-xs mt-1" style="color: var(--lx-text-muted)">Deep hydration that plumps and smooths skin</div>
+                  </div>
+                </div>
+              </div>
+              <div class="info-card-demo text-left">
+                <div class="flex items-start gap-3">
+                  <div class="card-icon flex-shrink-0"></div>
+                  <div>
+                    <div class="text-sm font-semibold" style="color: var(--lx-text-color)">Vitamin C</div>
+                    <div class="text-xs mt-1" style="color: var(--lx-text-muted)">Brightens and protects against free radicals</div>
+                  </div>
+                </div>
+              </div>
+              <div class="info-card-demo text-left">
+                <div class="flex items-start gap-3">
+                  <div class="card-icon flex-shrink-0"></div>
+                  <div>
+                    <div class="text-sm font-semibold" style="color: var(--lx-text-color)">Niacinamide</div>
+                    <div class="text-xs mt-1" style="color: var(--lx-text-muted)">Minimizes pores and evens skin tone</div>
+                  </div>
+                </div>
+              </div>
+              <div class="info-card-demo text-left">
+                <div class="flex items-start gap-3">
+                  <div class="card-icon flex-shrink-0"></div>
+                  <div>
+                    <div class="text-sm font-semibold" style="color: var(--lx-text-color)">Ceramides</div>
+                    <div class="text-xs mt-1" style="color: var(--lx-text-muted)">Strengthens skin barrier for lasting moisture</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="props mt-4">variant: filled | columns: 2 | iconStyle: filled</div>
+          </div>
+        </div>
+      </div>
+      <div class="px-4 py-3 bg-gray-50 text-xs text-gray-500">
+        Use when: showcasing ingredients, benefits, or certifications. 2x2 grid with filled surface-alt backgrounds. Standalone section.
+      </div>
+    </div>
+
+    <!-- 2. Dashed Row -->
+    <div class="layout-card">
+      <div class="layout-label">dashed-row.json</div>
+      <div class="layout-preview">
+        <div class="max-w-5xl mx-auto">
+          <div class="other-island mb-6 h-24">[ BuyBox section above ]</div>
+          <div class="info-island">
+            <div class="label">PDPInfoCards</div>
+            <div class="flex flex-col sm:flex-row gap-4 mt-4">
+              <div class="info-card-dashed flex-1 text-center">
+                <div class="card-icon mx-auto mb-2"></div>
+                <div class="text-xs font-medium" style="color: var(--lx-text-color)">Free Shipping</div>
+              </div>
+              <div class="info-card-dashed flex-1 text-center">
+                <div class="card-icon mx-auto mb-2"></div>
+                <div class="text-xs font-medium" style="color: var(--lx-text-color)">30-Day Returns</div>
+              </div>
+              <div class="info-card-dashed flex-1 text-center">
+                <div class="card-icon mx-auto mb-2"></div>
+                <div class="text-xs font-medium" style="color: var(--lx-text-color)">2-Year Warranty</div>
+              </div>
+              <div class="info-card-dashed flex-1 text-center">
+                <div class="card-icon mx-auto mb-2"></div>
+                <div class="text-xs font-medium" style="color: var(--lx-text-color)">Cruelty Free</div>
+              </div>
+            </div>
+            <div class="props mt-4">variant: dashed | columns: 4 | iconStyle: outline</div>
+          </div>
+        </div>
+      </div>
+      <div class="px-4 py-3 bg-gray-50 text-xs text-gray-500">
+        Use when: compact shipping/return/warranty info. Horizontal row of dashed-border cards. Single-line titles, good below BuyBox.
+      </div>
+    </div>
+
+    <!-- 3. Minimal -->
+    <div class="layout-card">
+      <div class="layout-label">minimal.json</div>
+      <div class="layout-preview">
+        <div class="max-w-lg mx-auto">
+          <div class="info-island">
+            <div class="label">PDPInfoCards</div>
+            <div class="space-y-4 mt-4 text-left">
+              <div class="flex items-center gap-3">
+                <div class="card-icon flex-shrink-0"></div>
+                <div>
+                  <span class="text-sm" style="color: var(--lx-text-color)">Clinically tested formula</span>
+                </div>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="card-icon flex-shrink-0"></div>
+                <div>
+                  <span class="text-sm" style="color: var(--lx-text-color)">Dermatologist recommended</span>
+                </div>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="card-icon flex-shrink-0"></div>
+                <div>
+                  <span class="text-sm" style="color: var(--lx-text-color)">Vegan and cruelty-free</span>
+                </div>
+              </div>
+            </div>
+            <div class="props mt-4">variant: minimal | columns: 1 | no borders</div>
+          </div>
+        </div>
+      </div>
+      <div class="px-4 py-3 bg-gray-50 text-xs text-gray-500">
+        Use when: simple feature bullets. Vertical list, icon + text, no card borders. Narrow max-w-3xl. Clean and minimal.
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="max-w-6xl mx-auto mt-16 pt-8 border-t text-center text-sm text-gray-400">
+    Lexsis AI Island Design System
+  </footer>
+</body>
+</html>

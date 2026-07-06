@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tabs Layouts</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --lx-accent-color: #6366F1;
+      --lx-text-color: #1a1a2e;
+      --lx-text-muted: #6b7280;
+      --lx-bg-color: #ffffff;
+      --lx-bg-surface: #ffffff;
+      --lx-surface-alt: #f9fafb;
+      --lx-border-color: #e5e7eb;
+      --lx-font-heading: 'Inter', system-ui, sans-serif;
+      --lx-font-body: 'Inter', system-ui, sans-serif;
+    }
+    body { font-family: var(--lx-font-body); color: var(--lx-text-color); }
+    .layout-card { border: 2px solid var(--lx-border-color); border-radius: 12px; overflow: hidden; }
+    .layout-label { background: #6366F1; color: white; padding: 8px 16px; font-size: 14px; font-weight: 600; }
+    .layout-preview { padding: 24px; background: var(--lx-bg-color); }
+    .island-highlight { background: linear-gradient(135deg, #eef2ff, #e0e7ff); border: 2px solid #6366F1; border-radius: 8px; padding: 24px; text-align: center; }
+    .island-highlight .label { font-weight: 700; color: #6366F1; font-size: 14px; margin-bottom: 8px; }
+    .island-highlight .props { font-size: 11px; color: var(--lx-text-muted); }
+    .other-island { background: #f3f4f6; border: 1px dashed #d1d5db; border-radius: 8px; padding: 16px; text-align: center; color: #9ca3af; font-size: 12px; }
+  </style>
+</head>
+<body class="bg-gray-50 p-8">
+  <header class="max-w-6xl mx-auto mb-12">
+    <h1 class="text-3xl font-bold mb-2" style="font-family: var(--lx-font-heading)">Tabs Layouts</h1>
+    <p class="text-gray-500">3 wrapper patterns for the Tabs island. Focus: tab chrome style, content density, visual weight.</p>
+  </header>
+
+  <main class="max-w-6xl mx-auto space-y-12">
+
+    <!-- 1. Bordered -->
+    <div class="layout-card">
+      <div class="layout-label">bordered.json</div>
+      <div class="layout-preview">
+        <div class="max-w-4xl mx-auto">
+          <div class="island-highlight">
+            <div class="label">Tabs</div>
+            <div class="props">variant: bordered | defaultTab: 0</div>
+            <div class="mt-4">
+              <!-- Tab headers -->
+              <div class="flex border-b" style="border-color: var(--lx-border-color)">
+                <button class="px-4 py-2 text-sm font-medium border-b-2" style="border-color: #6366F1; color: #6366F1">Description</button>
+                <button class="px-4 py-2 text-sm font-medium" style="color: var(--lx-text-muted)">Ingredients</button>
+                <button class="px-4 py-2 text-sm font-medium" style="color: var(--lx-text-muted)">How to Use</button>
+                <button class="px-4 py-2 text-sm font-medium" style="color: var(--lx-text-muted)">Reviews</button>
+              </div>
+              <!-- Tab content -->
+              <div class="p-4 text-left border border-t-0 rounded-b-lg" style="border-color: var(--lx-border-color); background: var(--lx-bg-color)">
+                <div class="h-4 bg-gray-200 rounded w-full mb-2"></div>
+                <div class="h-4 bg-gray-200 rounded w-5/6 mb-2"></div>
+                <div class="h-4 bg-gray-200 rounded w-4/6"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="px-4 py-3 bg-gray-50 text-xs text-gray-500">
+        Use when: content-heavy product details. Bordered panel contains content, clear active state with bottom border.
+      </div>
+    </div>
+
+    <!-- 2. Underline -->
+    <div class="layout-card">
+      <div class="layout-label">underline.json</div>
+      <div class="layout-preview" style="background-color: var(--lx-surface-alt)">
+        <div class="max-w-4xl mx-auto">
+          <div class="island-highlight" style="background: linear-gradient(135deg, #eef2ff, #e0e7ff);">
+            <div class="label">Tabs</div>
+            <div class="props">variant: underline | defaultTab: 0</div>
+            <div class="mt-4">
+              <!-- Tab headers -->
+              <div class="flex gap-6 border-b" style="border-color: var(--lx-border-color)">
+                <button class="pb-2 text-sm font-medium border-b-2" style="border-color: #6366F1; color: #6366F1">Overview</button>
+                <button class="pb-2 text-sm font-medium" style="color: var(--lx-text-muted)">Specs</button>
+                <button class="pb-2 text-sm font-medium" style="color: var(--lx-text-muted)">Shipping</button>
+              </div>
+              <!-- Tab content -->
+              <div class="pt-6 text-left">
+                <div class="h-4 bg-gray-200 rounded w-full mb-2"></div>
+                <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                <div class="h-4 bg-gray-200 rounded w-5/6"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="px-4 py-3 bg-gray-50 text-xs text-gray-500">
+        Use when: clean, minimal tab navigation. Underline active indicator, open content area. Default safe choice.
+      </div>
+    </div>
+
+    <!-- 3. Pills -->
+    <div class="layout-card">
+      <div class="layout-label">pills.json</div>
+      <div class="layout-preview">
+        <div class="max-w-4xl mx-auto">
+          <div class="island-highlight">
+            <div class="label">Tabs</div>
+            <div class="props">variant: pills | defaultTab: 0</div>
+            <div class="mt-4">
+              <!-- Tab headers -->
+              <div class="flex gap-2 mb-6">
+                <button class="px-4 py-2 text-sm font-medium rounded-full text-white" style="background: #6366F1">Details</button>
+                <button class="px-4 py-2 text-sm font-medium rounded-full" style="background: var(--lx-surface-alt); color: var(--lx-text-muted)">Sizing</button>
+                <button class="px-4 py-2 text-sm font-medium rounded-full" style="background: var(--lx-surface-alt); color: var(--lx-text-muted)">Care</button>
+              </div>
+              <!-- Tab content -->
+              <div class="text-left">
+                <div class="h-4 bg-gray-200 rounded w-full mb-2"></div>
+                <div class="h-4 bg-gray-200 rounded w-2/3"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="px-4 py-3 bg-gray-50 text-xs text-gray-500">
+        Use when: modern, compact tab UI. Pill-shaped buttons (rounded-full), best with 3-4 short tabs. Lightweight feel.
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="max-w-6xl mx-auto mt-16 pt-8 border-t text-center text-sm text-gray-400">
+    Lexsis AI Island Design System
+  </footer>
+</body>
+</html>

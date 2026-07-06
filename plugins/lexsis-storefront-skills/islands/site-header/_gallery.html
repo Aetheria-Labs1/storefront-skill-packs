@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SiteHeader Layouts</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --lx-accent-color: #374151;
+      --lx-text-color: #1a1a2e;
+      --lx-text-muted: #6b7280;
+      --lx-bg-color: #ffffff;
+      --lx-bg-surface: #ffffff;
+      --lx-surface-alt: #f9fafb;
+      --lx-border-color: #e5e7eb;
+      --lx-font-heading: 'Inter', system-ui, sans-serif;
+      --lx-font-body: 'Inter', system-ui, sans-serif;
+    }
+    body { font-family: var(--lx-font-body); color: var(--lx-text-color); }
+    .layout-card { border: 2px solid var(--lx-border-color); border-radius: 12px; overflow: hidden; }
+    .layout-label { background: #374151; color: white; padding: 8px 16px; font-size: 14px; font-weight: 600; }
+    .layout-preview { padding: 24px; background: var(--lx-bg-color); }
+    .siteheader-island { background: linear-gradient(135deg, #F3F4F6, #E5E7EB); border: 2px solid #374151; border-radius: 8px; padding: 12px 24px; text-align: center; }
+    .siteheader-island .label { font-weight: 700; color: #374151; font-size: 14px; margin-bottom: 4px; }
+    .siteheader-island .props { font-size: 11px; color: var(--lx-text-muted); }
+    .other-island { background: #f3f4f6; border: 1px dashed #d1d5db; border-radius: 8px; padding: 16px; text-align: center; color: #9ca3af; font-size: 12px; }
+    .announcement-bar { background: #374151; color: white; padding: 8px 16px; text-align: center; font-size: 13px; border-radius: 6px 6px 0 0; }
+  </style>
+</head>
+<body class="bg-gray-50 p-8">
+  <header class="max-w-6xl mx-auto mb-12">
+    <h1 class="text-3xl font-bold mb-2" style="font-family: var(--lx-font-heading)">SiteHeader Layouts</h1>
+    <p class="text-gray-500">3 wrapper patterns for the SiteHeader compound island. Combines AnnouncementBar + Navbar. Must be first section, max 1 per page.</p>
+  </header>
+
+  <main class="max-w-6xl mx-auto space-y-12">
+
+    <!-- 1. Combined -->
+    <div class="layout-card">
+      <div class="layout-label">combined.json</div>
+      <div class="layout-preview">
+        <div class="max-w-5xl mx-auto">
+          <div class="rounded-lg overflow-hidden border" style="border-color: var(--lx-border-color)">
+            <div class="announcement-bar">
+              <span class="text-white/90">Free shipping on orders over $50</span>
+              <a href="#" class="ml-2 underline text-white/80 text-xs">Shop now</a>
+            </div>
+            <div class="flex items-center justify-between h-16 px-6 bg-white" style="border-bottom: 1px solid var(--lx-border-color)">
+              <div class="w-24 h-8 bg-gray-200 rounded flex items-center justify-center text-xs text-gray-400">LOGO</div>
+              <div class="hidden md:flex items-center gap-6">
+                <div class="siteheader-island px-6 py-2">
+                  <div class="label">SiteHeader</div>
+                  <div class="props">announcement + navbar | combined block | not sticky</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-gray-100 rounded flex items-center justify-center">
+                  <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-6 space-y-4">
+            <div class="other-island h-20">[ Hero section below ]</div>
+          </div>
+        </div>
+      </div>
+      <div class="px-4 py-3 bg-gray-50 text-xs text-gray-500">
+        Announcement bar + navbar as one unified section. Both scroll away together. Use when announcement is always-visible promotional text.
+      </div>
+    </div>
+
+    <!-- 2. Sticky -->
+    <div class="layout-card">
+      <div class="layout-label">sticky.json</div>
+      <div class="layout-preview">
+        <div class="max-w-5xl mx-auto">
+          <div class="rounded-lg overflow-hidden border" style="border-color: var(--lx-border-color)">
+            <div class="announcement-bar" style="opacity: 0.6;">
+              <span class="text-white/70 text-xs">scrolls away</span>
+              <span class="mx-2 text-white/90">Summer sale — 20% off sitewide</span>
+              <span class="text-white/70 text-xs">scrolls away</span>
+            </div>
+            <div class="relative">
+              <div class="absolute -top-1 right-4 bg-yellow-100 text-yellow-800 text-[10px] font-semibold px-2 py-0.5 rounded-b">STICKY</div>
+              <div class="flex items-center justify-between h-16 px-6 bg-white shadow-sm">
+                <div class="w-24 h-8 bg-gray-200 rounded flex items-center justify-center text-xs text-gray-400">LOGO</div>
+                <div class="hidden md:flex items-center gap-6">
+                  <div class="siteheader-island px-6 py-2">
+                    <div class="label">SiteHeader</div>
+                    <div class="props">sticky: true | navbar locks to top on scroll</div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div class="w-8 h-8 bg-gray-100 rounded flex items-center justify-center">
+                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-6 space-y-4">
+            <div class="other-island h-20">[ Content scrolls beneath sticky nav ]</div>
+            <div class="other-island h-16">[ More content ]</div>
+          </div>
+        </div>
+      </div>
+      <div class="px-4 py-3 bg-gray-50 text-xs text-gray-500">
+        Announcement bar scrolls away; navbar becomes sticky (top: 0, z-50) with subtle shadow. Best for long pages where persistent nav access matters.
+      </div>
+    </div>
+
+    <!-- 3. Minimal -->
+    <div class="layout-card">
+      <div class="layout-label">minimal.json</div>
+      <div class="layout-preview">
+        <div class="max-w-5xl mx-auto">
+          <div class="rounded-lg overflow-hidden border" style="border-color: var(--lx-border-color)">
+            <div class="flex items-center justify-between h-16 px-6 bg-white" style="border-bottom: 1px solid var(--lx-border-color)">
+              <div class="w-24 h-8 bg-gray-200 rounded flex items-center justify-center text-xs text-gray-400">LOGO</div>
+              <div class="hidden md:flex items-center gap-8">
+                <div class="siteheader-island px-6 py-2">
+                  <div class="label">SiteHeader</div>
+                  <div class="props">minimal | no announcement | clean nav only</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-gray-100 rounded flex items-center justify-center">
+                  <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-6 space-y-4">
+            <div class="other-island h-20">[ Hero section below ]</div>
+          </div>
+        </div>
+      </div>
+      <div class="px-4 py-3 bg-gray-50 text-xs text-gray-500">
+        Navbar only, no announcement bar. Cleanest option. Use for focused landing pages or brands with minimal top chrome.
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="max-w-6xl mx-auto mt-16 pt-8 border-t text-center text-sm text-gray-400">
+    Lexsis AI Island Design System
+  </footer>
+</body>
+</html>
