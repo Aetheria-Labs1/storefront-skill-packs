@@ -1,5 +1,82 @@
 {
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "lexsis",
-  "description": "Lexsis AI — Storefront Skills for building high-converting Shopify landing pages",
-  "plugins_dir": "plugins"
+  "description": "AI skills for building high-converting Shopify landing pages with Lexsis AI",
+  "owner": {
+    "name": "Aetheria Labs",
+    "email": "hello@trylexsis.com"
+  },
+  "plugins": [
+    {
+      "name": "lexsis-storefront-skills",
+      "description": "Core skills for AI-powered Shopify page generation — 30 skills, 14 commands, auto MCP config. PDP, landing pages, homepages, collections, editorials, bundles, A/B tests, and more.",
+      "author": { "name": "Aetheria Labs" },
+      "source": "./plugins/lexsis-storefront-skills",
+      "category": "development",
+      "homepage": "https://trylexsis.com"
+    },
+    {
+      "name": "lexsis-beauty-skills",
+      "description": "Beauty/skincare industry expertise — ingredient displays, before/after patterns, shade finders, routine builders. Install lexsis-storefront-skills first.",
+      "author": { "name": "Aetheria Labs" },
+      "source": "./plugins/lexsis-beauty-skills",
+      "category": "development"
+    },
+    {
+      "name": "lexsis-supplements-skills",
+      "description": "Supplement/wellness industry expertise — clinical data layouts, dosage info, subscription patterns, trust signals. Install lexsis-storefront-skills first.",
+      "author": { "name": "Aetheria Labs" },
+      "source": "./plugins/lexsis-supplements-skills",
+      "category": "development"
+    },
+    {
+      "name": "lexsis-fashion-skills",
+      "description": "Fashion/apparel industry expertise — size guides, lookbooks, model specs, style pairing. Install lexsis-storefront-skills first.",
+      "author": { "name": "Aetheria Labs" },
+      "source": "./plugins/lexsis-fashion-skills",
+      "category": "development"
+    },
+    {
+      "name": "lexsis-food-skills",
+      "description": "Food/beverage DTC industry expertise — flavor profiles, subscription boxes, recipe integration. Install lexsis-storefront-skills first.",
+      "author": { "name": "Aetheria Labs" },
+      "source": "./plugins/lexsis-food-skills",
+      "category": "development"
+    },
+    {
+      "name": "lexsis-luxury-skills",
+      "description": "Luxury/premium brand expertise — editorial restraint, heritage storytelling, exclusivity. Install lexsis-storefront-skills first.",
+      "author": { "name": "Aetheria Labs" },
+      "source": "./plugins/lexsis-luxury-skills",
+      "category": "development"
+    },
+    {
+      "name": "lexsis-home-skills",
+      "description": "Home goods/decor industry expertise — room scenes, measurement guides, material specs. Install lexsis-storefront-skills first.",
+      "author": { "name": "Aetheria Labs" },
+      "source": "./plugins/lexsis-home-skills",
+      "category": "development"
+    },
+    {
+      "name": "lexsis-meta-ads-skills",
+      "description": "Meta/Facebook/Instagram ad-to-page optimization — warm traffic patterns, social proof, video-native layouts. Install lexsis-storefront-skills first.",
+      "author": { "name": "Aetheria Labs" },
+      "source": "./plugins/lexsis-meta-ads-skills",
+      "category": "development"
+    },
+    {
+      "name": "lexsis-google-ads-skills",
+      "description": "Google Search/Shopping ad-to-page optimization — intent-driven layouts, feature-first, comparison-ready. Install lexsis-storefront-skills first.",
+      "author": { "name": "Aetheria Labs" },
+      "source": "./plugins/lexsis-google-ads-skills",
+      "category": "development"
+    },
+    {
+      "name": "lexsis-tiktok-ads-skills",
+      "description": "TikTok ad-to-page optimization — scroll-stopping, UGC-style, fast cuts, youth-optimized. Install lexsis-storefront-skills first.",
+      "author": { "name": "Aetheria Labs" },
+      "source": "./plugins/lexsis-tiktok-ads-skills",
+      "category": "development"
+    }
+  ]
 }
