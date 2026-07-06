@@ -141,13 +141,11 @@ What did the user provide?
 Phase 0: Context
 ├─ analyze_ad_creative({ image_urls, ad_format })  → visual signals, CTA, headline
 ├─ get_storefront_skills({ brief from ad analysis, page_type: "landing" })
-├─ get_theme_json() + get_design_md()
 └─ list_products()
 ## Design-First Flow (Reference URL)
 ```
 Phase 0:
 ├─ extract_brand_design(url)           → extracted palette, fonts, spacing, tone
-├─ capture_design_source(url)          → screenshots + design DNA
 ├─ get_storefront_skills(brief)
 └─ list_products()
 ## Edit Flow (Safe Iteration)
@@ -173,7 +171,6 @@ Phase 0:
 |---|---|
 | All Phase 0 context calls | Phase 1 needs Phase 0 results (brand_colors for asset gen) |
 | Multiple generate_asset calls | validate must complete before write |
-| search_design_library + get_theme_json | write must complete before preview |
 | Asset gen for different sections | edit_asset needs source image URLs first |
 ## Cost Control
 - `search_design_library` before `generate_asset` — existing assets are free
@@ -236,76 +233,124 @@ Eye-flow patterns direct attention to CTAs.
 
 # Storefront Page Generation
 
-Generate high-quality Shopify landing pages using the Storefront Blueprint MCP tools.
+Generate high-quality Shopify storefront pages using the Lexsis AI MCP tools.
 
-## Generation Flow (5 Phases)
+> **Prerequisites**: Read `vibe://docs/generation-guide` and `vibe://skills/generation-protocol` first — they define the VibePage schema, CSS variable system, island integration, and visual verification step.
+
+## Generation Flow (Two-Phase)
 
 ### Phase 0 — Context Gathering (run ALL in parallel)
 
 ```
-get_workspace_details    → workspace context
-get_connected_stores     → store ID, domain
-get_brand_kit            → logo, fonts, colors, voice
-get_theme_json           → design tokens (palette, typography, effects)
-get_design_md            → brand brief + guidelines
-list_products            → product catalog for commerce islands
+get_workspace_details    → workspace ID
+get_connected_stores     → store domain
+get_brand_kit            → logo, fonts, colors, voice, border radius
+get_design_md            → brand brief + design philosophy + don'ts
+list_products            → product catalog (for commerce islands)
 get_navigation           → navbar/footer links
-search_design_library    → existing brand assets
+search_design_library    → existing brand assets (hero images, lifestyle shots)
 ```
 
-### Phase 1 — Asset Generation (parallel per section)
+All 7 calls can run in parallel. Wait for all before proceeding.
+
+### Phase 1 — Asset Preparation
 
 Decision tree per section:
-1. `search_design_library` — check existing assets first (ALWAYS)
+1. `search_design_library` — check existing assets FIRST (always)
 2. `generate_asset` — only if library has nothing suitable
 3. `edit_asset` — composite/modify if needed
-4. `view_asset` — verify result before using
+4. `view_asset` — verify result before using in page
 
-### Phase 2 — HTML Generation
+Budget: 3-5 generated assets per page max. Existing assets = free.
 
-Write VibePage JSON with:
-- Raw HTML + Tailwind CSS + CSS custom properties
-- React islands for commerce (BuyBox, CartDrawer, ProductGallery)
-- Responsive mobile-first design
-- Brand CSS variables: `--color-accent`, `--color-text`, `--color-bg`, `--font-heading`, `--font-body`
+### Phase 2A — Raw HTML Generation (No Islands)
+
+Generate complete VibePage JSON with pure HTML + Tailwind CSS:
+- Place `data-placeholder="IslandName"` divs where islands will go
+- Focus entirely on visual design: layout, typography, color, spacing, imagery
+- Apply brand CSS variables in `theme_css`
+- Use Google Fonts URLs in `head.fonts`
+- Write real copy (never Lorem Ipsum)
+- Use asset URLs from Phase 1 in `<img>` tags
+
+This renders instantly in any browser — iterate on design here.
+
+### Phase 2B — Island Mapping
+
+Replace placeholders with actual islands:
+```html
+<div data-island="BuyBox" data-props='{"product":{"title":"...","price":"$29.99","variants":[{"id":"v1","title":"Default","available":true}]}}'></div>
+```
+
+Use `vibe://schema/island/{name}` resource to get exact prop shapes for each island.
 
 ### Phase 3 — Validation
 
-Call `validate_vibe_page` — checks structure, ID uniqueness, islands, CSS/JS security.
+```
+validate_vibe_page(page_json)
+```
 
-### Phase 4 — Publish
+Fix any errors. Common issues: duplicate section IDs, invalid island names, missing required props, inline `<style>`/`<script>` tags.
 
-Call `publish_vibe_page` with `draft: true` for preview, or `draft: false` for live.
+### Phase 4 — Publish + Visual Verify
+
+```
+publish_vibe_page(slug, page, archetype, publish=false)  → preview_url
+```
+
+**Visual verification is REQUIRED before marking complete:**
+
+| Agent | How to Verify |
+|-------|--------------|
+| Claude Code | `browser_navigate(preview_url)` → `browser_take_screenshot({fullPage: true})` → review screenshot |
+| Codex | Use built-in browser to open preview_url |
+| Cursor | Open preview_url in browser, take screenshot with available tool |
+| No browser | Provide preview_url to user: "Open this to verify the page" |
+
+**Checklist:**
+- [ ] Hero visible above fold (headline + CTA without scrolling)
+- [ ] Brand colors applied (not default purple)
+- [ ] Fonts loaded (not system fallback)
+- [ ] Images rendering (not broken/placeholder)
+- [ ] Mobile layout correct (375px viewport, no horizontal scroll)
+- [ ] Islands hydrated (BuyBox shows product data, not empty div)
+- [ ] CTA contrast ≥ 4.5:1
+
+If issues → `update_page_section` → re-screenshot.
+When satisfied → `publish_page(page_id)` to go live.
 
 ## Page Type Templates
 
-**Product Landing (PDP)** — 8 sections:
-Hero → Product Showcase → Benefits → Social Proof → How It Works → FAQ → CTA → Footer
+**Product Landing (PDP)** — 8-10 sections:
+Hero (split) → Gallery → BuyBox → Benefits → Ingredients/Specs → Reviews → Related Products → FAQ → Sticky CTA → Footer
 
 **Campaign Landing** — 10 sections:
-Hero → Problem/Pain → Solution → Features → Social Proof → Comparison → Pricing → FAQ → CTA → Footer
+Hero → Problem/Pain → Solution → Key Benefits → Social Proof → How It Works → Comparison → Offer/Pricing → FAQ → CTA
 
-**Homepage** — 7 sections:
-Hero → Featured Products → Brand Story → Categories → Testimonials → Newsletter → Footer
+**Homepage** — 7-8 sections:
+Hero → Featured Products → Brand Story → Categories → Testimonials → Newsletter → Trust Bar → Footer
 
 **Collection** — 6 sections:
-Hero Banner → Filter/Sort → Product Grid → Social Proof → Newsletter → Footer
+Hero Banner → Filter/Sort → Product Grid → Promo Card → Social Proof → Footer
 
 ## Quality Bar
 
-- Mobile-first (test at 375px width)
-- Use CSS custom properties for all brand colors/fonts
-- Proper heading hierarchy (h1 → h2 → h3)
-- Islands for any commerce interaction (add to cart, checkout)
-- All images via asset tools (never hardcoded external URLs)
-- No fetch/XHR, eval, localStorage, @import, duplicate IDs, framework code
+- Mobile-first (375px viewport — test this)
+- All brand colors via `--lx-*` CSS variables (never hardcoded hex in HTML)
+- Proper heading hierarchy (single h1 in hero, h2 per section, h3 for sub-items)
+- Islands for ALL commerce interactions (add-to-cart, checkout, cart drawer)
+- All images from asset tools (never external URLs unless Shopify CDN)
+- No fetch/XHR, eval, localStorage, @import, duplicate IDs
+- Hero headline ≤ 8 words, visible without scrolling
+- Use shared keyframes (fadeUp, fadeIn, scaleIn) — don't define new @keyframes unless truly unique
 
 ## Ad-to-Page Flow
 
 When converting an ad creative to a landing page:
-1. `analyze_ad_creative` — extract headline, claims, colors, tone
-2. `match_persona_to_ad` — find target persona
-3. `get_ad_creatives` — get full creative metadata
-4. Continue with standard Phase 0-4 flow using extracted context
+1. `get_ad_creatives` — get creative metadata
+2. `analyze_ad_creative` — extract headline, claims, colors, tone, CTA
+3. `match_persona_to_ad` — identify target audience
+4. Continue with Phase 0-4 using extracted context
+5. Ensure "scent continuity" — ad headline ≈ page hero headline
 
 

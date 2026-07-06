@@ -202,17 +202,6 @@ update_theme(theme_id, {
 
 ## Design References
 
-### Capture Inspiration
-```
-capture_design_source({ url: "https://competitor.com" })
-```
-Screenshots + extracts design DNA (colors, fonts, layout style).
-
-### List Captured References
-```
-list_design_sources()
-```
-
 ### Extract from URL
 ```
 extract_brand_design({ url: "https://brand.com" })

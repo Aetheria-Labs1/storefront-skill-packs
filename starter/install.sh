@@ -58,19 +58,12 @@ if [ -z "$TARGET_DIR" ]; then
 fi
 
 if [ -z "$TARGET_DIR" ]; then
-  echo "No project root found. Please specify your project directory:"
+  echo "No project root found. Specify your project directory:"
   echo ""
   echo "  $0 --target /path/to/your/project"
   echo ""
   echo "Or run from inside your project:"
-  echo ""
-  echo "  cd /path/to/your/project && $PACK_DIR/install.sh"
-  echo ""
-  echo "Manual install:"
-  echo "  Claude Code: cp -r $PACK_DIR/claude/skills/* <project>/.claude/skills/"
-  echo "  Codex:       cp -r $PACK_DIR/codex/skills/* <project>/.agents/skills/"
-  echo "  Cursor:      cp -r $PACK_DIR/cursor/rules/* <project>/.cursor/rules/"
-  echo "  GPT:         Upload $PACK_DIR/gpt/knowledge.md as Custom GPT knowledge"
+  echo "  cd /path/to/your/project && <path-to>/install.sh"
   exit 1
 fi
 
@@ -110,19 +103,17 @@ if [ -d ".cursor" ]; then
 fi
 
 if [ "$INSTALLED" = false ]; then
-  echo "No AI coding platform detected at $TARGET_DIR"
+  echo "No AI coding platform detected in current directory or any parent."
   echo ""
-  echo "To auto-create for Claude Code:"
-  echo "  mkdir -p $TARGET_DIR/.claude && $0"
-  echo ""
-  echo "Or specify a different project:"
-  echo "  $0 --target /path/to/your/project"
+  echo "Options:"
+  echo "  1. Run from your project root:  cd /path/to/project && $0"
+  echo "  2. Specify target:              $0 --target /path/to/project"
   echo ""
   echo "Manual install:"
-  echo "  Claude Code: cp -r $PACK_DIR/claude/skills/* $TARGET_DIR/.claude/skills/"
-  echo "  Codex:       cp -r $PACK_DIR/codex/skills/* $TARGET_DIR/.agents/skills/"
-  echo "  Cursor:      cp -r $PACK_DIR/cursor/rules/* $TARGET_DIR/.cursor/rules/"
-  echo "  GPT:         Upload $PACK_DIR/gpt/knowledge.md as Custom GPT knowledge"
+  echo "  Claude Code: cp -r $PACK_DIR/claude/skills/* <project>/.claude/skills/"
+  echo "  Codex:       cp -r $PACK_DIR/codex/skills/* <project>/.agents/skills/"
+  echo "  Cursor:      cp -r $PACK_DIR/cursor/rules/* <project>/.cursor/rules/"
+  echo "  GPT:         Upload gpt/knowledge.md as Custom GPT knowledge"
   exit 1
 fi
 

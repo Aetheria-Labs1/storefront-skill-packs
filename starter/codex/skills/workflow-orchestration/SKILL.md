@@ -43,7 +43,6 @@ Fire simultaneously — no dependencies:
 
 ```
 ┌─ get_storefront_skills({ brief, page_type })    → system prompt + island catalog + schema
-├─ get_theme_json()                                → compiled brand tokens
 ├─ get_design_md()                                 → brand voice/guidelines
 ├─ list_products(limit: 10)                        → product catalog (names, images, prices)
 ├─ search_design_library({ query: "hero" })        → existing brand assets
@@ -120,7 +119,6 @@ Report the preview URL to the user.
 Phase 0: Context
 ├─ analyze_ad_creative({ image_urls, ad_format })  → visual signals, CTA, headline
 ├─ get_storefront_skills({ brief from ad analysis, page_type: "landing" })
-├─ get_theme_json() + get_design_md()
 └─ list_products()
 
 Phase 1: Assets
@@ -138,7 +136,6 @@ Phase 2-4: Same as Standard Flow
 ```
 Phase 0:
 ├─ extract_brand_design(url)           → extracted palette, fonts, spacing, tone
-├─ capture_design_source(url)          → screenshots + design DNA
 ├─ get_storefront_skills(brief)
 └─ list_products()
 
@@ -188,7 +185,6 @@ Phase 2-4: Same as Standard Flow
 |---|---|
 | All Phase 0 context calls | Phase 1 needs Phase 0 results (brand_colors for asset gen) |
 | Multiple generate_asset calls | validate must complete before write |
-| search_design_library + get_theme_json | write must complete before preview |
 | Asset gen for different sections | edit_asset needs source image URLs first |
 
 ---

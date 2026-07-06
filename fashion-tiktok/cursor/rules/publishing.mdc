@@ -57,7 +57,6 @@ Creates variant for A/B testing.
 ## Prerequisites
 
 - Store must be connected (`get_connected_stores`)
-- If no store exists, call `provision_store` first
 - Brand kit should exist for proper theming
 
 ## Post-Publish

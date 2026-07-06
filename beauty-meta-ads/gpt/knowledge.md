@@ -215,7 +215,6 @@ Fire simultaneously — no dependencies:
 
 ```
 ┌─ get_storefront_skills({ brief, page_type })    → system prompt + island catalog + schema
-├─ get_theme_json()                                → compiled brand tokens
 ├─ get_design_md()                                 → brand voice/guidelines
 ├─ list_products(limit: 10)                        → product catalog (names, images, prices)
 ├─ search_design_library({ query: "hero" })        → existing brand assets
@@ -292,7 +291,6 @@ Report the preview URL to the user.
 Phase 0: Context
 ├─ analyze_ad_creative({ image_urls, ad_format })  → visual signals, CTA, headline
 ├─ get_storefront_skills({ brief from ad analysis, page_type: "landing" })
-├─ get_theme_json() + get_design_md()
 └─ list_products()
 
 Phase 1: Assets
@@ -310,7 +308,6 @@ Phase 2-4: Same as Standard Flow
 ```
 Phase 0:
 ├─ extract_brand_design(url)           → extracted palette, fonts, spacing, tone
-├─ capture_design_source(url)          → screenshots + design DNA
 ├─ get_storefront_skills(brief)
 └─ list_products()
 
@@ -360,7 +357,6 @@ Phase 2-4: Same as Standard Flow
 |---|---|
 | All Phase 0 context calls | Phase 1 needs Phase 0 results (brand_colors for asset gen) |
 | Multiple generate_asset calls | validate must complete before write |
-| search_design_library + get_theme_json | write must complete before preview |
 | Asset gen for different sections | edit_asset needs source image URLs first |
 
 ---
@@ -3420,6 +3416,25 @@ Place once, typically in first section or a dedicated invisible section:
 
 Note: `freeShippingThreshold` is in cents (99900 = ₹999).
 
+### Cart V2 — DrawerShell + Atomic Islands
+
+For stores with `cart_v2` enabled, use DrawerShell instead of CartDrawer. Set `head.use_cart_v2 = true`. Full composition guide: load `cart-composition` skill.
+
+```html
+<section class="hidden">
+  <div data-island="DrawerShell" data-island-container data-props='{"mode":"drawer-right","responsive":{"mobile":"bottom-sheet"},"trigger":"cart:open"}'>
+    <div class="p-4 border-b"><div data-island="CartProgressBar" data-props='{"threshold":9900}'></div></div>
+    <div class="flex-1 overflow-y-auto p-4"><div data-island="CartLines" data-props='{"showQuantity":true,"showRemove":true}'></div></div>
+    <div class="p-4 border-t bg-gray-50">
+      <div data-island="CartSummary" data-props='{}'></div>
+      <div data-island="CartCheckoutButton" data-props='{"text":"Checkout"}'></div>
+    </div>
+  </div>
+</section>
+```
+
+Required: `CartLines` + `CartCheckoutButton` inside DrawerShell. Never mix with old `CartDrawer`.
+
 ### StickyBar — Scroll-triggered Bottom CTA
 
 ```html
@@ -3791,6 +3806,160 @@ Information cards for product specs, taste profiles, pairings, certifications.
 **Variant options:** `bordered`, `dashed`, `filled`, `minimal`
 **ALWAYS PAIR WITH:** Place below ProductHero/BuyBox section, above reviews.
 
+---
+
+## Navigation Islands — Hydration Mode (Preferred)
+
+Navigation islands (Navbar, Footer, SiteHeader) support **hydration mode**: you generate ANY HTML/CSS, then place `data-lx-*` tags on functional elements. The island attaches behavior (cart state, mobile toggle, newsletter) without touching your design.
+
+### Why Hydration Mode?
+
+- Complete design freedom — any layout, any CSS
+- Only 2-5 behavior props (vs 15+ style props in legacy mode)
+- Cart state auto-syncs — no prop management
+- Publish validator enforces required tags — can't ship broken nav
+
+### Navbar — Hydration Mode
+
+**Required tags:** `data-lx-nav="root|cart-trigger|cart-count|mobile-trigger|mobile-panel"`
+
+**Behavior props:** `sticky` (bool), `cartMode` ("drawer"|"link"), `transparent` (bool)
+
+```html
+<div data-island="Navbar" data-props='{"sticky":true,"cartMode":"drawer"}'>
+  <nav data-lx-nav="root" class="fixed top-0 w-full z-50 bg-white/95 backdrop-blur border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
+      <a href="/" data-lx-nav="logo">
+        <img src="{{brand_logo}}" class="h-8" alt="{{brand_name}}" />
+      </a>
+      <nav class="hidden lg:flex items-center gap-8">
+        <a href="/collections" data-lx-nav="link" class="text-sm font-medium">Shop</a>
+        <a href="/about" data-lx-nav="link" class="text-sm font-medium">About</a>
+      </nav>
+      <div class="flex items-center gap-4">
+        <button data-lx-nav="cart-trigger" class="relative p-2">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/>
+          </svg>
+          <span data-lx-nav="cart-count" class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-black text-white text-[10px] flex items-center justify-center" style="display:none"></span>
+        </button>
+        <button data-lx-nav="mobile-trigger" class="lg:hidden p-2">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 12h18M3 6h18M3 18h18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div data-lx-nav="mobile-panel" class="hidden lg:hidden border-t px-6 py-4">
+      <a href="/collections" class="block py-3 text-sm font-medium">Shop</a>
+      <a href="/about" class="block py-3 text-sm font-medium">About</a>
+    </div>
+  </nav>
+</div>
+```
+
+**CSS requirement** (include in section CSS):
+```css
+[data-lx-nav="mobile-panel"] { display: none; }
+[data-lx-nav="mobile-panel"].lx-open { display: block; }
+```
+
+**Dropdowns (optional):**
+```html
+<div class="relative">
+  <a href="/shop" data-lx-nav="dropdown-trigger">Shop ▾</a>
+  <div data-lx-nav="dropdown-panel" class="absolute top-full mt-2 bg-white shadow-lg rounded-lg p-4">
+    <a href="/collections/new" class="block py-2 text-sm">New Arrivals</a>
+  </div>
+</div>
+```
+
+**Hide cart (no cart-trigger/cart-count needed):**
+```html
+<div data-island="Navbar" data-props='{"sticky":true,"hideCart":true}'>
+```
+
+### Footer — Hydration Mode
+
+**Required tags:** `data-lx-footer="root"`  
+**Optional tags:** `newsletter-form`, `newsletter-input`, `newsletter-success`, `year`
+
+```html
+<div data-island="Footer" data-props='{"newsletterEndpoint":"https://api.example.com/subscribe"}'>
+  <footer data-lx-footer="root" class="bg-gray-950 text-gray-300 py-16 px-6">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+      <div>
+        <img src="{{brand_logo}}" class="h-8 mb-4 invert" alt="{{brand_name}}" />
+        <p class="text-sm text-gray-400">{{brand_tagline}}</p>
+      </div>
+      <div>
+        <h4 class="text-white font-semibold text-sm mb-4">Shop</h4>
+        <a href="/collections" class="block text-sm py-1.5 text-gray-400 hover:text-white">All Products</a>
+      </div>
+      <div>
+        <h4 class="text-white font-semibold text-sm mb-4">Newsletter</h4>
+        <form data-lx-footer="newsletter-form" class="flex">
+          <input data-lx-footer="newsletter-input" type="email" placeholder="your@email.com" class="flex-1 px-3 py-2 bg-gray-900 border border-gray-700 text-sm text-white rounded-l" />
+          <button type="submit" class="px-4 py-2 bg-white text-black text-sm font-medium rounded-r">→</button>
+        </form>
+        <p data-lx-footer="newsletter-success" style="display:none" class="text-sm text-green-400 mt-2"></p>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto mt-10 pt-6 border-t border-gray-800 text-sm text-gray-500">
+      © <span data-lx-footer="year"></span> All rights reserved.
+    </div>
+  </footer>
+</div>
+```
+
+### SiteHeader — Hydration Mode
+
+Combines announcement + navbar. Uses BOTH `data-lx-header` and `data-lx-nav` tags.
+
+**Required tags:** `data-lx-header="root"` + same nav tags as Navbar
+
+```html
+<div data-island="SiteHeader" data-props='{"sticky":true,"cartMode":"drawer","messages":["Free shipping over $75","New summer collection"],"dismissible":true}'>
+  <header data-lx-header="root" class="fixed top-0 w-full z-50">
+    <div data-lx-header="announcement" class="bg-black text-white text-center py-2 text-xs relative">
+      <span data-lx-header="announcement-text">Free shipping over $75</span>
+      <button data-lx-header="announcement-dismiss" class="absolute right-3 top-1/2 -translate-y-1/2">✕</button>
+    </div>
+    <nav class="bg-white border-b">
+      <!-- Same data-lx-nav tags as Navbar example above -->
+    </nav>
+  </header>
+</div>
+```
+
+### Tag Reference
+
+| Tag | Islands | Behavior |
+|-----|---------|----------|
+| `data-lx-nav="root"` | Navbar, SiteHeader | Sticky/scroll attaches here |
+| `data-lx-nav="cart-trigger"` | Navbar, SiteHeader | Click → open CartDrawer or navigate |
+| `data-lx-nav="cart-count"` | Navbar, SiteHeader | textContent auto-updated from $cartLines |
+| `data-lx-nav="mobile-trigger"` | Navbar, SiteHeader | Click toggles mobile-panel .lx-open class |
+| `data-lx-nav="mobile-panel"` | Navbar, SiteHeader | Toggle target for mobile menu |
+| `data-lx-nav="dropdown-trigger"` | Navbar, SiteHeader | Hover shows dropdown-panel |
+| `data-lx-nav="dropdown-panel"` | Navbar, SiteHeader | Shown/hidden on hover (same parent) |
+| `data-lx-footer="root"` | Footer | Root element |
+| `data-lx-footer="newsletter-form"` | Footer | Form submit → POST endpoint |
+| `data-lx-footer="newsletter-input"` | Footer | Email input |
+| `data-lx-footer="newsletter-success"` | Footer | Shown after successful submit |
+| `data-lx-footer="year"` | Footer | textContent = current year |
+| `data-lx-header="root"` | SiteHeader | Root + spacer via ResizeObserver |
+| `data-lx-header="announcement"` | SiteHeader | Hidden on dismiss |
+| `data-lx-header="announcement-text"` | SiteHeader | Rotates through messages[] |
+| `data-lx-header="announcement-dismiss"` | SiteHeader | Click hides + persists to sessionStorage |
+
+### Validation (Publish Blocks If Missing)
+
+The publish validator enforces required tags when hydration mode detected:
+- Navbar/SiteHeader: `root` + `cart-trigger` + `cart-count` + `mobile-trigger` + `mobile-panel`
+- Footer: `root`
+- Cart tags skipped if `hideCart: true` in props
+
 
 ---
 
@@ -3800,77 +3969,125 @@ Information cards for product specs, taste profiles, pairings, certifications.
 
 # Storefront Page Generation
 
-Generate high-quality Shopify landing pages using the Storefront Blueprint MCP tools.
+Generate high-quality Shopify storefront pages using the Lexsis AI MCP tools.
 
-## Generation Flow (5 Phases)
+> **Prerequisites**: Read `vibe://docs/generation-guide` and `vibe://skills/generation-protocol` first — they define the VibePage schema, CSS variable system, island integration, and visual verification step.
+
+## Generation Flow (Two-Phase)
 
 ### Phase 0 — Context Gathering (run ALL in parallel)
 
 ```
-get_workspace_details    → workspace context
-get_connected_stores     → store ID, domain
-get_brand_kit            → logo, fonts, colors, voice
-get_theme_json           → design tokens (palette, typography, effects)
-get_design_md            → brand brief + guidelines
-list_products            → product catalog for commerce islands
+get_workspace_details    → workspace ID
+get_connected_stores     → store domain
+get_brand_kit            → logo, fonts, colors, voice, border radius
+get_design_md            → brand brief + design philosophy + don'ts
+list_products            → product catalog (for commerce islands)
 get_navigation           → navbar/footer links
-search_design_library    → existing brand assets
+search_design_library    → existing brand assets (hero images, lifestyle shots)
 ```
 
-### Phase 1 — Asset Generation (parallel per section)
+All 7 calls can run in parallel. Wait for all before proceeding.
+
+### Phase 1 — Asset Preparation
 
 Decision tree per section:
-1. `search_design_library` — check existing assets first (ALWAYS)
+1. `search_design_library` — check existing assets FIRST (always)
 2. `generate_asset` — only if library has nothing suitable
 3. `edit_asset` — composite/modify if needed
-4. `view_asset` — verify result before using
+4. `view_asset` — verify result before using in page
 
-### Phase 2 — HTML Generation
+Budget: 3-5 generated assets per page max. Existing assets = free.
 
-Write VibePage JSON with:
-- Raw HTML + Tailwind CSS + CSS custom properties
-- React islands for commerce (BuyBox, CartDrawer, ProductGallery)
-- Responsive mobile-first design
-- Brand CSS variables: `--color-accent`, `--color-text`, `--color-bg`, `--font-heading`, `--font-body`
+### Phase 2A — Raw HTML Generation (No Islands)
+
+Generate complete VibePage JSON with pure HTML + Tailwind CSS:
+- Place `data-placeholder="IslandName"` divs where islands will go
+- Focus entirely on visual design: layout, typography, color, spacing, imagery
+- Apply brand CSS variables in `theme_css`
+- Use Google Fonts URLs in `head.fonts`
+- Write real copy (never Lorem Ipsum)
+- Use asset URLs from Phase 1 in `<img>` tags
+
+This renders instantly in any browser — iterate on design here.
+
+### Phase 2B — Island Mapping
+
+Replace placeholders with actual islands:
+```html
+<div data-island="BuyBox" data-props='{"product":{"title":"...","price":"$29.99","variants":[{"id":"v1","title":"Default","available":true}]}}'></div>
+```
+
+Use `vibe://schema/island/{name}` resource to get exact prop shapes for each island.
 
 ### Phase 3 — Validation
 
-Call `validate_vibe_page` — checks structure, ID uniqueness, islands, CSS/JS security.
+```
+validate_vibe_page(page_json)
+```
 
-### Phase 4 — Publish
+Fix any errors. Common issues: duplicate section IDs, invalid island names, missing required props, inline `<style>`/`<script>` tags.
 
-Call `publish_vibe_page` with `draft: true` for preview, or `draft: false` for live.
+### Phase 4 — Publish + Visual Verify
+
+```
+publish_vibe_page(slug, page, archetype, publish=false)  → preview_url
+```
+
+**Visual verification is REQUIRED before marking complete:**
+
+| Agent | How to Verify |
+|-------|--------------|
+| Claude Code | `browser_navigate(preview_url)` → `browser_take_screenshot({fullPage: true})` → review screenshot |
+| Codex | Use built-in browser to open preview_url |
+| Cursor | Open preview_url in browser, take screenshot with available tool |
+| No browser | Provide preview_url to user: "Open this to verify the page" |
+
+**Checklist:**
+- [ ] Hero visible above fold (headline + CTA without scrolling)
+- [ ] Brand colors applied (not default purple)
+- [ ] Fonts loaded (not system fallback)
+- [ ] Images rendering (not broken/placeholder)
+- [ ] Mobile layout correct (375px viewport, no horizontal scroll)
+- [ ] Islands hydrated (BuyBox shows product data, not empty div)
+- [ ] CTA contrast ≥ 4.5:1
+
+If issues → `update_page_section` → re-screenshot.
+When satisfied → `publish_page(page_id)` to go live.
 
 ## Page Type Templates
 
-**Product Landing (PDP)** — 8 sections:
-Hero → Product Showcase → Benefits → Social Proof → How It Works → FAQ → CTA → Footer
+**Product Landing (PDP)** — 8-10 sections:
+Hero (split) → Gallery → BuyBox → Benefits → Ingredients/Specs → Reviews → Related Products → FAQ → Sticky CTA → Footer
 
 **Campaign Landing** — 10 sections:
-Hero → Problem/Pain → Solution → Features → Social Proof → Comparison → Pricing → FAQ → CTA → Footer
+Hero → Problem/Pain → Solution → Key Benefits → Social Proof → How It Works → Comparison → Offer/Pricing → FAQ → CTA
 
-**Homepage** — 7 sections:
-Hero → Featured Products → Brand Story → Categories → Testimonials → Newsletter → Footer
+**Homepage** — 7-8 sections:
+Hero → Featured Products → Brand Story → Categories → Testimonials → Newsletter → Trust Bar → Footer
 
 **Collection** — 6 sections:
-Hero Banner → Filter/Sort → Product Grid → Social Proof → Newsletter → Footer
+Hero Banner → Filter/Sort → Product Grid → Promo Card → Social Proof → Footer
 
 ## Quality Bar
 
-- Mobile-first (test at 375px width)
-- Use CSS custom properties for all brand colors/fonts
-- Proper heading hierarchy (h1 → h2 → h3)
-- Islands for any commerce interaction (add to cart, checkout)
-- All images via asset tools (never hardcoded external URLs)
-- No fetch/XHR, eval, localStorage, @import, duplicate IDs, framework code
+- Mobile-first (375px viewport — test this)
+- All brand colors via `--lx-*` CSS variables (never hardcoded hex in HTML)
+- Proper heading hierarchy (single h1 in hero, h2 per section, h3 for sub-items)
+- Islands for ALL commerce interactions (add-to-cart, checkout, cart drawer)
+- All images from asset tools (never external URLs unless Shopify CDN)
+- No fetch/XHR, eval, localStorage, @import, duplicate IDs
+- Hero headline ≤ 8 words, visible without scrolling
+- Use shared keyframes (fadeUp, fadeIn, scaleIn) — don't define new @keyframes unless truly unique
 
 ## Ad-to-Page Flow
 
 When converting an ad creative to a landing page:
-1. `analyze_ad_creative` — extract headline, claims, colors, tone
-2. `match_persona_to_ad` — find target persona
-3. `get_ad_creatives` — get full creative metadata
-4. Continue with standard Phase 0-4 flow using extracted context
+1. `get_ad_creatives` — get creative metadata
+2. `analyze_ad_creative` — extract headline, claims, colors, tone, CTA
+3. `match_persona_to_ad` — identify target audience
+4. Continue with Phase 0-4 using extracted context
+5. Ensure "scent continuity" — ad headline ≈ page hero headline
 
 
 ## design-assets
@@ -3962,17 +4179,6 @@ update_theme(theme_id, {
 
 ## Design References
 
-### Capture Inspiration
-```
-capture_design_source({ url: "https://competitor.com" })
-```
-Screenshots + extracts design DNA (colors, fonts, layout style).
-
-### List Captured References
-```
-list_design_sources()
-```
-
 ### Extract from URL
 ```
 extract_brand_design({ url: "https://brand.com" })
@@ -4043,7 +4249,6 @@ Creates variant for A/B testing.
 ## Prerequisites
 
 - Store must be connected (`get_connected_stores`)
-- If no store exists, call `provision_store` first
 - Brand kit should exist for proper theming
 
 ## Post-Publish

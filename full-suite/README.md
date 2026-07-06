@@ -5,6 +5,8 @@ Every skill in one pack — all verticals, all traffic sources, all workflows. M
 ## What's Included
 
 ### Knowledge Skills (work standalone — no MCP required)
+- **generation-protocol** — expert domain knowledge
+- **cro-research** — expert domain knowledge
 - **storefront-craft** — expert domain knowledge
 - **workflow-orchestration** — expert domain knowledge
 - **conversion-psychology** — expert domain knowledge
@@ -30,12 +32,39 @@ Every skill in one pack — all verticals, all traffic sources, all workflows. M
 - **publishing** — workflow automation
 - **page-editing** — workflow automation
 - **analytics** — workflow automation
+- **generate-pdp** — workflow automation
+- **generate-landing-page** — workflow automation
+- **generate-homepage** — workflow automation
+- **generate-collection** — workflow automation
+- **generate-listicle** — workflow automation
+- **generate-bundle-page** — workflow automation
+- **generate-editorial** — workflow automation
+- **ad-to-page** — workflow automation
+- **page-redesign** — workflow automation
+- **competitor-remix** — workflow automation
+- **personalization-variant** — workflow automation
+- **ab-test-variant** — workflow automation
+- **brand-setup** — workflow automation
+- **section-library** — workflow automation
 
 ### Commands
 - `/generate-page` — Generate a complete Shopify landing page — auto-detects vertical and applies best patterns
 - `/optimize-page` — Analyze and optimize an existing page for better conversions
 - `/create-assets` — Generate brand-matched visual assets — search library first, generate if needed
 - `/run-experiment` — Set up an A/B test with a variant page and monitor results
+- `/generate-pdp` — Generate a product detail page optimized for conversions
+- `/generate-homepage` — Generate a brand homepage with navigation and collections
+- `/generate-collection` — Generate a collection/category page with filterable product grid
+- `/generate-bundle` — Generate a bundle builder page with discount tiers
+- `/generate-editorial` — Generate a magazine-style editorial page with shoppable products
+- `/generate-listicle` — Generate an SEO-optimized comparison/listicle page
+- `/convert-ad` — Convert an ad creative into a message-matched landing page
+- `/redesign-page` — Redesign an existing page while preserving SEO and performance
+- `/remix-competitor` — Rebuild a competitor page adapted to your brand
+- `/personalize-page` — Generate persona-specific variants of an existing page
+- `/ab-test` — Create a hypothesis-driven A/B test variant and set up experiment
+- `/setup-brand` — First-time brand configuration — extract design from URL, set up kit and theme
+- `/add-section` — Quick-insert a section into an existing page from the section library
 
 ## Installation
 
@@ -126,6 +155,45 @@ Generate brand-matched visual assets — search library first, generate if neede
 
 ### `/run-experiment`
 Set up an A/B test with a variant page and monitor results
+
+### `/generate-pdp`
+Generate a product detail page optimized for conversions
+
+### `/generate-homepage`
+Generate a brand homepage with navigation and collections
+
+### `/generate-collection`
+Generate a collection/category page with filterable product grid
+
+### `/generate-bundle`
+Generate a bundle builder page with discount tiers
+
+### `/generate-editorial`
+Generate a magazine-style editorial page with shoppable products
+
+### `/generate-listicle`
+Generate an SEO-optimized comparison/listicle page
+
+### `/convert-ad`
+Convert an ad creative into a message-matched landing page
+
+### `/redesign-page`
+Redesign an existing page while preserving SEO and performance
+
+### `/remix-competitor`
+Rebuild a competitor page adapted to your brand
+
+### `/personalize-page`
+Generate persona-specific variants of an existing page
+
+### `/ab-test`
+Create a hypothesis-driven A/B test variant and set up experiment
+
+### `/setup-brand`
+First-time brand configuration — extract design from URL, set up kit and theme
+
+### `/add-section`
+Quick-insert a section into an existing page from the section library
 
 
 ---
