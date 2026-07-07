@@ -1,0 +1,224 @@
+---
+name: cart-v2-management
+description: MCP Tool Reference
+---
+
+# Cart V2 Management — MCP Tool Reference
+
+How to generate, update, and manage Cart V2 configurations via MCP tools. Use these when the user asks to set up, modify, or configure their cart drawer behavior.
+
+---
+
+## Architecture
+
+```
+pcx_store_config (store-level):
+├── cart_mode          — "drawer-right" | "drawer-left" | "bottom-sheet" | "modal" | "fullscreen"
+├── cart_section_html  — The full DrawerShell HTML (global cart for all pages)
+├── cart_rules[]       — Conditional show/hide rules (evaluated at runtime)
+└── commerce_config    — Settings (threshold, currency, width, animation, checkout_mode)
+
+pcx_page.head (page-level override):
+├── use_cart_v2: true  — Flag to use V2 instead of auto-injected V1
+└── cart_rules[]       — Page-specific rule overrides (merge with store-level)
+```
+
+---
+
+## Tools
+
+### `generate_cart_v2`
+
+Generate the initial `cart_section_html` for a store. Call ONCE when Cart V2 is first enabled.
+
+**API:** `PATCH /api/v1/storefront/stores/{store_id}/config`
+
+**Payload pattern:**
+```json
+{
+  "cart_mode": "drawer-right",
+  "cart_section_html": "<div data-island=\"DrawerShell\" ...>...</div>",
+  "commerce_config": {
+    "free_shipping_threshold": 9900,
+    "currency": "INR",
+    "cart_style": { "mode": "drawer-right", "responsive": { "mobile": "bottom-sheet" }, "width": "420px", "animate": "spring" },
+    "checkout_mode": "standard"
+  }
+}
+```
+
+**Template for cart_section_html:**
+```html
+<div data-island="DrawerShell" data-island-container data-props='{"mode":"{{MODE}}","responsive":{"mobile":"{{MOBILE_MODE}}"},"width":"{{WIDTH}}","animate":"{{ANIMATE}}","trigger":"cart:open"}'>
+  <!-- Always visible -->
+  <div data-island="CartProgressBar" data-props='{"threshold":{{THRESHOLD}}}'></div>
+  <div data-island="CartLines" data-props='{"showQuantity":true,"showRemove":true}'></div>
+  <div data-island="CartSummary" data-props='{}'></div>
+  <div data-island="CartCheckoutButton" data-props='{"text":"Checkout"}'></div>
+
+  <!-- Conditional elements (hidden by default, rules show them) -->
+  <div id="cart-discount" class="hidden">
+    <div data-island="CartDiscountInput" data-props='{}'></div>
+  </div>
+</div>
+```
+
+---
+
+### `update_cart_section`
+
+Add or remove elements from `cart_section_html`. Always pair with a rule when adding hidden elements.
+
+**Adding an upsell block:**
+1. Parse current `cart_section_html`
+2. Insert before `CartSummary`:
+```html
+<div id="upsell-{{ID}}" class="hidden">
+  <div data-island="ProductCard" data-props='{"productId":"{{SHOPIFY_GID}}"}'></div>
+</div>
+```
+3. Add corresponding rule (see `update_cart_rules`)
+4. Save via PATCH
+
+**Removing an element:**
+1. Parse current `cart_section_html`
+2. Remove the `<div id="{{ID}}">` block
+3. Also remove the matching rule from `cart_rules`
+4. Save via PATCH
+
+---
+
+### `update_cart_rules`
+
+Add, modify, or delete rules in `cart_rules[]`.
+
+**Rule structure:**
+```json
+{
+  "id": "upsell-vitc-serum",
+  "conditions": {
+    "op": "AND",
+    "clauses": [
+      { "field": "cart.has_product_id", "op": "eq", "value": "gid://shopify/Product/123" }
+    ]
+  },
+  "action": { "type": "show", "target": "#upsell-vitc-serum" },
+  "priority": 10
+}
+```
+
+**IMPORTANT: Always use product GIDs, not string types/tags.**
+
+| Condition Field | Type | Use |
+|----------------|------|-----|
+| `cart.has_product_id` | string (GID) | Specific product in cart |
+| `cart.has_variant_id` | string (GID) | Specific variant in cart |
+| `cart.subtotal` | number (cents) | Cart value threshold |
+| `cart.item_count` | number | Number of unique items |
+| `cart.total_quantity` | number | Total quantity across all items |
+| `cart.discount_applied` | boolean | Any discount active |
+| `device.type` | "mobile" / "desktop" | Device targeting |
+
+**Action types:**
+| Type | Effect | Target |
+|------|--------|--------|
+| `show` | Remove `hidden` class | CSS selector (e.g., `#upsell-vitc-serum`) |
+| `hide` | Add `hidden` class | CSS selector |
+| `swap_props` | Merge new props into island | `[data-island="IslandName"]` |
+| `add_class` | Add CSS class | CSS selector |
+
+---
+
+### `set_page_cart_overrides`
+
+Write page-level rule overrides. Use when a specific landing page needs different cart behavior.
+
+**API:** `PATCH /api/v1/storefront/pages/{page_id}`
+
+**Payload:**
+```json
+{
+  "head": {
+    "use_cart_v2": true,
+    "cart_rules": [
+      { "id": "upsell-skincare", "disabled": true },
+      { "id": "page-summer-offer", "conditions": {...}, "action": {...} }
+    ]
+  }
+}
+```
+
+**Merge behavior:**
+- Page rules with same `id` as store rules → override them
+- `{ "id": "x", "disabled": true }` → suppresses store-level rule on this page
+- New IDs → appended (active only on this page)
+
+---
+
+## Common Patterns
+
+### Pattern 1: Upsell for specific product
+
+User says: "When someone adds the Vitamin C Serum, recommend the Moisturizer"
+
+1. Add hidden block to `cart_section_html`:
+```html
+<div id="upsell-vitc" class="hidden">
+  <p class="text-xs font-medium px-4 pt-3">Complete your routine</p>
+  <div data-island="ProductCard" data-props='{"productId":"gid://shopify/Product/789"}'></div>
+</div>
+```
+
+2. Add rule:
+```json
+{
+  "id": "upsell-vitc",
+  "conditions": { "op": "AND", "clauses": [
+    { "field": "cart.has_product_id", "op": "eq", "value": "gid://shopify/Product/123" }
+  ]},
+  "action": { "type": "show", "target": "#upsell-vitc" }
+}
+```
+
+### Pattern 2: Free shipping progress
+
+Already in the cart by default (CartProgressBar island). Rule shows it when below threshold:
+```json
+{
+  "id": "free-shipping-bar",
+  "conditions": { "op": "AND", "clauses": [
+    { "field": "cart.subtotal", "op": "lt", "value": 9900 }
+  ]},
+  "action": { "type": "show", "target": "#free-shipping-bar" }
+}
+```
+
+### Pattern 3: Disable upsell on specific page
+
+Landing page for haircare should not show the skincare upsell:
+```json
+// In page.head.cart_rules:
+{ "id": "upsell-skincare", "disabled": true }
+```
+
+### Pattern 4: Mobile-only discount field
+
+```json
+{
+  "id": "mobile-discount",
+  "conditions": { "op": "AND", "clauses": [
+    { "field": "device.type", "op": "eq", "value": "mobile" }
+  ]},
+  "action": { "type": "show", "target": "#cart-discount" }
+}
+```
+
+---
+
+## Validation Rules
+
+1. Every hidden element in `cart_section_html` MUST have a corresponding rule in `cart_rules` — otherwise it's permanently hidden (dead code).
+2. Every rule's `target` MUST match an `id` attribute in `cart_section_html` — otherwise the rule does nothing.
+3. Use product GIDs (`gid://shopify/Product/XXX`), never string labels for product matching.
+4. Subtotal values are in **cents** (e.g., $50 = 5000, ₹99 = 9900).
+5. Rule `id` should match the element `id` it targets (convention, not enforced).

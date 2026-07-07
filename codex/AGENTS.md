@@ -50,6 +50,8 @@ Connect the Lexsis AI MCP server for full tool access:
 - **ab-test-variant** (operational) — A/B Test Variant (Hypothesis-Driven Experiment)
 - **brand-setup** (operational) — First-Time Brand Setup
 - **section-library** (operational) — Quick Section Insert
+- **cart-composition** (operational) — DrawerShell + Atomic Islands
+- **cart-v2-management** (operational) — MCP Tool Reference
 
 ## Commands
 
@@ -70,3 +72,4 @@ Connect the Lexsis AI MCP server for full tool access:
 - `ab-test` — Create a hypothesis-driven A/B test variant and set up experiment
 - `setup-brand` — First-time brand configuration — extract design from URL, set up kit and theme
 - `add-section` — Quick-insert a section into an existing page from the section library
+- `setup-cart` — Generate or modify the Cart V2 drawer — add upsells, progress bars, conditional rules
