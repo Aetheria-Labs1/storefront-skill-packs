@@ -56,6 +56,8 @@ This skill pack works best with the Lexsis AI MCP server connected:
 - **ab-test-variant** — A/B Test Variant (Hypothesis-Driven Experiment)
 - **brand-setup** — First-Time Brand Setup
 - **section-library** — Quick Section Insert
+- **cart-composition** — DrawerShell + Atomic Islands
+- **cart-v2-management** — MCP Tool Reference
 
 ## Commands
 
@@ -77,3 +79,4 @@ When building storefront pages, follow these workflows:
 - **ab-test**: Create a hypothesis-driven A/B test variant and set up experiment (uses: conversion-psychology, analytics, ab-test-variant)
 - **setup-brand**: First-time brand configuration — extract design from URL, set up kit and theme (uses: visual-craft, brand-setup)
 - **add-section**: Quick-insert a section into an existing page from the section library (uses: island-patterns, section-library, page-editing)
+- **setup-cart**: Generate or modify the Cart V2 drawer — add upsells, progress bars, conditional rules (uses: cart-composition, cart-v2-management)
