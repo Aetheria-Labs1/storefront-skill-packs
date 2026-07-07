@@ -7341,17 +7341,33 @@ How to compose a rich, customizable cart drawer using Cart V2 atomic islands. Lo
 
 ## Required Structure
 
-Every Cart V2 page MUST have:
+Cart V2 pages set `head.use_cart_v2: true` ONLY — no cart section in the page sections array.
 
+The cart drawer lives in **store config** (`pcx_store_config.cart_section_html`), shared across all pages. This means:
+
+- One cart configuration applies to ALL pages in the store
+- The renderer automatically injects the cart HTML after page sections at render time
+- You manage the cart using `get_cart_config` and `update_cart_config` MCP tools
+- Pages only need the flag in their head — the cart HTML is NOT part of the page blueprint
+
+**Page head requirement:**
+```jsonc
+{
+  "head": {
+    "title": "...",
+    "use_cart_v2": true
+  }
+}
+```
+
+**Store config structure** (managed via MCP tools):
 ```html
-<section class="hidden">
-  <div data-island="DrawerShell" data-island-container data-props='{"mode":"drawer-right","responsive":{"mobile":"bottom-sheet"},"trigger":"cart:open"}'>
-    <!-- Your custom layout here -->
-    <div data-island="CartLines" data-props='{"showQuantity":true,"showRemove":true}'></div>
-    <div data-island="CartSummary" data-props='{}'></div>
-    <div data-island="CartCheckoutButton" data-props='{"text":"Checkout"}'></div>
-  </div>
-</section>
+<div data-island="DrawerShell" data-island-container data-props='{"mode":"drawer-right","responsive":{"mobile":"bottom-sheet"},"trigger":"cart:open"}'>
+  <!-- Your custom layout here -->
+  <div data-island="CartLines" data-props='{"showQuantity":true,"showRemove":true}'></div>
+  <div data-island="CartSummary" data-props='{}'></div>
+  <div data-island="CartCheckoutButton" data-props='{"text":"Checkout"}'></div>
+</div>
 ```
 
 **Minimum required islands inside DrawerShell:**
@@ -7605,7 +7621,40 @@ pcx_page.head (page-level override):
 
 ---
 
+## Workflow (ALWAYS follow this order)
+
+1. **READ** — Call `get_cart_config` to see current state (cart_section_html, cart_rules, commerce_config)
+2. **PARSE** — Understand what elements exist, what rules are active
+3. **MODIFY** — Add/remove elements or rules as needed
+4. **VALIDATE** — Call `validate_cart_rules` if rules changed
+5. **WRITE** — Call `update_cart_config` to persist changes
+
+**NEVER** write cart HTML directly into page sections. **NEVER** inline a DrawerShell in the sections array.
+The page only needs `head.use_cart_v2: true` — the renderer handles injection from store config.
+
+---
+
 ## Tools
+
+### `get_cart_config`
+
+Read the current cart configuration for a store. ALWAYS call this before making modifications.
+
+**Input:** `workspace_id` (optional — resolved automatically)
+
+**Returns:**
+```json
+{
+  "cart_mode": "drawer-right",
+  "cart_section_html": "<div data-island=\"DrawerShell\" ...>...</div>",
+  "cart_rules": [...],
+  "commerce_config": {...}
+}
+```
+
+Returns `null` for `cart_section_html` if cart has not been generated yet.
+
+---
 
 ### `generate_cart_v2`
 

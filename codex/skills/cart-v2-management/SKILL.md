@@ -25,7 +25,40 @@ pcx_page.head (page-level override):
 
 ---
 
+## Workflow (ALWAYS follow this order)
+
+1. **READ** — Call `get_cart_config` to see current state (cart_section_html, cart_rules, commerce_config)
+2. **PARSE** — Understand what elements exist, what rules are active
+3. **MODIFY** — Add/remove elements or rules as needed
+4. **VALIDATE** — Call `validate_cart_rules` if rules changed
+5. **WRITE** — Call `update_cart_config` to persist changes
+
+**NEVER** write cart HTML directly into page sections. **NEVER** inline a DrawerShell in the sections array.
+The page only needs `head.use_cart_v2: true` — the renderer handles injection from store config.
+
+---
+
 ## Tools
+
+### `get_cart_config`
+
+Read the current cart configuration for a store. ALWAYS call this before making modifications.
+
+**Input:** `workspace_id` (optional — resolved automatically)
+
+**Returns:**
+```json
+{
+  "cart_mode": "drawer-right",
+  "cart_section_html": "<div data-island=\"DrawerShell\" ...>...</div>",
+  "cart_rules": [...],
+  "commerce_config": {...}
+}
+```
+
+Returns `null` for `cart_section_html` if cart has not been generated yet.
+
+---
 
 ### `generate_cart_v2`
 

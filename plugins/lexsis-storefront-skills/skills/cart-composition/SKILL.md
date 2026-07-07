@@ -21,17 +21,33 @@ How to compose a rich, customizable cart drawer using Cart V2 atomic islands. Lo
 
 ## Required Structure
 
-Every Cart V2 page MUST have:
+Cart V2 pages set `head.use_cart_v2: true` ONLY — no cart section in the page sections array.
 
+The cart drawer lives in **store config** (`pcx_store_config.cart_section_html`), shared across all pages. This means:
+
+- One cart configuration applies to ALL pages in the store
+- The renderer automatically injects the cart HTML after page sections at render time
+- You manage the cart using `get_cart_config` and `update_cart_config` MCP tools
+- Pages only need the flag in their head — the cart HTML is NOT part of the page blueprint
+
+**Page head requirement:**
+```jsonc
+{
+  "head": {
+    "title": "...",
+    "use_cart_v2": true
+  }
+}
+```
+
+**Store config structure** (managed via MCP tools):
 ```html
-<section class="hidden">
-  <div data-island="DrawerShell" data-island-container data-props='{"mode":"drawer-right","responsive":{"mobile":"bottom-sheet"},"trigger":"cart:open"}'>
-    <!-- Your custom layout here -->
-    <div data-island="CartLines" data-props='{"showQuantity":true,"showRemove":true}'></div>
-    <div data-island="CartSummary" data-props='{}'></div>
-    <div data-island="CartCheckoutButton" data-props='{"text":"Checkout"}'></div>
-  </div>
-</section>
+<div data-island="DrawerShell" data-island-container data-props='{"mode":"drawer-right","responsive":{"mobile":"bottom-sheet"},"trigger":"cart:open"}'>
+  <!-- Your custom layout here -->
+  <div data-island="CartLines" data-props='{"showQuantity":true,"showRemove":true}'></div>
+  <div data-island="CartSummary" data-props='{}'></div>
+  <div data-island="CartCheckoutButton" data-props='{"text":"Checkout"}'></div>
+</div>
 ```
 
 **Minimum required islands inside DrawerShell:**
