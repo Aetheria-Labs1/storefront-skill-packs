@@ -1,257 +1,114 @@
 ---
 name: cart-v2-management
-description: MCP Tool Reference
+description: MCP Workflow
 ---
 
-# Cart V2 Management — MCP Tool Reference
+# Cart V2 Management — MCP Workflow
 
-How to generate, update, and manage Cart V2 configurations via MCP tools. Use these when the user asks to set up, modify, or configure their cart drawer behavior.
-
----
-
-## Architecture
-
-```
-pcx_store_config (store-level):
-├── cart_mode          — "drawer-right" | "drawer-left" | "bottom-sheet" | "modal" | "fullscreen"
-├── cart_section_html  — The full DrawerShell HTML (global cart for all pages)
-├── cart_rules[]       — Conditional show/hide rules (evaluated at runtime)
-└── commerce_config    — Settings (threshold, currency, width, animation, checkout_mode)
-
-pcx_page.head (page-level override):
-├── use_cart_v2: true  — Flag to use V2 instead of auto-injected V1
-└── cart_rules[]       — Page-specific rule overrides (merge with store-level)
-```
+How to read, modify, and validate store-level cart configuration using MCP tools.
 
 ---
 
-## Workflow (ALWAYS follow this order)
+## Store Config Shape
 
-1. **READ** — Call `get_cart_config` to see current state (cart_section_html, cart_rules, commerce_config)
-2. **PARSE** — Understand what elements exist, what rules are active
-3. **MODIFY** — Add/remove elements or rules as needed
-4. **VALIDATE** — Call `validate_cart_rules` if rules changed
-5. **WRITE** — Call `update_cart_config` to persist changes
+The actual API response from `get_cart_config`:
 
-**NEVER** write cart HTML directly into page sections. **NEVER** inline a DrawerShell in the sections array.
-The page only needs `head.use_cart_v2: true` — the renderer handles injection from store config.
-
----
-
-## Tools
-
-### `get_cart_config`
-
-Read the current cart configuration for a store. ALWAYS call this before making modifications.
-
-**Input:** `workspace_id` (optional — resolved automatically)
-
-**Returns:**
 ```json
 {
+  "id": "uuid",
+  "store_id": "uuid",
   "cart_mode": "drawer-right",
-  "cart_section_html": "<div data-island=\"DrawerShell\" ...>...</div>",
+  "cart_sections": [{"id": "cart-drawer", "html": "...", "css": "...", "js": "..."}],
   "cart_rules": [...],
-  "commerce_config": {...}
-}
-```
-
-Returns `null` for `cart_section_html` if cart has not been generated yet.
-
----
-
-### `generate_cart_v2`
-
-Generate the initial `cart_section_html` for a store. Call ONCE when Cart V2 is first enabled.
-
-**API:** `PATCH /api/v1/storefront/stores/{store_id}/config`
-
-**Payload pattern:**
-```json
-{
-  "cart_mode": "drawer-right",
-  "cart_section_html": "<div data-island=\"DrawerShell\" ...>...</div>",
   "commerce_config": {
-    "free_shipping_threshold": 9900,
-    "currency": "INR",
-    "cart_style": { "mode": "drawer-right", "responsive": { "mobile": "bottom-sheet" }, "width": "420px", "animate": "spring" },
+    "free_shipping_threshold": 7500,
+    "currency": "USD",
+    "upsells": [{"trigger_product_ids": ["gid://shopify/Product/123"], "recommend_product_ids": ["gid://shopify/Product/789"], "label": "Complete your routine"}],
+    "cart_style": {"mode": "drawer-right", "responsive": {"mobile": "bottom-sheet"}, "width": "420px", "animate": "spring"},
     "checkout_mode": "standard"
   }
 }
 ```
 
-**Template for cart_section_html:**
-```html
-<div data-island="DrawerShell" data-island-container data-props='{"mode":"{{MODE}}","responsive":{"mobile":"{{MOBILE_MODE}}"},"width":"{{WIDTH}}","animate":"{{ANIMATE}}","trigger":"cart:open"}'>
-  <!-- Always visible -->
-  <div data-island="CartProgressBar" data-props='{"threshold":{{THRESHOLD}}}'></div>
-  <div data-island="CartLines" data-props='{"showQuantity":true,"showRemove":true}'></div>
-  <div data-island="CartSummary" data-props='{}'></div>
-  <div data-island="CartCheckoutButton" data-props='{"text":"Checkout"}'></div>
+---
 
-  <!-- Conditional elements (hidden by default, rules show them) -->
-  <div id="cart-discount" class="hidden">
-    <div data-island="CartDiscountInput" data-props='{}'></div>
-  </div>
-</div>
-```
+## Available Tools (ONLY these 3)
+
+### `get_cart_config`
+
+Read current config. **Always call first.**
+
+**Params:** `store_id` (UUID)
 
 ---
 
-### `update_cart_section`
+### `update_cart_config`
 
-Add or remove elements from `cart_section_html`. Always pair with a rule when adding hidden elements.
+Partial update. Validates rules before persisting.
 
-**Adding an upsell block:**
-1. Parse current `cart_section_html`
-2. Insert before `CartSummary`:
-```html
-<div id="upsell-{{ID}}" class="hidden">
-  <div data-island="ProductCard" data-props='{"productId":"{{SHOPIFY_GID}}"}'></div>
-</div>
-```
-3. Add corresponding rule (see `update_cart_rules`)
-4. Save via PATCH
-
-**Removing an element:**
-1. Parse current `cart_section_html`
-2. Remove the `<div id="{{ID}}">` block
-3. Also remove the matching rule from `cart_rules`
-4. Save via PATCH
+**Params:**
+- `store_id` (UUID, required)
+- `cart_mode` (optional)
+- `cart_sections` (optional, array of `{id, html, css?, js?}`)
+- `cart_rules` (optional, array)
+- `commerce_config` (optional, object)
 
 ---
 
-### `update_cart_rules`
+### `validate_cart_rules`
 
-Add, modify, or delete rules in `cart_rules[]`.
+Dry-run validation. Does not persist.
 
-**Rule structure:**
-```json
-{
-  "id": "upsell-vitc-serum",
-  "conditions": {
-    "op": "AND",
-    "clauses": [
-      { "field": "cart.has_product_id", "op": "eq", "value": "gid://shopify/Product/123" }
-    ]
-  },
-  "action": { "type": "show", "target": "#upsell-vitc-serum" },
-  "priority": 10
-}
-```
+**Params:**
+- `store_id` (UUID)
+- `rules` (array)
 
-**IMPORTANT: Always use product GIDs, not string types/tags.**
-
-| Condition Field | Type | Use |
-|----------------|------|-----|
-| `cart.has_product_id` | string (GID) | Specific product in cart |
-| `cart.has_variant_id` | string (GID) | Specific variant in cart |
-| `cart.subtotal` | number (cents) | Cart value threshold |
-| `cart.item_count` | number | Number of unique items |
-| `cart.total_quantity` | number | Total quantity across all items |
-| `cart.discount_applied` | boolean | Any discount active |
-| `device.type` | "mobile" / "desktop" | Device targeting |
-
-**Action types:**
-| Type | Effect | Target |
-|------|--------|--------|
-| `show` | Remove `hidden` class | CSS selector (e.g., `#upsell-vitc-serum`) |
-| `hide` | Add `hidden` class | CSS selector |
-| `swap_props` | Merge new props into island | `[data-island="IslandName"]` |
-| `add_class` | Add CSS class | CSS selector |
+**Returns:** `{valid, errors[]}`
 
 ---
 
-### `set_page_cart_overrides`
+## Reactive Workflow
 
-Write page-level rule overrides. Use when a specific landing page needs different cart behavior.
-
-**API:** `PATCH /api/v1/storefront/pages/{page_id}`
-
-**Payload:**
-```json
-{
-  "head": {
-    "use_cart_v2": true,
-    "cart_rules": [
-      { "id": "upsell-skincare", "disabled": true },
-      { "id": "page-summer-offer", "conditions": {...}, "action": {...} }
-    ]
-  }
-}
-```
-
-**Merge behavior:**
-- Page rules with same `id` as store rules → override them
-- `{ "id": "x", "disabled": true }` → suppresses store-level rule on this page
-- New IDs → appended (active only on this page)
+1. Call `get_cart_config` to read current state
+2. Modify the relevant field (`commerce_config` for thresholds/upsells, `cart_sections` for HTML, `cart_rules` for conditional logic)
+3. Call `update_cart_config` with only the changed fields
+4. Islands react automatically — CartProgressBar reads `free_shipping_threshold`, CartCrossSell reads `upsells`
 
 ---
 
-## Common Patterns
+## Common Operations
 
-### Pattern 1: Upsell for specific product
+### Add upsell
 
-User says: "When someone adds the Vitamin C Serum, recommend the Moisturizer"
-
-1. Add hidden block to `cart_section_html`:
-```html
-<div id="upsell-vitc" class="hidden">
-  <p class="text-xs font-medium px-4 pt-3">Complete your routine</p>
-  <div data-island="ProductCard" data-props='{"productId":"gid://shopify/Product/789"}'></div>
-</div>
-```
-
-2. Add rule:
+1. Read config
+2. Append to `commerce_config.upsells`:
 ```json
-{
-  "id": "upsell-vitc",
-  "conditions": { "op": "AND", "clauses": [
-    { "field": "cart.has_product_id", "op": "eq", "value": "gid://shopify/Product/123" }
-  ]},
-  "action": { "type": "show", "target": "#upsell-vitc" }
-}
+{"trigger_product_ids": ["gid://shopify/Product/123"], "recommend_product_ids": ["gid://shopify/Product/789"], "label": "Complete your routine"}
 ```
+3. Call `update_cart_config` with updated `commerce_config`
 
-### Pattern 2: Free shipping progress
+### Change threshold
 
-Already in the cart by default (CartProgressBar island). Rule shows it when below threshold:
-```json
-{
-  "id": "free-shipping-bar",
-  "conditions": { "op": "AND", "clauses": [
-    { "field": "cart.subtotal", "op": "lt", "value": 9900 }
-  ]},
-  "action": { "type": "show", "target": "#free-shipping-bar" }
-}
-```
+1. Read config
+2. Set `commerce_config.free_shipping_threshold` to new value (cents)
+3. Call `update_cart_config` with updated `commerce_config`
 
-### Pattern 3: Disable upsell on specific page
+### Add rule
 
-Landing page for haircare should not show the skincare upsell:
-```json
-// In page.head.cart_rules:
-{ "id": "upsell-skincare", "disabled": true }
-```
+1. Read config
+2. Append to `cart_rules`
+3. Validate first via `validate_cart_rules`
+4. Call `update_cart_config` with updated `cart_rules`
 
-### Pattern 4: Mobile-only discount field
+### Change mode
 
-```json
-{
-  "id": "mobile-discount",
-  "conditions": { "op": "AND", "clauses": [
-    { "field": "device.type", "op": "eq", "value": "mobile" }
-  ]},
-  "action": { "type": "show", "target": "#cart-discount" }
-}
-```
+Call `update_cart_config` with `cart_mode: "bottom-sheet"` (or other valid mode).
 
 ---
 
-## Validation Rules
+## Important Notes
 
-1. Every hidden element in `cart_section_html` MUST have a corresponding rule in `cart_rules` — otherwise it's permanently hidden (dead code).
-2. Every rule's `target` MUST match an `id` attribute in `cart_section_html` — otherwise the rule does nothing.
-3. Use product GIDs (`gid://shopify/Product/XXX`), never string labels for product matching.
-4. Subtotal values are in **cents** (e.g., $50 = 5000, ₹99 = 9900).
-5. Rule `id` should match the element `id` it targets (convention, not enforced).
+- `cart_sections` is a JSONB array (not a string) — same structure as page sections
+- Product IDs in upsells must be Shopify GIDs (`gid://shopify/Product/XXX`)
+- Islands are self-managing: CartCrossSell shows/hides based on cart contents matching `trigger_product_ids`
+- No need to regenerate HTML when changing `commerce_config` — islands read it live

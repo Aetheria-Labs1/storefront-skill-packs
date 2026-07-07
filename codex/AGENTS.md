@@ -51,7 +51,7 @@ Connect the Lexsis AI MCP server for full tool access:
 - **brand-setup** (operational) — First-Time Brand Setup
 - **section-library** (operational) — Quick Section Insert
 - **cart-composition** (operational) — DrawerShell + Atomic Islands
-- **cart-v2-management** (operational) — MCP Tool Reference
+- **cart-v2-management** (operational) — MCP Workflow
 
 ## Commands
 
