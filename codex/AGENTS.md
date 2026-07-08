@@ -1,6 +1,6 @@
 # Lexsis AI — Core Skills
 
-Foundation knowledge + all operational workflows. Install this first — works for any vertical.
+AI-powered Shopify storefront builder. 2 agents + 6 commands for page generation, CRO optimization, and publishing.
 
 ## MCP Server
 
@@ -26,9 +26,6 @@ Connect the Lexsis AI MCP server for full tool access:
 - **workflow-orchestration** (knowledge) — Execution Engine
 - **conversion-psychology** (knowledge) — Storefront Design Intelligence
 - **visual-craft** (knowledge) — Typography, Spacing, Color & Polish
-- **animation-system** (knowledge) — Vibe-Code Reference
-- **design-enrichment** (knowledge) — AI Image Generation & Compositing
-- **premium-patterns** (knowledge) — High-Converting Section Templates
 - **island-patterns** (knowledge) — Wrapper HTML & Combination Recipes
 - **qa-recipe** (knowledge) — QA Recipe
 - **page-generation** (operational) — Storefront Page Generation
@@ -48,28 +45,15 @@ Connect the Lexsis AI MCP server for full tool access:
 - **competitor-remix** (operational) — Competitor Remix (Rebuild from Reference URL)
 - **personalization-variant** (operational) — Personalization Variant (Persona-Specific Page Versions)
 - **ab-test-variant** (operational) — A/B Test Variant (Hypothesis-Driven Experiment)
-- **brand-setup** (operational) — First-Time Brand Setup
 - **section-library** (operational) — Quick Section Insert
 - **cart-composition** (operational) — DrawerShell + Atomic Islands
 - **cart-v2-management** (operational) — MCP Workflow
 
 ## Commands
 
-- `generate-page` — Generate a complete Shopify landing page — auto-detects vertical and applies best patterns
-- `optimize-page` — Analyze and optimize an existing page for better conversions
-- `create-assets` — Generate brand-matched visual assets — search library first, generate if needed
-- `run-experiment` — Set up an A/B test with a variant page and monitor results
-- `generate-pdp` — Generate a product detail page optimized for conversions
-- `generate-homepage` — Generate a brand homepage with navigation and collections
-- `generate-collection` — Generate a collection/category page with filterable product grid
-- `generate-bundle` — Generate a bundle builder page with discount tiers
-- `generate-editorial` — Generate a magazine-style editorial page with shoppable products
-- `generate-listicle` — Generate an SEO-optimized comparison/listicle page
-- `convert-ad` — Convert an ad creative into a message-matched landing page
-- `redesign-page` — Redesign an existing page while preserving SEO and performance
-- `remix-competitor` — Rebuild a competitor page adapted to your brand
-- `personalize-page` — Generate persona-specific variants of an existing page
-- `ab-test` — Create a hypothesis-driven A/B test variant and set up experiment
-- `setup-brand` — First-time brand configuration — extract design from URL, set up kit and theme
-- `add-section` — Quick-insert a section into an existing page from the section library
-- `setup-cart` — Generate or modify the Cart V2 drawer — add upsells, progress bars, conditional rules
+- `generate` — Generate a complete Shopify storefront page — auto-detects page type (landing, PDP, collection, homepage, editorial, listicle, bundle) and applies conversion-optimized patterns
+- `optimize` — CRO-optimize an existing page — analyzes conversion weaknesses and applies fixes (redesign sections, add trust signals, fix CTAs, improve mobile UX)
+- `remix` — Rebuild a competitor page or ad creative adapted to your brand — extracts structure and conversion patterns, regenerates with your products and design tokens
+- `experiment` — Set up A/B tests, personalization variants, and monitor experiment results — hypothesis-driven testing with statistical significance tracking
+- `cart` — Configure the Cart V2 drawer — add upsells, progress bars, conditional rules, announcement banners, and checkout customization
+- `publish` — QA check and publish a page — validates structure, verifies islands, checks mobile rendering, then publishes live or to Shopify

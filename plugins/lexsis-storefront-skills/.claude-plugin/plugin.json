@@ -1,7 +1,7 @@
 {
   "name": "lexsis-storefront-skills",
-  "description": "Foundation knowledge + all operational workflows. Install this first — works for any vertical.",
-  "version": "2.3.0",
+  "description": "AI-powered Shopify storefront builder. 2 agents + 6 commands for page generation, CRO optimization, and publishing.",
+  "version": "3.0.0",
   "author": {
     "name": "Aetheria Labs",
     "email": "hello@trylexsis.com"
