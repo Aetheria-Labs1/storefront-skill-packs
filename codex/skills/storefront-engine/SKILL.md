@@ -1,30 +1,19 @@
 ---
-description: Lexsis AI Storefront Builder — orchestrator for page generation, CRO optimization, and publishing
-globs: ["**/pages/**", "**/storefront/**", "**/landing/**"]
-alwaysApply: true
+name: storefront-engine
+description: Core orchestrator for Lexsis AI storefront page generation. Routes requests to the correct workflow, manages MCP tool sequencing, and loads reference knowledge on demand.
 ---
 
-# Lexsis AI — Core Skills
+# Storefront Engine — Core Orchestrator
 
-AI-powered Shopify storefront builder. 2 agents + 6 commands for page generation, CRO optimization, and publishing.
+This is the routing and orchestration layer for all Lexsis AI storefront operations.
 
-## MCP Server
+## How This Works
 
-Connect the Lexsis AI MCP server:
+1. **Commands** (generate, optimize, remix, experiment, cart, publish) use this skill
+2. **Reference files** in `reference/` contain deep knowledge — read ONLY what you need
+3. Use the Lexsis AI MCP tools for all storefront operations
 
-```json
-{
-  "mcpServers": {
-    "lexsis-ai": {
-      "type": "http",
-      "url": "https://mcp.trylexsis.com/mcp",
-      "headers": { "Authorization": "Bearer <your-api-key>" }
-    }
-  }
-}
-```
-
-## Workflows
+---
 
 # Workflow Orchestration — Execution Engine
 
@@ -270,64 +259,40 @@ get_credits_balance → check cost → warn if insufficient → proceed or abort
 Hand-authored VibePage JSON persisted via `publish_vibe_page` still costs credits (it's the publish action, not the AI generation, that bills). Draft previews (`draft: true`) also consume credits.
 
 
-## Commands
-
-### generate
-Generate a complete Shopify storefront page — auto-detects page type (landing, PDP, collection, homepage, editorial, listicle, bundle) and applies conversion-optimized patterns
-Uses: storefront-craft, workflow-orchestration, conversion-psychology, page-generation, island-patterns
-
-### optimize
-CRO-optimize an existing page — analyzes conversion weaknesses and applies fixes (redesign sections, add trust signals, fix CTAs, improve mobile UX)
-Uses: conversion-psychology, cro-research, page-editing, page-redesign
-
-### remix
-Rebuild a competitor page or ad creative adapted to your brand — extracts structure and conversion patterns, regenerates with your products and design tokens
-Uses: storefront-craft, visual-craft, competitor-remix, ad-to-page
-
-### experiment
-Set up A/B tests, personalization variants, and monitor experiment results — hypothesis-driven testing with statistical significance tracking
-Uses: conversion-psychology, ab-test-variant, personalization-variant, analytics
-
-### cart
-Configure the Cart V2 drawer — add upsells, progress bars, conditional rules, announcement banners, and checkout customization
-Uses: cart-composition, cart-v2-management
-
-### publish
-QA check and publish a page — validates structure, verifies islands, checks mobile rendering, then publishes live or to Shopify
-Uses: qa-recipe, publishing
+---
 
 ## Reference Files
 
-Deep knowledge lives in `reference/` alongside this rule. Read the relevant file when needed — do NOT load all at once.
+Read `reference/{name}.md` when you need specific knowledge. Do NOT load all at once.
 
-### Knowledge
-- `reference/generation-protocol.md` — How Pages Are Built
-- `reference/cro-research.md` — 2026 Landing Page Best Practices
-- `reference/storefront-craft.md` — Start Here
-- `reference/workflow-orchestration.md` — Execution Engine
-- `reference/conversion-psychology.md` — Storefront Design Intelligence
-- `reference/visual-craft.md` — Typography, Spacing, Color & Polish
-- `reference/island-patterns.md` — Wrapper HTML & Combination Recipes
-- `reference/qa-recipe.md` — QA Recipe
+### Knowledge (domain expertise)
+- **generation-protocol.md** — How Pages Are Built
+- **cro-research.md** — 2026 Landing Page Best Practices
+- **storefront-craft.md** — Start Here
+- **workflow-orchestration.md** — Execution Engine
+- **conversion-psychology.md** — Storefront Design Intelligence
+- **visual-craft.md** — Typography, Spacing, Color & Polish
+- **island-patterns.md** — Wrapper HTML & Combination Recipes
+- **qa-recipe.md** — QA Recipe
 
-### Operational
-- `reference/page-generation.md` — Storefront Page Generation
-- `reference/design-assets.md` — Design Assets & Brand Management
-- `reference/publishing.md` — Storefront Publishing & Lifecycle
-- `reference/page-editing.md` — Storefront Page Editing
-- `reference/analytics.md` — Storefront Analytics & Experiments
-- `reference/generate-pdp.md` — Product Detail Page (PDP) Generation
-- `reference/generate-landing-page.md` — Campaign / Ad Landing Page Generation
-- `reference/generate-homepage.md` — Brand Homepage Generation
-- `reference/generate-collection.md` — Collection / Category Page Generation
-- `reference/generate-listicle.md` — SEO Listicle / Comparison Page Generation
-- `reference/generate-bundle-page.md` — Bundle Builder Page Generation
-- `reference/generate-editorial.md` — Editorial / Magazine-Style Page Generation
-- `reference/ad-to-page.md` — Ad Creative to Landing Page
-- `reference/page-redesign.md` — Page Redesign (Modernize/Refresh Existing Page)
-- `reference/competitor-remix.md` — Competitor Remix (Rebuild from Reference URL)
-- `reference/personalization-variant.md` — Personalization Variant (Persona-Specific Page Versions)
-- `reference/ab-test-variant.md` — A/B Test Variant (Hypothesis-Driven Experiment)
-- `reference/section-library.md` — Quick Section Insert
-- `reference/cart-composition.md` — DrawerShell + Atomic Islands
-- `reference/cart-v2-management.md` — MCP Workflow
+### Operational (workflow procedures)
+- **page-generation.md** — Storefront Page Generation
+- **design-assets.md** — Design Assets & Brand Management
+- **publishing.md** — Storefront Publishing & Lifecycle
+- **page-editing.md** — Storefront Page Editing
+- **analytics.md** — Storefront Analytics & Experiments
+- **generate-pdp.md** — Product Detail Page (PDP) Generation
+- **generate-landing-page.md** — Campaign / Ad Landing Page Generation
+- **generate-homepage.md** — Brand Homepage Generation
+- **generate-collection.md** — Collection / Category Page Generation
+- **generate-listicle.md** — SEO Listicle / Comparison Page Generation
+- **generate-bundle-page.md** — Bundle Builder Page Generation
+- **generate-editorial.md** — Editorial / Magazine-Style Page Generation
+- **ad-to-page.md** — Ad Creative to Landing Page
+- **page-redesign.md** — Page Redesign (Modernize/Refresh Existing Page)
+- **competitor-remix.md** — Competitor Remix (Rebuild from Reference URL)
+- **personalization-variant.md** — Personalization Variant (Persona-Specific Page Versions)
+- **ab-test-variant.md** — A/B Test Variant (Hypothesis-Driven Experiment)
+- **section-library.md** — Quick Section Insert
+- **cart-composition.md** — DrawerShell + Atomic Islands
+- **cart-v2-management.md** — MCP Workflow

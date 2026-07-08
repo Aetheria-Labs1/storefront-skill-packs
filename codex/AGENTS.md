@@ -18,42 +18,59 @@ Connect the Lexsis AI MCP server for full tool access:
 }
 ```
 
-## Available Skills
+## Agents
 
-- **generation-protocol** (knowledge) — How Pages Are Built
-- **cro-research** (knowledge) — 2026 Landing Page Best Practices
-- **storefront-craft** (knowledge) — Start Here
-- **workflow-orchestration** (knowledge) — Execution Engine
-- **conversion-psychology** (knowledge) — Storefront Design Intelligence
-- **visual-craft** (knowledge) — Typography, Spacing, Color & Polish
-- **island-patterns** (knowledge) — Wrapper HTML & Combination Recipes
-- **qa-recipe** (knowledge) — QA Recipe
-- **page-generation** (operational) — Storefront Page Generation
-- **design-assets** (operational) — Design Assets & Brand Management
-- **publishing** (operational) — Storefront Publishing & Lifecycle
-- **page-editing** (operational) — Storefront Page Editing
-- **analytics** (operational) — Storefront Analytics & Experiments
-- **generate-pdp** (operational) — Product Detail Page (PDP) Generation
-- **generate-landing-page** (operational) — Campaign / Ad Landing Page Generation
-- **generate-homepage** (operational) — Brand Homepage Generation
-- **generate-collection** (operational) — Collection / Category Page Generation
-- **generate-listicle** (operational) — SEO Listicle / Comparison Page Generation
-- **generate-bundle-page** (operational) — Bundle Builder Page Generation
-- **generate-editorial** (operational) — Editorial / Magazine-Style Page Generation
-- **ad-to-page** (operational) — Ad Creative to Landing Page
-- **page-redesign** (operational) — Page Redesign (Modernize/Refresh Existing Page)
-- **competitor-remix** (operational) — Competitor Remix (Rebuild from Reference URL)
-- **personalization-variant** (operational) — Personalization Variant (Persona-Specific Page Versions)
-- **ab-test-variant** (operational) — A/B Test Variant (Hypothesis-Driven Experiment)
-- **section-library** (operational) — Quick Section Insert
-- **cart-composition** (operational) — DrawerShell + Atomic Islands
-- **cart-v2-management** (operational) — MCP Workflow
+These are specialized workflow patterns you can invoke:
+
+### @cro-analyzer
+
+description: |
+  Analyzes any e-commerce URL for conversion rate optimization opportunities, then generates a structured CRO blueprint that the page-builder agent can execute. Requires Playwright MCP for full scraping; degrades gracefully without it.
+
+### @page-builder
+
+description: |
+  End-to-end page generation orchestrator for Shopify storefronts. Handles brand context gathering, design tokens, section selection, HTML generation, island wiring, validation, and publishing. Accepts fresh briefs or CRO_BLUEPRINT handoff from cro-analyzer.
+
 
 ## Commands
 
-- `generate` — Generate a complete Shopify storefront page — auto-detects page type (landing, PDP, collection, homepage, editorial, listicle, bundle) and applies conversion-optimized patterns
-- `optimize` — CRO-optimize an existing page — analyzes conversion weaknesses and applies fixes (redesign sections, add trust signals, fix CTAs, improve mobile UX)
-- `remix` — Rebuild a competitor page or ad creative adapted to your brand — extracts structure and conversion patterns, regenerates with your products and design tokens
-- `experiment` — Set up A/B tests, personalization variants, and monitor experiment results — hypothesis-driven testing with statistical significance tracking
-- `cart` — Configure the Cart V2 drawer — add upsells, progress bars, conditional rules, announcement banners, and checkout customization
-- `publish` — QA check and publish a page — validates structure, verifies islands, checks mobile rendering, then publishes live or to Shopify
+- **generate** — Generate a complete Shopify storefront page — auto-detects page type (landing, PDP, collection, homepage, editorial, listicle, bundle) and applies conversion-optimized patterns
+- **optimize** — CRO-optimize an existing page — analyzes conversion weaknesses and applies fixes (redesign sections, add trust signals, fix CTAs, improve mobile UX)
+- **remix** — Rebuild a competitor page or ad creative adapted to your brand — extracts structure and conversion patterns, regenerates with your products and design tokens
+- **experiment** — Set up A/B tests, personalization variants, and monitor experiment results — hypothesis-driven testing with statistical significance tracking
+- **cart** — Configure the Cart V2 drawer — add upsells, progress bars, conditional rules, announcement banners, and checkout customization
+- **publish** — QA check and publish a page — validates structure, verifies islands, checks mobile rendering, then publishes live or to Shopify
+
+## Knowledge Reference
+
+All domain knowledge lives in `skills/storefront-engine/reference/`. Read the relevant file when you need it:
+
+- `generation-protocol.md` (knowledge)
+- `cro-research.md` (knowledge)
+- `storefront-craft.md` (knowledge)
+- `workflow-orchestration.md` (knowledge)
+- `conversion-psychology.md` (knowledge)
+- `visual-craft.md` (knowledge)
+- `island-patterns.md` (knowledge)
+- `qa-recipe.md` (knowledge)
+- `page-generation.md` (operational)
+- `design-assets.md` (operational)
+- `publishing.md` (operational)
+- `page-editing.md` (operational)
+- `analytics.md` (operational)
+- `generate-pdp.md` (operational)
+- `generate-landing-page.md` (operational)
+- `generate-homepage.md` (operational)
+- `generate-collection.md` (operational)
+- `generate-listicle.md` (operational)
+- `generate-bundle-page.md` (operational)
+- `generate-editorial.md` (operational)
+- `ad-to-page.md` (operational)
+- `page-redesign.md` (operational)
+- `competitor-remix.md` (operational)
+- `personalization-variant.md` (operational)
+- `ab-test-variant.md` (operational)
+- `section-library.md` (operational)
+- `cart-composition.md` (operational)
+- `cart-v2-management.md` (operational)
