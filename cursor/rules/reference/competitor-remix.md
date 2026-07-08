@@ -28,11 +28,7 @@ capture_design_source({ url })
 
 Screenshots the page and extracts structural layout data.
 
-```
-extract_brand_design({ url })
-```
-
-Pulls competitor's design DNA: color palette, typography, spacing rhythm, border radius, shadow depth, image treatment style, overall aesthetic (minimal, bold, editorial, etc.).
+The agent should analyze the screenshot to extract the competitor's design DNA: color palette, typography, spacing rhythm, border radius, shadow depth, image treatment style, overall aesthetic (minimal, bold, editorial, etc.).
 
 ### Step 3 — Decompose into Section Map
 

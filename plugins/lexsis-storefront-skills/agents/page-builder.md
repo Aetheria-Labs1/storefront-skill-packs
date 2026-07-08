@@ -52,7 +52,7 @@ Based on what the user provides:
 | Input | Flow |
 |-------|------|
 | Ad creative (image/screenshot) | `analyze_ad_creative` → extract style → generate message-matched page |
-| Reference URL | `extract_brand_design` → use extracted tokens as theme → generate |
+| Reference URL | Agent screenshots URL → extracts design tokens → uses as theme → generate |
 | Brand brief only | Standard flow (below) |
 | Existing page (wants edits) | `get_page` → modify sections → validate → publish |
 | Product focus (PDP, collection) | `list_products` first → build around real product data |

@@ -18,20 +18,10 @@ Connect the Lexsis AI MCP server for full tool access:
 }
 ```
 
-## Agents
+## Skills
 
-These are specialized workflow patterns you can invoke:
-
-### @cro-analyzer
-
-description: |
-  Analyzes any e-commerce URL for conversion rate optimization opportunities, then generates a structured CRO blueprint that the page-builder agent can execute. Requires Playwright MCP for full scraping; degrades gracefully without it.
-
-### @page-builder
-
-description: |
-  End-to-end page generation orchestrator for Shopify storefronts. Handles brand context gathering, design tokens, section selection, HTML generation, island wiring, validation, and publishing. Accepts fresh briefs or CRO_BLUEPRINT handoff from cro-analyzer.
-
+- **storefront-engine** — Core orchestrator for page generation workflows
+- **browser-analyze** — Use @Browser to analyze competitor pages, extract design tokens, and run CRO audits
 
 ## Commands
 

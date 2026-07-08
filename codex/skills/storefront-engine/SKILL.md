@@ -12,6 +12,7 @@ This is the routing and orchestration layer for all Lexsis AI storefront operati
 1. **Commands** (generate, optimize, remix, experiment, cart, publish) use this skill
 2. **Reference files** in `reference/` contain deep knowledge — read ONLY what you need
 3. Use the Lexsis AI MCP tools for all storefront operations
+4. For URL analysis, use @Browser (see browser-analyze skill)
 
 ---
 
@@ -30,7 +31,7 @@ What did the user provide?
 │  → AD-TO-PAGE FLOW (analyze creative → extract style → generate matched page)
 │
 ├─ Reference URL (competitor / inspiration)
-│  → DESIGN-FIRST FLOW (extract_brand_design → use tokens as theme → generate)
+│  → DESIGN-FIRST FLOW (agent screenshots URL → extracts tokens → uses as theme → generate)
 │
 ├─ Brand brief only (name, industry, tone)
 │  → STANDARD FLOW (context → assets → generate → validate → write)
@@ -147,7 +148,7 @@ Phase 2-4: Same as Standard Flow
 
 ```
 Phase 0:
-├─ extract_brand_design(url)           → extracted palette, fonts, spacing, tone
+├─ Agent screenshots URL               → extracted palette, fonts, spacing, tone
 ├─ get_storefront_skills(brief)
 └─ list_products()
 

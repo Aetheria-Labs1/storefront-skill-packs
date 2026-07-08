@@ -1369,7 +1369,7 @@ What did the user provide?
 │  → AD-TO-PAGE FLOW (analyze creative → extract style → generate matched page)
 │
 ├─ Reference URL (competitor / inspiration)
-│  → DESIGN-FIRST FLOW (extract_brand_design → use tokens as theme → generate)
+│  → DESIGN-FIRST FLOW (agent screenshots URL → extracts tokens → uses as theme → generate)
 │
 ├─ Brand brief only (name, industry, tone)
 │  → STANDARD FLOW (context → assets → generate → validate → write)
@@ -1486,7 +1486,7 @@ Phase 2-4: Same as Standard Flow
 
 ```
 Phase 0:
-├─ extract_brand_design(url)           → extracted palette, fonts, spacing, tone
+├─ Agent screenshots URL               → extracted palette, fonts, spacing, tone
 ├─ get_storefront_skills(brief)
 └─ list_products()
 
@@ -3568,11 +3568,7 @@ update_theme(theme_id, {
 
 ## Design References
 
-### Extract from URL
-```
-extract_brand_design({ url: "https://brand.com" })
-```
-Returns: palette, fonts, spacing, tone analysis.
+To extract design tokens from a reference URL, the agent should screenshot the site and analyze the visual design (palette, fonts, spacing, tone) directly.
 
 ## Cost Control
 
@@ -5659,11 +5655,7 @@ capture_design_source({ url })
 
 Screenshots the page and extracts structural layout data.
 
-```
-extract_brand_design({ url })
-```
-
-Pulls competitor's design DNA: color palette, typography, spacing rhythm, border radius, shadow depth, image treatment style, overall aesthetic (minimal, bold, editorial, etc.).
+The agent should analyze the screenshot to extract the competitor's design DNA: color palette, typography, spacing rhythm, border radius, shadow depth, image treatment style, overall aesthetic (minimal, bold, editorial, etc.).
 
 ### Step 3 — Decompose into Section Map
 

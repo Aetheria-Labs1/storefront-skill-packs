@@ -85,11 +85,7 @@ update_theme(theme_id, {
 
 ## Design References
 
-### Extract from URL
-```
-extract_brand_design({ url: "https://brand.com" })
-```
-Returns: palette, fonts, spacing, tone analysis.
+To extract design tokens from a reference URL, the agent should screenshot the site and analyze the visual design (palette, fonts, spacing, tone) directly.
 
 ## Cost Control
 
