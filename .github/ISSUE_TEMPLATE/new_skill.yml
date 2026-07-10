@@ -1,0 +1,61 @@
+name: New Skill Proposal
+description: Propose a new vertical plugin or core skill
+labels: [new-skill]
+body:
+  - type: dropdown
+    id: type
+    attributes:
+      label: Skill type
+      description: What kind of skill are you proposing?
+      options:
+        - Vertical plugin (new industry)
+        - Core knowledge skill
+        - Core operational skill
+        - New command
+    validations:
+      required: true
+
+  - type: input
+    id: name
+    attributes:
+      label: Name
+      description: Proposed name
+      placeholder: e.g., lexsis-pets-skills or generate-quiz
+    validations:
+      required: true
+
+  - type: input
+    id: domain
+    attributes:
+      label: Industry or domain
+      description: What industry or domain does this cover?
+      placeholder: e.g., Pet products, SaaS, Automotive
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What does this skill teach the AI to do?
+    validations:
+      required: true
+
+  - type: textarea
+    id: sections
+    attributes:
+      label: Example section sequences
+      description: If a vertical, what page patterns does it define?
+    validations:
+      required: false
+
+  - type: dropdown
+    id: willingness
+    attributes:
+      label: Willingness to implement
+      options:
+        - I will submit a PR
+        - I need help implementing
+        - Just sharing an idea
+    validations:
+      required: true

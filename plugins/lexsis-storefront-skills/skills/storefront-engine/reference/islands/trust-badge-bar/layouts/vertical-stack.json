@@ -1,0 +1,6 @@
+{
+  "id": "trust-badges",
+  "html": "<div class=\"space-y-3\"><div data-island=\"TrustBadgeBar\" data-props='{\"variant\":\"compact\",\"badges\":{{BADGES}},\"layout\":\"vertical\"}'></div></div>",
+  "css": "",
+  "js": ""
+}

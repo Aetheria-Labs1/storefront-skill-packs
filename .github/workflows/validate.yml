@@ -1,0 +1,36 @@
+name: Validate Skills
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate JSON files
+        run: |
+          echo "Checking all JSON files..."
+          failed=0
+          while IFS= read -r f; do
+            if ! python3 -c "import json; json.load(open('$f'))" 2>/dev/null; then
+              echo "::error file=$f::Invalid JSON"
+              failed=1
+            fi
+          done < <(find . -name "*.json" -not -path "./.git/*")
+          if [ "$failed" -eq 1 ]; then exit 1; fi
+          echo "All JSON files valid"
+
+      - name: Validate plugin.json files
+        run: python3 scripts/validate-plugins.py
+
+      - name: Validate skill frontmatter
+        run: python3 scripts/validate-frontmatter.py
+
+      - name: Check cross-platform sync
+        run: python3 scripts/check-sync.py
+        continue-on-error: true

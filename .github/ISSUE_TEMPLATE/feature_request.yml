@@ -1,0 +1,42 @@
+name: Feature Request
+description: Suggest a new skill, command, or improvement
+labels: [enhancement]
+body:
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: What type of change are you proposing?
+      options:
+        - New command
+        - New reference skill
+        - Platform support
+        - Improvement to existing skill
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or use case
+      description: What problem does this solve? What workflow does it enable?
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: How would you solve this?
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Any other approaches you thought about?
+    validations:
+      required: false

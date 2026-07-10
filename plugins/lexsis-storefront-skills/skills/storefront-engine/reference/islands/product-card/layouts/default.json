@@ -1,0 +1,6 @@
+{
+  "id": "product-card-default",
+  "html": "<div class=\"group rounded-lg overflow-hidden border transition-shadow hover:shadow-md\" style=\"border-color: var(--lx-border-color); background-color: var(--lx-bg-surface)\"><div class=\"relative aspect-[3/4] overflow-hidden\"><img src=\"{{IMAGE_URL}}\" alt=\"{{PRODUCT_TITLE}}\" class=\"w-full h-full object-cover transition-transform duration-300 group-hover:scale-105\" /><div data-island=\"QuickAdd\" data-props='{\"product\":{\"id\":\"{{PRODUCT_ID}}\",\"title\":\"{{PRODUCT_TITLE}}\"}}'></div></div><div class=\"p-4 space-y-2\"><h3 class=\"text-sm font-medium truncate\" style=\"color: var(--lx-text-color)\">{{PRODUCT_TITLE}}</h3><div class=\"flex items-center gap-2\"><span class=\"text-sm font-semibold\" style=\"color: var(--lx-text-color)\">{{PRODUCT_PRICE}}</span></div><div data-island=\"ProductCard\" data-props='{\"product\":{\"id\":\"{{PRODUCT_ID}}\",\"title\":\"{{PRODUCT_TITLE}}\",\"price\":\"{{PRODUCT_PRICE}}\"},\"variant\":\"default\",\"showRating\":true,\"showQuickAdd\":true}'></div></div></div>",
+  "css": "",
+  "js": ""
+}

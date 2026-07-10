@@ -1,0 +1,74 @@
+name: Bug Report
+description: Report a broken skill, command, or incorrect instruction
+labels: [bug]
+body:
+  - type: dropdown
+    id: plugin
+    attributes:
+      label: Plugin
+      description: Which plugin is affected?
+      options:
+        - lexsis-storefront-skills
+        - lexsis-beauty-skills
+        - lexsis-supplements-skills
+        - lexsis-fashion-skills
+        - lexsis-food-skills
+        - lexsis-home-skills
+        - lexsis-luxury-skills
+    validations:
+      required: true
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      description: Which AI agent are you using?
+      options:
+        - Claude Code
+        - OpenAI Codex
+        - Cursor
+        - Custom GPT
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: skill
+    attributes:
+      label: Skill or Command
+      description: Which specific skill or command is broken?
+      placeholder: e.g., /generate-pdp or craft-guide
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What should happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: What actually happens?
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Minimal steps to reproduce the issue
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Screenshots, error messages, or anything else helpful
+    validations:
+      required: false

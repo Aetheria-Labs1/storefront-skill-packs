@@ -114,10 +114,11 @@ storefront-skills/
 
 ## Contributing
 
-Add a new vertical:
-1. Create skill: `plugins/lexsis-{name}-skills/skills/{name}-expertise/SKILL.md`
-2. Add plugin.json: `plugins/lexsis-{name}-skills/.claude-plugin/plugin.json`
-3. PR it
+We welcome contributions! See [CONTRIBUTING.md](./CONTRIBUTING.md) for:
+- How to add a new vertical plugin
+- How to add a core skill or command
+- Skill file structure and conventions
+- PR process and local testing
 
 ## License
 
