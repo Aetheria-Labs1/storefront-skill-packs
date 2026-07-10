@@ -50,7 +50,7 @@ cp -r storefront-skills/cursor/rules/* .cursor/rules/
 
 | Plugin | Type | What It Adds |
 |--------|------|-------------|
-| `lexsis-storefront-skills` | **Core** | 28 skills + 6 commands + 2 agents + MCP config |
+| `lexsis-storefront-skills` | **Core** | 28 skills + 7 commands + 2 agents + MCP config |
 | `lexsis-beauty-skills` | Vertical | Beauty/skincare patterns |
 | `lexsis-supplements-skills` | Vertical | Supplement/wellness patterns |
 | `lexsis-fashion-skills` | Vertical | Fashion/apparel patterns |
@@ -70,12 +70,13 @@ cp -r storefront-skills/cursor/rules/* .cursor/rules/
 | `/experiment` | Set up A/B tests, personalization variants, monitor results |
 | `/cart` | Configure Cart V2 drawer — upsells, progress bars, conditional rules |
 | `/publish` | QA check and publish a page to Shopify |
+| `/search-docs` | Search documentation — islands, skills, conversion patterns, workflows |
 
 ## MCP Server
 
 Core plugin auto-configures the Lexsis AI MCP server. You'll need your API key:
 
-1. Get key at [trylexsis.com/settings/api-keys](https://trylexsis.com/settings/api-keys)
+1. Get key at [app.trylexsis.com/settings/api-key](https://app.trylexsis.com/settings/api-key)
 2. Add to your Claude Code settings under MCP server `lexsis-ai` → headers → Authorization
 
 ## Visual Verification

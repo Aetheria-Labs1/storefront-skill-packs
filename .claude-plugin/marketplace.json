@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "lexsis-storefront-skills",
-      "description": "Core skills for AI-powered Shopify page generation — 30 skills, 14 commands, auto MCP config. PDP, landing pages, homepages, collections, editorials, bundles, A/B tests, and more.",
+      "description": "Core skills for AI-powered Shopify page generation — 28 skills, 7 commands, 2 agents, auto MCP config. PDP, landing pages, homepages, collections, editorials, bundles, A/B tests, and more.",
       "author": { "name": "Aetheria Labs" },
       "source": "./plugins/lexsis-storefront-skills",
       "category": "development",
