@@ -53,6 +53,10 @@
     ],
     "operational": [
       {
+        "source": "skills/_operational/plan-page.md",
+        "name": "plan-page"
+      },
+      {
         "source": "skills/_operational/page-generation.md",
         "name": "page-generation"
       },
@@ -143,6 +147,7 @@
       "name": "generate-page",
       "description": "Generate a complete Shopify landing page \u2014 auto-detects vertical and applies best patterns",
       "loads": [
+        "plan-page",
         "storefront-craft",
         "workflow-orchestration",
         "conversion-psychology",
@@ -180,6 +185,7 @@
       "name": "generate-pdp",
       "description": "Generate a product detail page optimized for conversions",
       "loads": [
+        "plan-page",
         "storefront-craft",
         "island-patterns",
         "conversion-psychology",
@@ -190,6 +196,7 @@
       "name": "generate-homepage",
       "description": "Generate a brand homepage with navigation and collections",
       "loads": [
+        "plan-page",
         "storefront-craft",
         "visual-craft",
         "generate-homepage"
@@ -199,6 +206,7 @@
       "name": "generate-collection",
       "description": "Generate a collection/category page with filterable product grid",
       "loads": [
+        "plan-page",
         "storefront-craft",
         "island-patterns",
         "generate-collection"
@@ -208,6 +216,7 @@
       "name": "generate-bundle",
       "description": "Generate a bundle builder page with discount tiers",
       "loads": [
+        "plan-page",
         "storefront-craft",
         "conversion-psychology",
         "island-patterns",
@@ -218,6 +227,7 @@
       "name": "generate-editorial",
       "description": "Generate a magazine-style editorial page with shoppable products",
       "loads": [
+        "plan-page",
         "storefront-craft",
         "visual-craft",
         "premium-patterns",
@@ -228,6 +238,7 @@
       "name": "generate-listicle",
       "description": "Generate an SEO-optimized comparison/listicle page",
       "loads": [
+        "plan-page",
         "storefront-craft",
         "conversion-psychology",
         "generate-listicle"
@@ -237,6 +248,7 @@
       "name": "convert-ad",
       "description": "Convert an ad creative into a message-matched landing page",
       "loads": [
+        "plan-page",
         "storefront-craft",
         "conversion-psychology",
         "ad-to-page"
@@ -255,6 +267,7 @@
       "name": "remix-competitor",
       "description": "Rebuild a competitor page adapted to your brand",
       "loads": [
+        "plan-page",
         "storefront-craft",
         "visual-craft",
         "competitor-remix"

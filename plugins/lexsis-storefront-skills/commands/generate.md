@@ -16,6 +16,12 @@ Generate a complete Shopify storefront page — auto-detects page type (landing,
 
 ## Workflow
 
+> **STOP — Planning Required First**
+> Before running any generation phase, execute the Page Planning workflow (Phase -1 from storefront-engine).
+> Assess what the user has told you, ask clarifying questions if < 4 signals are present, generate a section plan, and get user approval.
+> Do NOT proceed to Phase 0 until a page plan is confirmed by the user.
+> Exception: If user explicitly says "skip planning" or "just build it".
+
 # Storefront Page Generation
 
 Generate high-quality Shopify storefront pages using the Lexsis AI MCP tools.
