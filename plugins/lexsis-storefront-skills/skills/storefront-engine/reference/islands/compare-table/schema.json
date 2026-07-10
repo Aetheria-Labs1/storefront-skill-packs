@@ -1,0 +1,75 @@
+{
+  "name": "CompareTable",
+  "category": "engagement",
+  "usage_hint": "Multi-product feature comparison table. Sticky feature column, checkmarks for boolean features, optional highlight for recommended product.",
+  "when_to_use": "For product comparison pages, plan/tier comparisons, spec sheets. Shows product images/names/prices in header, features in rows. Use boolean true/false for checkmark/X icons, or string values for text.",
+  "when_not_to_use": "For single-product specs use Tabs or accordion. When comparing >4 products (table gets too wide \u2014 use filterable grid instead). For non-comparable products (apples to oranges).",
+  "combine_with": [
+    "ProductCard",
+    "BuyBox",
+    "ProductPrice",
+    "ProceedToCart"
+  ],
+  "anti_patterns": [
+    "Comparing products with completely different feature sets (many empty cells \u2014 not useful)",
+    "Using long feature names (causes mobile overflow \u2014 keep under 20 chars)",
+    "Highlighting multiple products (defeats \"recommended\" purpose \u2014 pick one or none)"
+  ],
+  "examples": [
+    {
+      "label": "Three-product comparison with highlight",
+      "html": "<div data-island=\"CompareTable\" data-props='{\"products\":[{\"name\":\"Basic\",\"image\":\"/basic.jpg\",\"price\":\"$29\"},{\"name\":\"Pro\",\"image\":\"/pro.jpg\",\"price\":\"$49\"},{\"name\":\"Enterprise\",\"image\":\"/ent.jpg\",\"price\":\"$99\"}],\"features\":[{\"name\":\"Storage\",\"values\":[\"10GB\",\"100GB\",\"Unlimited\"]},{\"name\":\"Users\",\"values\":[\"1\",\"5\",\"Unlimited\"]},{\"name\":\"Support\",\"values\":[false,true,true]},{\"name\":\"API Access\",\"values\":[false,false,true]}],\"highlightIndex\":1}'></div>"
+    },
+    {
+      "label": "Simple two-product spec comparison",
+      "html": "<div data-island=\"CompareTable\" data-props='{\"products\":[{\"name\":\"Model A\",\"price\":\"$199\"},{\"name\":\"Model B\",\"price\":\"$299\"}],\"features\":[{\"name\":\"Weight\",\"values\":[\"1.2kg\",\"1.5kg\"]},{\"name\":\"Battery\",\"values\":[\"8 hours\",\"12 hours\"]},{\"name\":\"Warranty\",\"values\":[\"1 year\",\"2 years\"]}]}'></div>"
+    },
+    {
+      "label": "Feature matrix with all booleans",
+      "html": "<div data-island=\"CompareTable\" data-props='{\"products\":[{\"name\":\"Free\",\"price\":\"$0\"},{\"name\":\"Premium\",\"price\":\"$19\"}],\"features\":[{\"name\":\"Basic features\",\"values\":[true,true]},{\"name\":\"Advanced analytics\",\"values\":[false,true]},{\"name\":\"Priority support\",\"values\":[false,true]},{\"name\":\"Custom branding\",\"values\":[false,true]}],\"highlightIndex\":1}'></div>"
+    }
+  ],
+  "props": {
+    "products": {
+      "type": "array",
+      "required": true,
+      "shape": {
+        "name": "string",
+        "image": "?string",
+        "price": "?string"
+      }
+    },
+    "features": {
+      "type": "array",
+      "required": true,
+      "shape": {
+        "name": "string",
+        "values": "array<string>"
+      }
+    },
+    "highlightIndex": {
+      "type": "number",
+      "required": false
+    }
+  },
+  "variants": null,
+  "css_vars": [
+    "--lx-accent-color",
+    "--lx-text-color"
+  ],
+  "parts": [
+    "check-icon",
+    "feature-name",
+    "feature-row",
+    "feature-value",
+    "header-row",
+    "product-header",
+    "product-image",
+    "product-name",
+    "product-price",
+    "root",
+    "table",
+    "x-icon"
+  ],
+  "example": "<div data-island=\"CompareTable\" data-props='{\"products\":[{\"name\":\"example-name\"}],\"features\":[{\"name\":\"example-name\",\"values\":\"example-values\"}]}'></div>"
+}

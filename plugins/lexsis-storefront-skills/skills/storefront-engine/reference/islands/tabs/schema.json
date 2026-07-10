@@ -1,0 +1,73 @@
+{
+  "name": "Tabs",
+  "category": "content",
+  "usage_hint": "Generic tabbed content container with three style variants. Each tab label + HTML content body.",
+  "when_to_use": "For product descriptions (Description, Ingredients, Shipping tabs), multi-section content, or FAQ groups. Three styles: underline (minimal), pills (rounded bg), bordered (outlined cards).",
+  "when_not_to_use": "For navigation use Navbar. For vertical accordions use FAQ or IngredientExplorer. When content is short enough to stack without tabs.",
+  "combine_with": [
+    "ProductImage",
+    "ProductDescription",
+    "SizeGuide",
+    "IngredientExplorer"
+  ],
+  "anti_patterns": [
+    "Putting too much content in tabs (>1 screen height per tab \u2014 users forget they scrolled and tab away)",
+    "Using >6 tabs (mobile overflow \u2014 use accordion or split into sections)",
+    "Nesting Tabs islands inside tab content (confusing hierarchy)"
+  ],
+  "examples": [
+    {
+      "label": "Product description tabs (underline style)",
+      "html": "<div data-island=\"Tabs\" data-props='{\"tabs\":[{\"label\":\"Description\",\"content\":\"<p>Product details here...</p>\"},{\"label\":\"Ingredients\",\"content\":\"<ul><li>Ingredient 1</li><li>Ingredient 2</li></ul>\"},{\"label\":\"Shipping\",\"content\":\"<p>Free shipping over $50</p>\"}],\"style\":\"underline\",\"defaultTab\":0}'></div>"
+    },
+    {
+      "label": "Pills style with icons",
+      "html": "<div data-island=\"Tabs\" data-props='{\"tabs\":[{\"label\":\"Overview\",\"icon\":\"\ud83d\udccb\",\"content\":\"<p>Overview content</p>\"},{\"label\":\"Reviews\",\"icon\":\"\u2b50\",\"content\":\"<p>Customer reviews</p>\"},{\"label\":\"FAQ\",\"icon\":\"\u2753\",\"content\":\"<p>Frequently asked questions</p>\"}],\"style\":\"pills\"}'></div>"
+    },
+    {
+      "label": "Bordered style for comparison sections",
+      "html": "<div data-island=\"Tabs\" data-props='{\"tabs\":[{\"label\":\"Standard\",\"content\":\"<p>Standard plan features</p>\"},{\"label\":\"Premium\",\"content\":\"<p>Premium plan features</p>\"},{\"label\":\"Enterprise\",\"content\":\"<p>Enterprise plan features</p>\"}],\"style\":\"bordered\",\"defaultTab\":1}'></div>"
+    }
+  ],
+  "props": {
+    "tabs": {
+      "type": "array",
+      "required": true,
+      "shape": {
+        "label": "string",
+        "content": "string",
+        "icon": "?string"
+      }
+    },
+    "defaultTab": {
+      "type": "number",
+      "required": false,
+      "default": "0"
+    },
+    "style": {
+      "type": "enum",
+      "required": false,
+      "values": [
+        "bordered",
+        "underline",
+        "pills"
+      ],
+      "default": "underline"
+    }
+  },
+  "variants": [
+    "bordered",
+    "underline",
+    "pills"
+  ],
+  "css_vars": [
+    "--lx-accent-color"
+  ],
+  "parts": [
+    "panel",
+    "root",
+    "tab",
+    "tab-list"
+  ],
+  "example": "<div data-island=\"Tabs\" data-props='{\"tabs\":[{\"label\":\"example-label\",\"content\":\"example-content\"}]}'></div>"
+}

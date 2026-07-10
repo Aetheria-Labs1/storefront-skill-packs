@@ -1,0 +1,183 @@
+{
+  "name": "EditorialProductGrid",
+  "category": "commerce",
+  "usage_hint": "Editorial product grid with optional center feature card (bundle/highlight). Use for curated collections, \"Complete the Look\", or related products on PDP/landing pages. Uses ProductCard primitive.",
+  "when_to_use": "Use for curated, editorial-style product displays where you need a mix of products and a promotional feature card. Common on PDP \"Shop This Look\" or landing page \"Featured Collection\" sections.",
+  "when_not_to_use": "Not for simple product grids without editorial context (use ProductCarousel or standard grid). Not for single-product display (use ProductCard island directly). Not for dynamic collections (use collection page).",
+  "combine_with": [
+    "CartDrawer (REQUIRED if showQuickAdd:true)",
+    "BuyBox (common on PDP pages)"
+  ],
+  "anti_patterns": [
+    "Using showQuickAdd:true without CartDrawer: users get no cart feedback",
+    "Setting layout:\"quad\" with featureCard: quad layout ignores the feature card; use tripleCenter or dualSide instead",
+    "Overloading with too many products: grid becomes overwhelming; limit to 3-6 products",
+    "Mixing unrelated products: editorial grid implies curation; products should share a theme or story"
+  ],
+  "examples": [
+    {
+      "label": "Triple-center grid with bundle feature card",
+      "html": "<div data-island=\"EditorialProductGrid\" data-props='{\"products\":[{\"id\":\"p1\",\"handle\":\"item1\",\"title\":\"Jacket\",\"price\":\"$89.00\",\"image\":\"https://via.placeholder.com/300\"},{\"id\":\"p2\",\"handle\":\"item2\",\"title\":\"Pants\",\"price\":\"$59.00\",\"image\":\"https://via.placeholder.com/300\"}],\"featureCard\":{\"title\":\"Complete the Look\",\"subtitle\":\"Save 15% on the full outfit\",\"type\":\"bundle\",\"cta\":\"Shop Bundle\"},\"layout\":\"tripleCenter\",\"title\":\"Shop This Look\"}'></div>"
+    },
+    {
+      "label": "Dual-side grid with highlight card",
+      "html": "<div data-island=\"EditorialProductGrid\" data-props='{\"products\":[{\"id\":\"p1\",\"title\":\"Product A\",\"price\":\"$49.00\",\"image\":\"https://via.placeholder.com/300\"},{\"id\":\"p2\",\"title\":\"Product B\",\"price\":\"$39.00\",\"image\":\"https://via.placeholder.com/300\"}],\"featureCard\":{\"title\":\"New Arrival\",\"subtitle\":\"Just dropped today\",\"type\":\"highlight\",\"image\":\"https://via.placeholder.com/300\"},\"layout\":\"dualSide\"}'></div>"
+    },
+    {
+      "label": "Quad grid without feature card",
+      "html": "<div data-island=\"EditorialProductGrid\" data-props='{\"products\":[{\"id\":\"p1\",\"title\":\"A\",\"price\":\"$19\",\"image\":\"https://via.placeholder.com/300\"},{\"id\":\"p2\",\"title\":\"B\",\"price\":\"$29\",\"image\":\"https://via.placeholder.com/300\"},{\"id\":\"p3\",\"title\":\"C\",\"price\":\"$39\",\"image\":\"https://via.placeholder.com/300\"},{\"id\":\"p4\",\"title\":\"D\",\"price\":\"$49\",\"image\":\"https://via.placeholder.com/300\"}],\"layout\":\"quad\",\"showQuickAdd\":true}'></div>"
+    },
+    {
+      "label": "Grid with badges and hover advance",
+      "html": "<div data-island=\"EditorialProductGrid\" data-props='{\"products\":[{\"id\":\"p1\",\"title\":\"Sale Item\",\"price\":\"$29.00\",\"image\":\"https://via.placeholder.com/300\"},{\"id\":\"p2\",\"title\":\"New Item\",\"price\":\"$49.00\",\"image\":\"https://via.placeholder.com/300\"}],\"badge\":\"Sale\",\"badgeColor\":\"#ff5555\",\"hoverAdvance\":true,\"mediaTransition\":\"zoom\"}'></div>"
+    }
+  ],
+  "props": {
+    "products": {
+      "type": "array",
+      "required": true,
+      "shape": {
+        "id": "string",
+        "handle": "?string",
+        "title": "string",
+        "price": "string",
+        "compareAtPrice": "?string",
+        "media": "?array<{src: string, alt: ?string}>",
+        "image": "?string",
+        "variants": "?array<{id: string, title: string, price: string, available: boolean}>"
+      }
+    },
+    "featureCard": {
+      "type": "object",
+      "required": false,
+      "shape": {
+        "title": "string",
+        "subtitle": "?string",
+        "image": "?string",
+        "cta": "?string",
+        "type": "'bundle' | 'highlight'"
+      }
+    },
+    "layout": {
+      "type": "enum",
+      "required": false,
+      "values": [
+        "tripleCenter",
+        "dualSide",
+        "quad"
+      ],
+      "default": "tripleCenter"
+    },
+    "showQuickAdd": {
+      "type": "boolean",
+      "required": false,
+      "default": "true"
+    },
+    "showWishlist": {
+      "type": "boolean",
+      "required": false,
+      "default": "false"
+    },
+    "showLearnMore": {
+      "type": "boolean",
+      "required": false,
+      "default": "true"
+    },
+    "showQuickView": {
+      "type": "boolean",
+      "required": false,
+      "default": "false"
+    },
+    "hoverAdvance": {
+      "type": "boolean",
+      "required": false,
+      "default": "true"
+    },
+    "mediaTransition": {
+      "type": "enum",
+      "required": false,
+      "values": [
+        "none",
+        "fade",
+        "slide",
+        "zoom",
+        "kenBurns"
+      ],
+      "default": "fade"
+    },
+    "cardVariant": {
+      "type": "enum",
+      "required": false,
+      "values": [
+        "horizontal",
+        "default",
+        "compact"
+      ],
+      "default": "default"
+    },
+    "imageAspect": {
+      "type": "string",
+      "required": false
+    },
+    "ctaText": {
+      "type": "string",
+      "required": false
+    },
+    "cardTextAlign": {
+      "type": "enum",
+      "required": false,
+      "values": [
+        "left",
+        "center"
+      ]
+    },
+    "animate": {
+      "type": "boolean",
+      "required": false,
+      "default": "true"
+    },
+    "title": {
+      "type": "string",
+      "required": false
+    },
+    "subtitle": {
+      "type": "string",
+      "required": false
+    },
+    "cardStyle": {
+      "type": "object",
+      "required": false,
+      "shape": {
+        "bgColor": "?string",
+        "borderRadius": "?string",
+        "padding": "?string"
+      }
+    },
+    "badge": {
+      "type": "string",
+      "required": false
+    },
+    "badgeColor": {
+      "type": "string",
+      "required": false
+    }
+  },
+  "variants": [
+    "tripleCenter",
+    "dualSide",
+    "quad"
+  ],
+  "css_vars": [
+    "--lx-accent-color",
+    "--lx-bg-color",
+    "--lx-border-color",
+    "--lx-text-color"
+  ],
+  "parts": [
+    "feature-card",
+    "grid",
+    "heading",
+    "root"
+  ],
+  "example": "<div data-island=\"EditorialProductGrid\" data-props='{\"products\":[{\"id\":\"example-id\",\"title\":\"example-title\",\"price\":\"example-price\"}]}'></div>"
+}

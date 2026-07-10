@@ -32,6 +32,8 @@ What did the user provide?
 │
 ├─ Reference URL (competitor / inspiration)
 │  → DESIGN-FIRST FLOW (agent screenshots URL → extracts tokens → uses as theme → generate)
+│  → If user says "analyze", "use as reference", "like this" → run /analyze-page first
+│  → If user points at a specific component → run /extract-island first
 │
 ├─ Brand brief only (name, industry, tone)
 │  → STANDARD FLOW (context → assets → generate → validate → write)
