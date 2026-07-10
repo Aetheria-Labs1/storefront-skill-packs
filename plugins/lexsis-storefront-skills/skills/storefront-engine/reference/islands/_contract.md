@@ -105,3 +105,88 @@ Layouts use `{{VARIABLE}}` placeholders. Agent replaces before pasting:
 | `{{CTA_TEXT}}` | page-type or industry skill | `Add to Cart` |
 | `{{IMAGE_URL}}` | `search_design_library` or `generate_asset` | `https://cdn...` |
 | `{{STORE_DOMAIN}}` | `get_connected_stores` | `mystore.myshopify.com` |
+
+## Custom Styling via `data-part`
+
+Islands expose internal elements through `data-part` attributes for CSS targeting without breaking encapsulation.
+
+### How it works
+
+Every island renders internal elements with `data-part="name"` attributes. You target them in the section's wrapping HTML using CSS attribute selectors:
+
+```html
+<section class="py-16">
+  <style>
+    /* Target the CTA button inside BuyBox */
+    [data-part="cta"] {
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Target variant buttons */
+    [data-part="variant-btn"] {
+      border-radius: var(--lx-radius);
+      border-color: var(--lx-border-color);
+    }
+
+    /* Target the trust badges row */
+    [data-part="trust-badges"] {
+      justify-content: flex-start;
+    }
+  </style>
+
+  <div data-island="BuyBox" data-props='{"productId":"{{PRODUCT_ID}}"}'></div>
+</section>
+```
+
+### Rules
+
+1. **Only use `[data-part="x"]` selectors** — never target island internals by class name (classes can change between versions)
+2. **Scope with section wrapper** — if multiple islands share part names, scope:
+   ```css
+   .hero-section [data-part="cta"] { ... }
+   ```
+3. **Only override visual properties** — colors, borders, radius, spacing, typography. Never override layout/positioning (breaks responsive behavior)
+4. **Use `--lx-*` variables in overrides** — keeps theming consistent:
+   ```css
+   [data-part="cta"] {
+     background-color: var(--lx-color-primary);
+     color: white;
+   }
+   ```
+5. **Check `schema.json`** for available parts — each island's `schema.json` has a `"parts"` array listing all targetable elements
+
+### Common parts across islands
+
+| Part name | Meaning | Found in |
+|-----------|---------|----------|
+| `root` | Island outer container | Nearly all islands |
+| `cta` | Primary action button | BuyBox, StickyBar, EmailCapture, Navbar |
+| `heading` | Section/island title | FAQ, CartCrossSell, CompareTable |
+| `item` | Repeated list item | ProductCarousel, ReviewCarousel, CartCrossSell |
+| `link` | Navigation link | Navbar, Footer, MobileMenu |
+| `logo` | Brand logo element | Navbar, Footer, SiteHeader |
+| `badge` | Count/status badge | Navbar (cart-badge), InventoryIndicator |
+
+### What NOT to do
+
+```html
+<!-- ❌ WRONG: targeting by className (fragile) -->
+<style>.buy-box-root .MuiButton-root { ... }</style>
+
+<!-- ❌ WRONG: overriding layout (breaks responsive) -->
+<style>[data-part="root"] { display: block !important; }</style>
+
+<!-- ❌ WRONG: hardcoded colors (breaks theming) -->
+<style>[data-part="cta"] { background: #ff6b00; }</style>
+
+<!-- ✅ CORRECT: visual-only override with CSS vars -->
+<style>[data-part="cta"] { background: var(--lx-accent-color); border-radius: 9999px; }</style>
+```
+
+### Finding available parts
+
+1. Check `reference/islands/{name}/schema.json` → `"parts"` array
+2. Or use `get_island_schema` MCP tool → returns parts list
+3. Each part name describes the element's role, not its HTML tag

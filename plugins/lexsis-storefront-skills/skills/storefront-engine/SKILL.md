@@ -10,9 +10,10 @@ This is the routing and orchestration layer for all Lexsis AI storefront operati
 
 ## How This Works
 
-1. **Commands** (generate, optimize, remix, experiment, cart, publish) invoke this skill automatically
+1. **Commands** (generate, optimize, remix, experiment, cart, publish, analyze-page, extract-island, search-docs) invoke this skill automatically
 2. **Agents** (cro-analyzer, page-builder) have their own orchestration logic
 3. **Reference files** in `reference/` contain deep knowledge — load ONLY what you need
+4. **Island schemas** in `reference/islands/{name}/schema.json` — full prop types, parts, examples, anti-patterns
 
 ---
 
@@ -269,33 +270,56 @@ Hand-authored VibePage JSON persisted via `publish_vibe_page` still costs credit
 Load these with `Read reference/{name}.md` when you need specific knowledge. Do NOT load all at once.
 
 ### Knowledge (domain expertise)
-- **generation-protocol.md** — ---
-- **cro-research.md** — ---
-- **storefront-craft.md** — Load this skill first on any storefront page generation task.
-- **workflow-orchestration.md** — Load after `craft-guide`. Defines optimal tool sequences, parallelization rules, and flow selection.
-- **conversion-psychology.md** — Map the AIDA framework to section order. Each stage requires specific psychology and placement.
-- **visual-craft.md** — Techniques for making vibe-code pages look premium. Load when polishing visual quality.
-- **island-patterns.md** — How to properly embed, wrap, and combine React islands in vibe-code HTML sections. Load when using c
-- **qa-recipe.md** — 1. **Validate structure** — call `validate_vibe_page` on the generated JSON
+- **generation-protocol.md** — Page generation rules, constraints, and quality gates
+- **cro-research.md** — Conversion rate optimization research and data (2026)
+- **storefront-craft.md** — Load FIRST on any page generation task. Core craft principles.
+- **workflow-orchestration.md** — Tool sequences, parallelization, flow selection
+- **conversion-psychology.md** — AIDA framework → section order mapping
+- **visual-craft.md** — Premium visual techniques. Load when polishing quality.
+- **island-patterns.md** — How to embed, wrap, and combine React islands in vibe-code HTML
+- **premium-patterns.md** — Copy-and-adapt HTML+Tailwind patterns for high-converting sections
+- **animation-system.md** — CSS-only + IntersectionObserver animations. No framer-motion.
+- **design-enrichment.md** — Using generate_asset, edit_asset, view_asset for custom imagery
+- **qa-recipe.md** — Validation, integrity checks, screenshot QA workflow
+- **reference-pdp-remix.md** — PDP reference site patterns and adaptation techniques
+
+### Verticals (industry-specific knowledge)
+- **vertical-beauty.md** — Beauty/skincare patterns, ingredient displays, routine builders
+- **vertical-supplements.md** — Supplements: clinical data, dosage, subscription-first
+- **vertical-fashion.md** — Fashion: size guides, lookbooks, "Add to Bag" conventions
+- **vertical-food.md** — Food/beverage DTC: flavor profiles, subscription boxes
+- **vertical-home.md** — Home goods: room scenes, measurement guides, material specs
+- **vertical-luxury.md** — Luxury: editorial restraint, heritage storytelling, exclusivity
+
+### Traffic Sources
+- **traffic-source-meta.md** — Meta/Facebook/Instagram ad optimization patterns
+- **traffic-source-google.md** — Google Search/Shopping ad optimization
+- **traffic-source-tiktok.md** — TikTok ad creative adaptation
+
+### Island Reference
+- **islands/_contract.md** — Rules ALL island wrappers must follow (spacing, colors, responsive, data-parts)
+- **islands/{name}/schema.json** — Full props, types, variants, examples, parts, anti-patterns (47 islands)
+- **islands/{name}/index.md** — Composition rules, file index, quick reference
+- **islands/{name}/layouts/*.json** — Pre-built section templates (renderer-compatible)
 
 ### Operational (workflow procedures)
-- **page-generation.md** — Generate high-quality Shopify storefront pages using the Lexsis AI MCP tools.
-- **design-assets.md** — Manage visual assets (search, generate, edit) and brand identity (kit, themes).
-- **publishing.md** — Manage page publishing, previews, and lifecycle.
-- **page-editing.md** — Edit existing pages using section-level operations.
-- **analytics.md** — Access page performance data and manage A/B experiments.
-- **generate-pdp.md** — Generate high-converting product detail pages. BuyBox island is REQUIRED. Sticky CTA adds +12% CVR. 
-- **generate-landing-page.md** — Generate high-converting post-click landing pages. ZERO navigation (+30% CVR from reduced distractio
-- **generate-homepage.md** — Generate brand-first homepages. Navigation-driven, multi-CTA, storytelling-focused. Category grid ad
-- **generate-collection.md** — Generate browsable product listing pages. Grid-focused with EditorialProductGrid island. Quick-add b
-- **generate-listicle.md** — Generate SEO-optimized long-form listicle and comparison pages (>2000 words) with proper heading hie
-- **generate-bundle-page.md** — Generate interactive bundle-builder pages with step-based UX, discount tier visualization, live pric
-- **generate-editorial.md** — Generate long-form editorial pages with cinematic visuals, magazine layout patterns, and restrained 
-- **ad-to-page.md** — Generate a high-converting landing page from an ad creative with full scent continuity (headline, pa
-- **page-redesign.md** — Visually refresh an existing page using performance data to preserve what works and redesign what do
-- **competitor-remix.md** — Capture a competitor page, decompose its structure, and rebuild it using the user's own brand identi
-- **personalization-variant.md** — Create targeted page variants adapting messaging, imagery, social proof, and CTAs to each audience s
-- **ab-test-variant.md** — Clone an existing page, apply a single focused change based on a clear hypothesis, launch a controll
-- **section-library.md** — Insert common section patterns into existing pages — one section at a time, matched to the page's ex
-- **cart-composition.md** — Compose a Cart V2 drawer using atomic islands inside a DrawerShell container. Use when store has `ca
-- **cart-v2-management.md** — How to read, modify, and validate store-level cart configuration using MCP tools.
+- **page-generation.md** — Generate pages using MCP tools
+- **design-assets.md** — Manage visual assets and brand identity
+- **publishing.md** — Page publishing, previews, lifecycle
+- **page-editing.md** — Edit existing pages via section-level operations
+- **analytics.md** — Page performance data and A/B experiments
+- **generate-pdp.md** — Product detail pages (BuyBox required, sticky CTA +12% CVR)
+- **generate-landing-page.md** — Post-click landing pages (zero nav, +30% CVR)
+- **generate-homepage.md** — Brand homepages (nav, collections, story)
+- **generate-collection.md** — Product grids with EditorialProductGrid + QuickAdd
+- **generate-listicle.md** — SEO long-form comparison pages (>2000 words)
+- **generate-bundle-page.md** — Bundle builders with BundleBuilder island
+- **generate-editorial.md** — Magazine-style shoppable editorial content
+- **ad-to-page.md** — Ad creative → message-matched landing page
+- **page-redesign.md** — Refresh existing pages preserving what works
+- **competitor-remix.md** — Rebuild competitor page with your brand
+- **personalization-variant.md** — Per-persona page variants
+- **ab-test-variant.md** — Hypothesis-driven A/B test setup
+- **section-library.md** — Insert section patterns into existing pages
+- **cart-composition.md** — Cart V2 drawer composition (DrawerShell + atomic islands)
+- **cart-v2-management.md** — Read/modify/validate cart configuration via MCP
