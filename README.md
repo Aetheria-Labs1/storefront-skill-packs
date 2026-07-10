@@ -50,7 +50,7 @@ cp -r storefront-skills/cursor/rules/* .cursor/rules/
 
 | Plugin | Type | What It Adds |
 |--------|------|-------------|
-| `lexsis-storefront-skills` | **Core** | 30 skills + 14 commands + MCP config |
+| `lexsis-storefront-skills` | **Core** | 28 skills + 6 commands + 2 agents + MCP config |
 | `lexsis-beauty-skills` | Vertical | Beauty/skincare patterns |
 | `lexsis-supplements-skills` | Vertical | Supplement/wellness patterns |
 | `lexsis-fashion-skills` | Vertical | Fashion/apparel patterns |
@@ -64,20 +64,12 @@ cp -r storefront-skills/cursor/rules/* .cursor/rules/
 
 | Command | What It Does |
 |---------|-------------|
-| `/generate-pdp` | Product detail page (BuyBox, gallery, reviews) |
-| `/generate-landing-page` | Campaign landing (message match, zero nav) |
-| `/generate-homepage` | Brand homepage (nav, collections, story) |
-| `/generate-collection` | Product grid with filters |
-| `/generate-listicle` | SEO comparison/top-10 page |
-| `/generate-bundle` | Bundle builder with discount tiers |
-| `/generate-editorial` | Magazine-style shoppable content |
-| `/convert-ad` | Ad creative → landing page |
-| `/redesign-page` | Modernize existing page |
-| `/remix-competitor` | Adapt competitor design to your brand |
-| `/personalize-page` | Per-persona variants |
-| `/ab-test` | Hypothesis-driven split test |
-| `/setup-brand` | First-time brand configuration |
-| `/add-section` | Quick-insert section into existing page |
+| `/generate` | Generate a Shopify page — auto-detects type (PDP, landing, collection, homepage, editorial, listicle, bundle) |
+| `/optimize` | CRO-optimize an existing page — fix CTAs, trust signals, mobile UX |
+| `/remix` | Rebuild a competitor page or ad creative adapted to your brand |
+| `/experiment` | Set up A/B tests, personalization variants, monitor results |
+| `/cart` | Configure Cart V2 drawer — upsells, progress bars, conditional rules |
+| `/publish` | QA check and publish a page to Shopify |
 
 ## MCP Server
 
