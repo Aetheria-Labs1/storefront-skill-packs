@@ -56,27 +56,6 @@
       "author": { "name": "Aetheria Labs" },
       "source": "./plugins/lexsis-home-skills",
       "category": "development"
-    },
-    {
-      "name": "lexsis-meta-ads-skills",
-      "description": "Meta/Facebook/Instagram ad-to-page optimization — warm traffic patterns, social proof, video-native layouts. Install lexsis-storefront-skills first.",
-      "author": { "name": "Aetheria Labs" },
-      "source": "./plugins/lexsis-meta-ads-skills",
-      "category": "development"
-    },
-    {
-      "name": "lexsis-google-ads-skills",
-      "description": "Google Search/Shopping ad-to-page optimization — intent-driven layouts, feature-first, comparison-ready. Install lexsis-storefront-skills first.",
-      "author": { "name": "Aetheria Labs" },
-      "source": "./plugins/lexsis-google-ads-skills",
-      "category": "development"
-    },
-    {
-      "name": "lexsis-tiktok-ads-skills",
-      "description": "TikTok ad-to-page optimization — scroll-stopping, UGC-style, fast cuts, youth-optimized. Install lexsis-storefront-skills first.",
-      "author": { "name": "Aetheria Labs" },
-      "source": "./plugins/lexsis-tiktok-ads-skills",
-      "category": "development"
     }
   ]
 }

@@ -13,9 +13,6 @@
 
 # 3. Add your industry vertical (optional)
 /plugin install lexsis-beauty-skills@lexsis
-
-# 4. Add your traffic source (optional)
-/plugin install lexsis-meta-ads-skills@lexsis
 ```
 
 Done. Skills auto-load, MCP auto-configures, commands available immediately.
@@ -60,9 +57,8 @@ cp -r storefront-skills/cursor/rules/* .cursor/rules/
 | `lexsis-food-skills` | Vertical | Food/beverage DTC patterns |
 | `lexsis-home-skills` | Vertical | Home goods/decor patterns |
 | `lexsis-luxury-skills` | Vertical | Luxury/premium patterns |
-| `lexsis-meta-ads-skills` | Traffic | Meta/Facebook/Instagram ad optimization |
-| `lexsis-google-ads-skills` | Traffic | Google Search/Shopping ad optimization |
-| `lexsis-tiktok-ads-skills` | Traffic | TikTok ad optimization |
+
+> Traffic source skills (Meta, Google, TikTok) shipping separately — coming soon.
 
 ## Commands (after installing core)
 
@@ -117,10 +113,7 @@ storefront-skills/
 │   ├── lexsis-fashion-skills/
 │   ├── lexsis-food-skills/
 │   ├── lexsis-home-skills/
-│   ├── lexsis-luxury-skills/
-│   ├── lexsis-meta-ads-skills/      ← Traffic source add-ons
-│   ├── lexsis-google-ads-skills/
-│   └── lexsis-tiktok-ads-skills/
+│   └── lexsis-luxury-skills/
 ├── codex/                           ← OpenAI Codex format
 ├── cursor/                          ← Cursor rules
 └── gpt/                             ← Custom GPT knowledge
