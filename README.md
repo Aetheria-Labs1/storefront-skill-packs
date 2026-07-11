@@ -1,6 +1,6 @@
 # Lexsis AI — Storefront Skills
 
-> AI skills for building high-converting Shopify landing pages. One command to install.
+> Native AI workflows for building high-converting Shopify storefronts with Claude Code and OpenAI Codex.
 
 ## Install (Claude Code)
 
@@ -17,23 +17,36 @@
 
 Done. Skills auto-load, MCP auto-configures, commands available immediately.
 
-## Install (Other Platforms)
+## Install (OpenAI Codex)
 
-<details>
-<summary><strong>OpenAI Codex</strong></summary>
+Run these commands in your terminal:
 
 ```bash
-# Register or refresh marketplace
+# 1. Register the Lexsis marketplace (one-time)
 codex plugin marketplace add Aetheria-Labs1/storefront-skills --ref main
 
-# Install Lexsis Codex plugin
+# 2. Install the storefront plugin
 codex plugin add lexsis-storefront-skills@lexsis-storefront
 ```
 
-Codex selects workflows automatically from your request. Invoke one of the 12 workflows with `$generate`, `$browser-analyze`, `$cart`, or another `$skill-name`; custom `/generate` commands are Claude-only.
+Start a new Codex task after installation. Complete the `lexsis-ai` OAuth prompt when Codex requests access to the bundled MCP server.
 
-Codex Browser is optional. URL analysis and draft QA use it when available, otherwise skills fall back to Lexsis server-side design extraction.
-</details>
+Codex selects skills automatically from your request. You can also invoke any workflow directly with `$skill-name`, for example `$generate`, `$browser-analyze`, or `$cart`. Plugin-defined slash commands such as `/generate` are Claude-only.
+
+Verify or update the installation:
+
+```bash
+# Show installed plugin and version
+codex plugin list
+
+# Fetch marketplace updates, then reinstall the latest plugin version
+codex plugin marketplace upgrade lexsis-storefront
+codex plugin add lexsis-storefront-skills@lexsis-storefront
+```
+
+Codex Browser is optional. URL analysis and draft QA use it when available; otherwise skills fall back to Lexsis server-side design extraction.
+
+## Install (Other Platforms)
 
 <details>
 <summary><strong>Cursor</strong></summary>
@@ -72,12 +85,18 @@ Codex supports skills rather than plugin-defined slash commands. Use natural lan
 
 | Skill | What It Does |
 |-------|--------------|
-| `$generate` | Generate a Shopify page with planning, validation, and draft-first publishing |
+| `$storefront-engine` | Route broad, multi-step storefront requests to the right workflow |
 | `$browser-analyze` | Audit a storefront URL using Codex Browser when available |
-| `$analyze-page` / `$extract-island` | Analyze a reference page or turn a component into a reusable island layout |
-| `$cart` | Configure Cart V2 and related islands |
-| `$experiment` | Run experiments and create page variants |
-| `$optimize`, `$remix`, `$plan-page`, `$publish` | Optimize, adapt, plan, and safely publish pages |
+| `$analyze-page` | Turn page evidence into a reproducible design and CRO brief |
+| `$cart` | Configure Cart V2 composition, upsells, and behavior |
+| `$experiment` | Set up A/B tests and personalization variants |
+| `$extract-island` | Convert a page component into a reusable island layout |
+| `$generate` | Generate a Shopify page with planning, validation, and draft-first publishing |
+| `$optimize` | Improve an existing page for conversion |
+| `$plan-page` | Create a page blueprint before generation |
+| `$publish` | Validate, preview, and publish with explicit live approval |
+| `$remix` | Adapt competitor or ad patterns to a brand |
+| `$search-docs` | Search Lexsis workflows, island schemas, and reference material |
 
 Page-type and specialist workflows such as `generate-pdp.md`, `generate-homepage.md`, `ab-test-variant.md`, and `cart-v2-management.md` remain shared references used by these skills. They are not duplicated as standalone Codex skills.
 
@@ -95,10 +114,10 @@ Page-type and specialist workflows such as `generate-pdp.md`, `generate-homepage
 
 ## MCP Server
 
-Core plugin auto-configures the Lexsis AI MCP server. You'll need your API key:
+Core plugin auto-configures the Lexsis AI MCP server.
 
-1. Get key at [app.trylexsis.com/settings/api-key](https://app.trylexsis.com/settings/api-key)
-2. Add to your Claude Code settings under MCP server `lexsis-ai` → headers → Authorization
+- **Codex:** complete OAuth when prompted. No manual MCP configuration is required.
+- **Claude Code:** get an API key at [app.trylexsis.com/settings/api-key](https://app.trylexsis.com/settings/api-key), then add it to the `lexsis-ai` MCP server's `Authorization` header in Claude Code settings.
 
 ## Visual Verification
 
