@@ -28,9 +28,11 @@ jobs:
       - name: Validate plugin.json files
         run: python3 scripts/validate-plugins.py
 
+      - name: Validate Codex plugin
+        run: python3 scripts/validate-codex-plugin.py
+
       - name: Validate skill frontmatter
         run: python3 scripts/validate-frontmatter.py
 
       - name: Check cross-platform sync
         run: python3 scripts/check-sync.py
-        continue-on-error: true

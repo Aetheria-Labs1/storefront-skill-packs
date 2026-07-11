@@ -1,0 +1,13 @@
+interface:
+  display_name: "Set Up Cart V2"
+  short_description: "Explicit entry point for Cart V2 setup."
+  default_prompt: "Set up a Cart V2 drawer."
+policy:
+  allow_implicit_invocation: false
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "lexsis-ai"
+      description: "Lexsis AI storefront MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.trylexsis.com/mcp"

@@ -1,0 +1,11 @@
+interface:
+  display_name: "Configure Cart V2"
+  short_description: "Configure Cart V2 islands, rules, and upsells."
+  default_prompt: "Configure a Cart V2 drawer for my storefront."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "lexsis-ai"
+      description: "Lexsis AI storefront MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.trylexsis.com/mcp"

@@ -1,0 +1,6 @@
+{
+  "id": "info-cards",
+  "html": "<section class=\"max-w-3xl mx-auto px-4 py-8 md:py-12\"><div class=\"space-y-4\"><div data-island=\"PDPInfoCards\" data-props='{\"variant\":\"minimal\",\"cards\":{{CARDS}},\"columns\":1,\"productId\":\"{{PRODUCT_ID}}\",\"showIcons\":true,\"iconStyle\":\"outline\"}'></div></div></section>",
+  "css": "",
+  "js": ""
+}

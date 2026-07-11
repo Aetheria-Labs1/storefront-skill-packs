@@ -1,0 +1,11 @@
+interface:
+  display_name: "Analyze Page"
+  short_description: "Create a reproducible storefront design brief from a URL."
+  default_prompt: "Analyze this page as storefront design inspiration."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "lexsis-ai"
+      description: "Lexsis AI storefront MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.trylexsis.com/mcp"

@@ -1,0 +1,13 @@
+interface:
+  display_name: "Add Section"
+  short_description: "Explicit entry point for validated storefront section insertion."
+  default_prompt: "Add a section to this storefront page."
+policy:
+  allow_implicit_invocation: false
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "lexsis-ai"
+      description: "Lexsis AI storefront MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.trylexsis.com/mcp"

@@ -1,0 +1,13 @@
+interface:
+  display_name: "Generate Page"
+  short_description: "Explicit entry point for end-to-end page generation."
+  default_prompt: "Generate a complete storefront page."
+policy:
+  allow_implicit_invocation: false
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "lexsis-ai"
+      description: "Lexsis AI storefront MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.trylexsis.com/mcp"

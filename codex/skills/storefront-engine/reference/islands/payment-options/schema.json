@@ -1,0 +1,83 @@
+{
+  "name": "PaymentOptions",
+  "category": "commerce",
+  "usage_hint": "Buy-now-pay-later badge showing installment pricing for Klarna, Afterpay, Shop Pay, Affirm, Zip. Auto-calculates per-installment amount.",
+  "when_to_use": "On product pages to show financing options. Listens for variant:changed events to update pricing. Three variants: inline (text + icons), expandable (click to show providers), icons_only (logo row).",
+  "when_not_to_use": "When BNPL providers aren't enabled in your store. For subscription pricing use SubscriptionToggle. When product price is below provider minimums (usually $35-50).",
+  "combine_with": [
+    "ProductPrice",
+    "BuyBox",
+    "VariantSelector",
+    "ProceedToCart"
+  ],
+  "anti_patterns": [
+    "Listing providers that aren't actually enabled at checkout (misleading, causes cart abandonment)",
+    "Using inline variant with >3 providers (too crowded \u2014 use expandable)",
+    "Setting installments to anything other than 4 (most BNPL = 4 equal payments)"
+  ],
+  "examples": [
+    {
+      "label": "Inline payment options",
+      "html": "<div data-island=\"PaymentOptions\" data-props='{\"price\":9999,\"currency\":\"USD\",\"providers\":[\"klarna\",\"afterpay\",\"shop_pay\"],\"installments\":4,\"variant\":\"inline\"}'></div>"
+    },
+    {
+      "label": "Expandable with auto-update from variant changes",
+      "html": "<div data-island=\"PaymentOptions\" data-props='{\"price\":14999,\"providers\":[\"klarna\",\"afterpay\",\"affirm\",\"zip\"],\"installments\":4,\"variant\":\"expandable\",\"listenForEvents\":true}'></div>"
+    },
+    {
+      "label": "Icons only footer badge",
+      "html": "<div data-island=\"PaymentOptions\" data-props='{\"price\":0,\"providers\":[\"shop_pay\",\"klarna\",\"afterpay\"],\"variant\":\"icons_only\"}'></div>"
+    }
+  ],
+  "props": {
+    "price": {
+      "type": "number",
+      "required": true
+    },
+    "currency": {
+      "type": "string",
+      "required": false,
+      "default": "USD"
+    },
+    "providers": {
+      "type": "array",
+      "required": false,
+      "default": "[\"klarna\", \"afterpay\", \"shop_pay\"]"
+    },
+    "installments": {
+      "type": "number",
+      "required": false,
+      "default": "4"
+    },
+    "variant": {
+      "type": "enum",
+      "required": false,
+      "values": [
+        "inline",
+        "expandable",
+        "icons_only"
+      ],
+      "default": "inline"
+    },
+    "listenForEvents": {
+      "type": "boolean",
+      "required": false,
+      "default": "false"
+    }
+  },
+  "variants": [
+    "inline",
+    "expandable",
+    "icons_only"
+  ],
+  "css_vars": [
+    "--lx-text-color"
+  ],
+  "parts": [
+    "button",
+    "icons-row",
+    "root",
+    "text"
+  ],
+  "example": "<div data-island=\"PaymentOptions\" data-props='{\"price\":0}'></div>"
+}

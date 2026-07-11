@@ -1,0 +1,111 @@
+{
+  "name": "PDPInfoCards",
+  "category": "social_proof",
+  "usage_hint": "Grid of info cards displaying product-specific details (ingredients, materials, care instructions, certifications) below product images or BuyBox on PDPs.",
+  "when_to_use": "When a product has 2-6 distinct attribute groups that need structured presentation (e.g. wine: taste profile, pairing suggestions, region, awards; apparel: materials, care, sizing, certifications). Best for products where specifications matter to purchase decisions.",
+  "when_not_to_use": "For site-wide service guarantees (use TrustBadgeBar instead). Don't use for single-attribute products (just add to description). Avoid on collection pages (too detailed; use concise product cards). Skip if content is better as prose (long narratives don't fit the card format).",
+  "combine_with": [
+    "BuyBox",
+    "ReviewCarousel",
+    "TrustBadgeBar",
+    "FAQ"
+  ],
+  "anti_patterns": [
+    "More than 6 cards (overwhelming; consolidate related attributes or use accordion/tabs)",
+    "Mixing product specs with service promises (e.g. \"Materials\" + \"Free Shipping\" \u2014 use TrustBadgeBar for service)",
+    "Long paragraphs in card.description or items (breaks card layout; keep items to 1-2 lines, descriptions to 1 sentence)",
+    "Using 4 columns on mobile (unreadable; columns auto-collapse to 1-2 on mobile via grid)",
+    "Inconsistent icon usage (some cards with icons, some without; enable showIcons:false or provide icons for all)"
+  ],
+  "examples": [
+    {
+      "label": "Wine PDP with 3 info cards (2-column grid, bordered)",
+      "html": "<div data-island=\"PDPInfoCards\" data-props='{\"cards\":[{\"title\":\"Taste Profile\",\"icon\":\"\ud83c\udf77\",\"items\":[\"Full-bodied\",\"Dark cherry notes\",\"Smooth tannins\",\"Oak finish\"]},{\"title\":\"Pairs With\",\"icon\":\"\ud83c\udf7d\ufe0f\",\"items\":[\"Grilled steak\",\"Aged cheese\",\"Pasta with red sauce\",\"Dark chocolate\"]},{\"title\":\"Details\",\"icon\":\"\ud83d\udccd\",\"items\":[\"Napa Valley, CA\",\"2019 Vintage\",\"14.5% ABV\",\"750ml\"]}],\"layout\":\"grid\",\"variant\":\"bordered\",\"columns\":2,\"showIcons\":true}'></div>"
+    },
+    {
+      "label": "Apparel PDP with 4 cards (3-column, filled variant)",
+      "html": "<div data-island=\"PDPInfoCards\" data-props='{\"cards\":[{\"title\":\"Materials\",\"icon\":\"\ud83e\uddf5\",\"description\":\"Premium sustainable fabrics\",\"items\":[\"80% Organic Cotton\",\"15% Recycled Polyester\",\"5% Elastane\"]},{\"title\":\"Care Instructions\",\"icon\":\"\ud83e\uddfa\",\"items\":[\"Machine wash cold\",\"Tumble dry low\",\"Do not bleach\",\"Iron low heat\"]},{\"title\":\"Fit & Sizing\",\"icon\":\"\ud83d\udccf\",\"items\":[\"True to size\",\"Relaxed fit\",\"Model wears size M\",\"Size guide available\"]},{\"title\":\"Certifications\",\"icon\":\"\u2713\",\"items\":[\"GOTS Certified\",\"Fair Trade\",\"Carbon Neutral\",\"Vegan materials\"]}],\"layout\":\"grid\",\"variant\":\"filled\",\"columns\":3,\"showIcons\":true}'></div>"
+    },
+    {
+      "label": "Skincare PDP with minimal variant (row layout, no icons)",
+      "html": "<div data-island=\"PDPInfoCards\" data-props='{\"cards\":[{\"title\":\"Key Ingredients\",\"items\":[\"Hyaluronic Acid\",\"Vitamin C\",\"Niacinamide\",\"Ceramides\"]},{\"title\":\"Skin Type\",\"items\":[\"All skin types\",\"Non-comedogenic\",\"Dermatologist tested\",\"Fragrance-free\"]},{\"title\":\"How to Use\",\"items\":[\"Apply to clean skin\",\"Use morning and night\",\"Follow with moisturizer\",\"SPF recommended AM\"]}],\"layout\":\"row\",\"variant\":\"minimal\",\"showIcons\":false}'></div>"
+    },
+    {
+      "label": "Food PDP with badge row (dashed borders, 2-column)",
+      "html": "<div data-island=\"PDPInfoCards\" data-props='{\"cards\":[{\"title\":\"Nutrition Highlights\",\"icon\":\"\ud83e\udd57\",\"items\":[\"High Protein (20g)\",\"Low Carb (5g)\",\"No Added Sugar\",\"Gluten-Free\"]},{\"title\":\"Allergen Info\",\"icon\":\"\u26a0\ufe0f\",\"items\":[\"Contains: Nuts\",\"Contains: Soy\",\"Made in facility with dairy\",\"No shellfish\"]}],\"layout\":\"grid\",\"variant\":\"dashed\",\"columns\":2,\"showIcons\":true,\"badgeRow\":[{\"icon\":\"\ud83c\udf31\",\"label\":\"Vegan\"},{\"icon\":\"\u267b\ufe0f\",\"label\":\"Recyclable Packaging\"},{\"icon\":\"\ud83c\uddfa\ud83c\uddf8\",\"label\":\"Made in USA\"},{\"icon\":\"\u2b50\",\"label\":\"Award Winner\"}]}'></div>"
+    }
+  ],
+  "props": {
+    "cards": {
+      "type": "array",
+      "required": true,
+      "shape": {
+        "title": "string",
+        "icon": "?string",
+        "items": "array<string>",
+        "description": "?string"
+      }
+    },
+    "layout": {
+      "type": "enum",
+      "required": false,
+      "values": [
+        "stacked",
+        "grid",
+        "row"
+      ],
+      "default": "grid"
+    },
+    "variant": {
+      "type": "enum",
+      "required": false,
+      "values": [
+        "filled",
+        "dashed",
+        "minimal",
+        "bordered"
+      ],
+      "default": "bordered"
+    },
+    "columns": {
+      "type": "number",
+      "required": false,
+      "default": "2"
+    },
+    "showIcons": {
+      "type": "boolean",
+      "required": false,
+      "default": "true"
+    },
+    "badgeRow": {
+      "type": "array",
+      "required": false,
+      "shape": {
+        "icon": "string",
+        "label": "string"
+      }
+    }
+  },
+  "variants": [
+    "filled",
+    "dashed",
+    "minimal",
+    "bordered"
+  ],
+  "css_vars": [
+    "--lx-accent-color",
+    "--lx-border-color",
+    "--lx-surface-alt",
+    "--lx-text-color"
+  ],
+  "parts": [
+    "badge",
+    "badge-row",
+    "card",
+    "card-items",
+    "card-title",
+    "cards-grid",
+    "root"
+  ],
+  "example": "<div data-island=\"PDPInfoCards\" data-props='{\"cards\":[{\"title\":\"example-title\",\"items\":\"example-items\"}]}'></div>"
+}

@@ -23,10 +23,16 @@ Done. Skills auto-load, MCP auto-configures, commands available immediately.
 <summary><strong>OpenAI Codex</strong></summary>
 
 ```bash
-git clone https://github.com/Aetheria-Labs1/storefront-skills.git
-cp -r storefront-skills/codex/skills/* .agents/skills/
-cp storefront-skills/codex/AGENTS.md .
+# Register or refresh marketplace
+codex plugin marketplace add Aetheria-Labs1/storefront-skills --ref main
+
+# Install Lexsis Codex plugin
+codex plugin add lexsis-storefront-skills@lexsis-storefront
 ```
+
+Codex selects workflows automatically from your request. Invoke a specific workflow with `$generate`, `$cro-analyzer`, `$generate-pdp`, or another `$skill-name`; custom `/generate` commands are Claude-only.
+
+Codex Browser is optional. URL analysis and draft QA use it when available, otherwise skills fall back to Lexsis server-side design extraction.
 </details>
 
 <details>
@@ -50,7 +56,7 @@ cp -r storefront-skills/cursor/rules/* .cursor/rules/
 
 | Plugin | Type | What It Adds |
 |--------|------|-------------|
-| `lexsis-storefront-skills` | **Core** | 28 skills + 7 commands + 2 agents + MCP config |
+| `lexsis-storefront-skills` | **Core** | 32 Codex skills, 10 Claude commands, 257 references, and MCP config |
 | `lexsis-beauty-skills` | Vertical | Beauty/skincare patterns |
 | `lexsis-supplements-skills` | Vertical | Supplement/wellness patterns |
 | `lexsis-fashion-skills` | Vertical | Fashion/apparel patterns |
@@ -60,7 +66,21 @@ cp -r storefront-skills/cursor/rules/* .cursor/rules/
 
 > Traffic source skills (Meta, Google, TikTok) shipping separately — coming soon.
 
-## Commands (after installing core)
+## Codex Skills
+
+Codex supports skills rather than plugin-defined slash commands. Use natural language for automatic skill selection, or select one directly with `$skill-name`.
+
+| Skill | What It Does |
+|-------|--------------|
+| `$generate` | Generate a Shopify page with planning, validation, and draft-first publishing |
+| `$cro-analyzer` | Audit an ecommerce URL and return a structured CRO blueprint |
+| `$page-builder` | Build a storefront from a brief or CRO blueprint |
+| `$analyze-page` / `$extract-island` | Analyze a reference page or turn a component into a reusable island layout |
+| `$generate-pdp`, `$generate-homepage`, `$generate-collection` | Use a focused page-type workflow |
+| `$cart`, `$setup-cart` | Configure Cart V2 and related islands |
+| `$experiment`, `$ab-test`, `$personalize-page` | Run experiments and create page variants |
+
+## Claude Code Commands (after installing core)
 
 | Command | What It Does |
 |---------|-------------|
@@ -86,6 +106,8 @@ Skills instruct Claude to screenshot pages after generation. Install [Playwright
 ```bash
 /plugin install playwright@claude-plugins-official
 ```
+
+Codex workflows use Codex Browser when enabled. Browser is optional; URL analysis falls back to Lexsis server-side extraction when it is unavailable.
 
 ## How It Works
 

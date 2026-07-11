@@ -1,6 +1,8 @@
 {
-  "lexsis-ai": {
-    "type": "http",
-    "url": "https://mcp.trylexsis.com/mcp"
+  "mcpServers": {
+    "lexsis-ai": {
+      "type": "http",
+      "url": "https://mcp.trylexsis.com/mcp"
+    }
   }
 }

@@ -1,0 +1,6 @@
+{
+  "id": "product-card-compact",
+  "html": "<div class=\"flex items-center gap-3 py-3 border-b\" style=\"border-color: var(--lx-border-color)\"><img src=\"{{IMAGE_URL}}\" alt=\"{{PRODUCT_TITLE}}\" class=\"w-12 h-12 rounded object-cover flex-shrink-0\" /><div class=\"flex-1 min-w-0\"><h3 class=\"text-xs font-medium truncate\" style=\"color: var(--lx-text-color)\">{{PRODUCT_TITLE}}</h3><span class=\"text-xs\" style=\"color: var(--lx-text-muted)\">{{PRODUCT_PRICE}}</span></div><div class=\"flex-shrink-0\"><div data-island=\"ProductCard\" data-props='{\"product\":{\"id\":\"{{PRODUCT_ID}}\",\"title\":\"{{PRODUCT_TITLE}}\",\"price\":\"{{PRODUCT_PRICE}}\"},\"variant\":\"compact\",\"showQuickAdd\":true}'></div></div></div>",
+  "css": "",
+  "js": ""
+}

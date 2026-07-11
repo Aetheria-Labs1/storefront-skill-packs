@@ -1,0 +1,11 @@
+interface:
+  display_name: "Lexsis Storefront Engine"
+  short_description: "Route storefront generation and lifecycle workflows."
+  default_prompt: "Plan and build a conversion-focused Shopify storefront."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "lexsis-ai"
+      description: "Lexsis AI storefront MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.trylexsis.com/mcp"

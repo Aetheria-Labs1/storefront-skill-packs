@@ -1,0 +1,11 @@
+interface:
+  display_name: "Generate Storefront Page"
+  short_description: "Generate and validate a Shopify storefront page."
+  default_prompt: "Generate a conversion-focused Shopify landing page."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "lexsis-ai"
+      description: "Lexsis AI storefront MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.trylexsis.com/mcp"
