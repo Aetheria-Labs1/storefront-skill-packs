@@ -1,0 +1,156 @@
+{
+  "name": "ProductHero",
+  "category": "commerce",
+  "usage_hint": "Premium full-height hero gallery for PDP split layouts. Designed for side-by-side media + BuyBox layouts with floating arrows, thumbnail rail, and per-image object-fit control. Uses MediaSlideshow primitive.",
+  "when_to_use": "Use for high-end PDP layouts where media occupies 50-60% of viewport height and sits alongside BuyBox. Ideal for fashion, furniture, premium goods where large immersive media is key.",
+  "when_not_to_use": "Not for compact galleries (use ProductGallery). Not for hero banners on landing pages (this is PDP-specific). Not for card-based media (use ProductCard).",
+  "combine_with": [
+    "BuyBox (side-by-side split layout)",
+    "VariantSwatches (when listenForVariant:true",
+    "hero updates images on variant change)"
+  ],
+  "anti_patterns": [
+    "Using on mobile without testing: full-height hero can push BuyBox too far down; test stacked layouts",
+    "Setting maxHeight too high: can create excessive whitespace on smaller screens",
+    "Using floatingArrows on small images: arrows may overlap content awkwardly",
+    "Setting hoverAdvance:true on touch devices: no hover on mobile, feature is lost"
+  ],
+  "examples": [
+    {
+      "label": "Split-left hero with thumbnail rail",
+      "html": "<div data-island=\"ProductHero\" data-props='{\"images\":[{\"url\":\"https://via.placeholder.com/800\",\"alt\":\"Product image 1\"},{\"url\":\"https://via.placeholder.com/800\",\"alt\":\"Product image 2\"}],\"layout\":\"splitLeft\",\"thumbnails\":\"rail\",\"thumbnailPosition\":\"left\",\"navigation\":\"floatingArrows\",\"maxHeight\":\"85vh\",\"transition\":\"fade\"}'></div>"
+    },
+    {
+      "label": "Full-height hero with autoplay",
+      "html": "<div data-island=\"ProductHero\" data-props='{\"images\":[{\"url\":\"https://via.placeholder.com/800\"},{\"url\":\"https://via.placeholder.com/800\"}],\"layout\":\"fullHeight\",\"autoplay\":true,\"interval\":4000,\"transition\":\"kenBurns\",\"navigation\":\"floatingArrows\"}'></div>"
+    },
+    {
+      "label": "Hero with variant sync and dots",
+      "html": "<div data-island=\"ProductHero\" data-props='{\"images\":[{\"url\":\"https://via.placeholder.com/800\"}],\"listenForVariant\":true,\"thumbnails\":\"dots\",\"navigation\":\"none\"}'></div>"
+    },
+    {
+      "label": "Split-right with custom aspect ratio",
+      "html": "<div data-island=\"ProductHero\" data-props='{\"images\":[{\"url\":\"https://via.placeholder.com/800\"}],\"layout\":\"splitRight\",\"aspectRatio\":\"1:1\",\"maxHeight\":\"90vh\",\"transition\":\"slide\"}'></div>"
+    }
+  ],
+  "props": {
+    "images": {
+      "type": "array",
+      "required": true,
+      "shape": {
+        "url": "string",
+        "alt": "?string",
+        "objectFit": "?'cover' | 'contain'",
+        "objectPosition": "?string"
+      }
+    },
+    "layout": {
+      "type": "enum",
+      "required": false,
+      "values": [
+        "stacked",
+        "splitLeft",
+        "splitRight",
+        "fullHeight"
+      ],
+      "default": "splitLeft"
+    },
+    "thumbnails": {
+      "type": "enum",
+      "required": false,
+      "values": [
+        "none",
+        "rail",
+        "dots"
+      ],
+      "default": "rail"
+    },
+    "thumbnailPosition": {
+      "type": "enum",
+      "required": false,
+      "values": [
+        "left",
+        "bottom",
+        "right"
+      ],
+      "default": "left"
+    },
+    "navigation": {
+      "type": "enum",
+      "required": false,
+      "values": [
+        "none",
+        "arrows",
+        "floatingArrows"
+      ],
+      "default": "floatingArrows"
+    },
+    "aspectRatio": {
+      "type": "string",
+      "required": false,
+      "default": "3:4"
+    },
+    "maxHeight": {
+      "type": "string",
+      "required": false,
+      "default": "85vh"
+    },
+    "transition": {
+      "type": "enum",
+      "required": false,
+      "values": [
+        "none",
+        "fade",
+        "slide",
+        "zoom",
+        "kenBurns"
+      ],
+      "default": "fade"
+    },
+    "listenForVariant": {
+      "type": "boolean",
+      "required": false,
+      "default": "false"
+    },
+    "autoplay": {
+      "type": "boolean",
+      "required": false,
+      "default": "false"
+    },
+    "interval": {
+      "type": "number",
+      "required": false,
+      "default": "4000"
+    },
+    "hoverAdvance": {
+      "type": "boolean",
+      "required": false,
+      "default": "false"
+    },
+    "showIndicators": {
+      "type": "boolean",
+      "required": false,
+      "default": "false"
+    }
+  },
+  "variants": [
+    "stacked",
+    "splitLeft",
+    "splitRight",
+    "fullHeight"
+  ],
+  "css_vars": [
+    "--lx-accent-color",
+    "--lx-border-color"
+  ],
+  "parts": [
+    "main-image",
+    "media-pane",
+    "nav-next",
+    "nav-prev",
+    "root",
+    "thumbnail",
+    "thumbnail-rail"
+  ],
+  "example": "<div data-island=\"ProductHero\" data-props='{\"images\":[{\"url\":\"example-url\"}]}'></div>"
+}

@@ -1,11 +1,11 @@
 ---
 name: browser-analyze
-description: Use @Browser to visually analyze any URL for design extraction, CRO audit, or competitor research. Use when user provides a URL to remix, analyze, or compare against.
+description: Use Codex Browser to analyze a URL for design extraction, CRO evidence, or competitor research. Use when a task provides a reference or storefront URL.
 ---
 
 # Browser-Powered Page Analysis
 
-Use the Codex @Browser to deeply analyze web pages before generating or optimizing storefronts.
+Use Codex Browser to deeply analyze web pages before generating or optimizing storefronts.
 
 ## When to Use
 
@@ -20,7 +20,7 @@ Use the Codex @Browser to deeply analyze web pages before generating or optimizi
 
 ### Step 1 — Navigate and Capture
 
-Use @Browser to:
+Use Codex Browser to:
 1. Open the target URL
 2. Take a full-page screenshot (desktop viewport)
 3. Resize to mobile (375px width) and screenshot again
@@ -28,7 +28,7 @@ Use @Browser to:
 
 ### Step 2 — DOM Inspection
 
-Use @Browser to run read-only JavaScript inspection:
+Use Codex Browser to run read-only JavaScript inspection:
 
 ```js
 // Extract structural data

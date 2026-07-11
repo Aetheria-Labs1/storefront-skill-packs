@@ -1,0 +1,124 @@
+{
+  "name": "BuyBox",
+  "category": "commerce",
+  "usage_hint": "Full-featured product purchase interface with variant selection, quantity picker, and add-to-cart functionality. Primary CTA for PDP layouts.",
+  "when_to_use": "Use on product detail pages where customers need to select options and add items to cart. Supports variants, subscription plans, out-of-stock notify-me, and animated feedback.",
+  "when_not_to_use": "Not for collection pages (use QuickAdd or ProductCard instead). Not for sticky follow-up CTAs (use StickyBar). Not for lightweight inline add-to-cart (use QuickAdd).",
+  "combine_with": [
+    "CartDrawer (REQUIRED for cart feedback)",
+    "ProductGallery or ProductHero (visual context)",
+    "VariantSwatches (when listenForEvents:true + showVariantSelector:false)"
+  ],
+  "anti_patterns": [
+    "Omitting CartDrawer: without it, users don't see cart confirmation feedback or access the cart",
+    "Using showVariantSelector:true with VariantSwatches: duplicates variant UI (set showVariantSelector:false, listenForEvents:true on BuyBox when using VariantSwatches)",
+    "Variant=\"compact\" with multiple variants: loses variant selector, breaking multi-variant products",
+    "Setting animate:false then relying on success feedback: removes visual confirmation animations"
+  ],
+  "examples": [
+    {
+      "label": "Default PDP BuyBox with variants",
+      "html": "<div data-island=\"BuyBox\" data-props='{\"product\":{\"title\":\"Wireless Headphones\",\"price\":\"$99.00\",\"compareAtPrice\":\"$129.00\",\"variants\":[{\"id\":\"v1\",\"title\":\"Black\",\"price\":\"$99.00\",\"available\":true},{\"id\":\"v2\",\"title\":\"White\",\"price\":\"$99.00\",\"available\":true}]},\"ctaText\":\"Add to Cart\",\"showVariantSelector\":true,\"variant\":\"default\"}'></div>"
+    },
+    {
+      "label": "Compact BuyBox (single variant, no qty picker)",
+      "html": "<div data-island=\"BuyBox\" data-props='{\"product\":{\"title\":\"T-Shirt\",\"price\":\"$29.00\",\"variants\":[{\"id\":\"v1\",\"title\":\"Medium\",\"price\":\"$29.00\",\"available\":true}]},\"variant\":\"compact\"}'></div>"
+    },
+    {
+      "label": "Expanded with trust badges",
+      "html": "<div data-island=\"BuyBox\" data-props='{\"product\":{\"title\":\"Premium Watch\",\"price\":\"$299.00\",\"variants\":[{\"id\":\"v1\",\"title\":\"Silver\",\"price\":\"$299.00\",\"available\":true}]},\"variant\":\"expanded\",\"ctaText\":\"Buy Now\"}'></div>"
+    },
+    {
+      "label": "No price (custom price layout above)",
+      "html": "<div data-island=\"BuyBox\" data-props='{\"product\":{\"title\":\"Sneakers\",\"price\":\"$120.00\",\"variants\":[{\"id\":\"v1\",\"title\":\"Red\",\"price\":\"$120.00\",\"available\":true}]},\"showPrice\":false}'></div>"
+    },
+    {
+      "label": "Expanded without trust badges",
+      "html": "<div data-island=\"BuyBox\" data-props='{\"product\":{\"title\":\"Serum\",\"price\":\"$49.00\",\"variants\":[{\"id\":\"v1\",\"title\":\"30ml\",\"price\":\"$49.00\",\"available\":true}]},\"variant\":\"expanded\",\"showTrustBadges\":false}'></div>"
+    },
+    {
+      "label": "With VariantSwatches (event-driven, no internal selector)",
+      "html": "<div data-island=\"BuyBox\" data-props='{\"product\":{\"title\":\"Sneakers\",\"price\":\"$120.00\",\"variants\":[{\"id\":\"v1\",\"title\":\"Red\",\"price\":\"$120.00\",\"available\":true}]},\"listenForEvents\":true,\"showVariantSelector\":false}'></div>"
+    }
+  ],
+  "props": {
+    "product": {
+      "type": "object",
+      "required": true,
+      "shape": {
+        "title": "string",
+        "price": "string",
+        "compareAtPrice": "?string",
+        "variants": "array<{id: string, title: string, price: string, available: boolean}>"
+      }
+    },
+    "ctaText": {
+      "type": "string",
+      "required": false,
+      "default": "Add to Cart"
+    },
+    "listenForEvents": {
+      "type": "boolean",
+      "required": false,
+      "default": "false"
+    },
+    "showVariantSelector": {
+      "type": "boolean",
+      "required": false,
+      "default": "true"
+    },
+    "showPrice": {
+      "type": "boolean",
+      "required": false,
+      "default": "true"
+    },
+    "showTrustBadges": {
+      "type": "boolean",
+      "required": false,
+      "default": "true"
+    },
+    "variant": {
+      "type": "enum",
+      "required": false,
+      "values": [
+        "default",
+        "compact",
+        "expanded"
+      ],
+      "default": "default"
+    },
+    "animate": {
+      "type": "boolean",
+      "required": false,
+      "default": "true"
+    },
+    "buttonStyle": {
+      "type": "object",
+      "required": false,
+      "shape": {
+        "borderRadius": "?string",
+        "padding": "?string",
+        "fontSize": "?string"
+      }
+    }
+  },
+  "variants": [
+    "default",
+    "compact",
+    "expanded"
+  ],
+  "css_vars": [
+    "--lx-accent-color"
+  ],
+  "parts": [
+    "cta",
+    "notify",
+    "qty",
+    "qty-btn",
+    "root",
+    "trust-badges",
+    "variant-btn",
+    "variants"
+  ],
+  "example": "<div data-island=\"BuyBox\" data-props='{\"product\":{\"title\":\"example-title\",\"price\":\"example-price\",\"variants\":[]}}'></div>"
+}

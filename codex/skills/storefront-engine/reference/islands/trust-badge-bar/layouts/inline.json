@@ -1,0 +1,6 @@
+{
+  "id": "trust-badges",
+  "html": "<div class=\"py-2\"><div data-island=\"TrustBadgeBar\" data-props='{\"variant\":\"inline\",\"badges\":{{BADGES}},\"layout\":\"inline\"}'></div></div>",
+  "css": "",
+  "js": ""
+}

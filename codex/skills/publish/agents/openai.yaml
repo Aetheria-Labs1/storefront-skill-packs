@@ -1,0 +1,11 @@
+interface:
+  display_name: "Publish Storefront Page"
+  short_description: "Validate, preview, and publish a storefront page."
+  default_prompt: "Validate this storefront page and prepare a draft preview."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "lexsis-ai"
+      description: "Lexsis AI storefront MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.trylexsis.com/mcp"

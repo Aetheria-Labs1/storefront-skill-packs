@@ -1,66 +1,39 @@
-# Lexsis AI — Core Skills
+# Lexsis AI — Codex Skills
 
-AI-powered Shopify storefront builder. 2 agents + 6 commands for page generation, CRO optimization, and publishing.
+AI-powered Shopify storefront workflows for Codex. Plugin includes 12 skills, Lexsis AI MCP configuration, 257 shared reference files, and optional Codex Browser integration.
 
-## MCP Server
+## Invocation
 
-Connect the Lexsis AI MCP server for full tool access:
-
-```json
-{
-  "mcpServers": {
-    "lexsis-ai": {
-      "type": "http",
-      "url": "https://mcp.trylexsis.com/mcp",
-      "headers": { "Authorization": "Bearer <your-api-key>" }
-    }
-  }
-}
-```
+Codex selects focused skills from task descriptions. Invoke one explicitly with `$skill-name` when needed. Plugin-defined slash commands such as `/generate` are not available in Codex.
 
 ## Skills
 
-- **storefront-engine** — Core orchestrator for page generation workflows
-- **browser-analyze** — Use @Browser to analyze competitor pages, extract design tokens, and run CRO audits
+- `storefront-engine` — Route broad, multi-step storefront requests.
+- `browser-analyze` — Extract design and CRO evidence from a reference URL.
+- `analyze-page` — Create a reproducible page-design brief.
+- `cart` — Configure Cart V2 composition and behavior.
+- `experiment` — Set up A/B tests and personalization variants.
+- `extract-island` — Convert a page component into a reusable island layout.
+- `generate` — Generate every supported page type.
+- `optimize` — Improve an existing page for conversion.
+- `plan-page` — Create a page blueprint before generation.
+- `publish` — Validate, preview, and publish with explicit live approval.
+- `remix` — Adapt competitor or ad patterns to a brand.
+- `search-docs` — Search Lexsis documentation and schemas.
 
-## Commands
+## MCP and Browser
 
-- **generate** — Generate a complete Shopify storefront page — auto-detects page type (landing, PDP, collection, homepage, editorial, listicle, bundle) and applies conversion-optimized patterns
-- **optimize** — CRO-optimize an existing page — analyzes conversion weaknesses and applies fixes (redesign sections, add trust signals, fix CTAs, improve mobile UX)
-- **remix** — Rebuild a competitor page or ad creative adapted to your brand — extracts structure and conversion patterns, regenerates with your products and design tokens
-- **experiment** — Set up A/B tests, personalization variants, and monitor experiment results — hypothesis-driven testing with statistical significance tracking
-- **cart** — Configure the Cart V2 drawer — add upsells, progress bars, conditional rules, announcement banners, and checkout customization
-- **publish** — QA check and publish a page — validates structure, verifies islands, checks mobile rendering, then publishes live or to Shopify
+The plugin configures `lexsis-ai` at `https://mcp.trylexsis.com/mcp`. Use its tools for storefront data, assets, validation, and publishing; complete OAuth when Codex requests it.
 
-## Knowledge Reference
+Use Codex Browser for live reference-page analysis and draft visual QA when available. If Browser is unavailable, use Lexsis `extract_brand_design` and state that DOM, interaction, and mobile viewport checks were unavailable.
 
-All domain knowledge lives in `skills/storefront-engine/reference/`. Read the relevant file when you need it:
+## Safety
 
-- `generation-protocol.md` (knowledge)
-- `cro-research.md` (knowledge)
-- `storefront-craft.md` (knowledge)
-- `workflow-orchestration.md` (knowledge)
-- `conversion-psychology.md` (knowledge)
-- `visual-craft.md` (knowledge)
-- `island-patterns.md` (knowledge)
-- `qa-recipe.md` (knowledge)
-- `page-generation.md` (operational)
-- `design-assets.md` (operational)
-- `publishing.md` (operational)
-- `page-editing.md` (operational)
-- `analytics.md` (operational)
-- `generate-pdp.md` (operational)
-- `generate-landing-page.md` (operational)
-- `generate-homepage.md` (operational)
-- `generate-collection.md` (operational)
-- `generate-listicle.md` (operational)
-- `generate-bundle-page.md` (operational)
-- `generate-editorial.md` (operational)
-- `ad-to-page.md` (operational)
-- `page-redesign.md` (operational)
-- `competitor-remix.md` (operational)
-- `personalization-variant.md` (operational)
-- `ab-test-variant.md` (operational)
-- `section-library.md` (operational)
-- `cart-composition.md` (operational)
-- `cart-v2-management.md` (operational)
+- Check credits before any paid asset generation, image editing, page mutation, or publish operation.
+- Validate page data before writing or publishing.
+- Publish drafts first. Require explicit user approval before a live publish.
+- Preview a section update before committing it. Confirm destructive removal or replacement.
+
+## Reference Knowledge
+
+Shared knowledge lives under `skills/storefront-engine/reference/`. Page-specific workflows such as `generate-pdp.md`, `generate-homepage.md`, `ab-test-variant.md`, and `cart-v2-management.md` remain references loaded by the 12 skills; they are not separate skills. Island documentation contains contracts, schemas, and layout JSON; use those exact schemas instead of inventing island props.

@@ -1,0 +1,11 @@
+interface:
+  display_name: "Extract Storefront Island"
+  short_description: "Turn a webpage component into a reusable Lexsis island layout."
+  default_prompt: "Extract this page's hero into a reusable island layout."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "lexsis-ai"
+      description: "Lexsis AI storefront MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.trylexsis.com/mcp"

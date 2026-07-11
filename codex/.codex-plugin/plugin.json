@@ -1,7 +1,7 @@
 {
   "name": "lexsis-storefront-skills",
-  "version": "3.1.0",
-  "description": "AI-powered Shopify storefront builder. 2 agents + 6 commands for page generation, CRO optimization, and publishing.",
+  "version": "3.2.0",
+  "description": "AI-powered Shopify storefront builder with 12 Codex skills for generation, CRO, experimentation, and publishing.",
   "author": {
     "name": "Aetheria Labs",
     "email": "hello@trylexsis.com"
@@ -17,5 +17,19 @@
     "cro"
   ],
   "skills": "./skills/",
-  "mcpServers": "./.mcp.json"
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Lexsis AI Storefront Builder",
+    "shortDescription": "Build, optimize, and publish Shopify storefronts.",
+    "longDescription": "Conversion-focused Shopify storefront workflows with Codex skills, Browser-aware analysis, and Lexsis AI MCP tools.",
+    "developerName": "Aetheria Labs",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write"],
+    "websiteURL": "https://trylexsis.com",
+    "defaultPrompt": [
+      "Generate a conversion-focused Shopify landing page.",
+      "Audit this storefront URL for CRO opportunities.",
+      "Configure a Cart V2 drawer with relevant upsells."
+    ]
+  }
 }
