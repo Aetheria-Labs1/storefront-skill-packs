@@ -1,0 +1,122 @@
+{
+  "name": "ProductGallery",
+  "category": "commerce",
+  "usage_hint": "PDP image gallery with thumbnails, multiple layouts (horizontal/vertical/grid), transitions (fade/slide/zoom/kenBurns), and optional autoplay. Syncs with variant changes when listenForVariant:true.",
+  "when_to_use": "Use on product detail pages to display product images with navigation. Supports horizontal/vertical thumbnail rails, grid mode, and variant-driven image swaps.",
+  "when_not_to_use": "Not for hero banners (use ProductHero). Not for card media (use ProductCard). Not for standalone image carousels (use MediaSlideshow primitive).",
+  "defaultHydrate": "immediate",
+  "combine_with": [
+    "BuyBox (product context)",
+    "VariantSwatches (when listenForVariant:true",
+    "gallery auto-updates images on variant change)"
+  ],
+  "anti_patterns": [
+    "Setting listenForVariant:true without emitting variant:changed events: gallery won't update on variant selection",
+    "Using grid layout with many images: loses thumbnail navigation, poor UX for 5+ images",
+    "Setting autoplay with short interval: distracts users from reading product details",
+    "Using kenBurns transition on every image: excessive motion, may trigger motion sensitivity"
+  ],
+  "examples": [
+    {
+      "label": "Horizontal gallery with fade transition",
+      "html": "<div data-island=\"ProductGallery\" data-props='{\"images\":[{\"url\":\"https://via.placeholder.com/600\",\"alt\":\"Product front\"},{\"url\":\"https://via.placeholder.com/600\",\"alt\":\"Product back\"}],\"layout\":\"horizontal\",\"transition\":\"fade\"}'></div>"
+    },
+    {
+      "label": "Vertical gallery with thumbnail rail on left",
+      "html": "<div data-island=\"ProductGallery\" data-props='{\"images\":[{\"url\":\"https://via.placeholder.com/600\"},{\"url\":\"https://via.placeholder.com/600\"}],\"layout\":\"vertical\",\"thumbPosition\":\"left\",\"transition\":\"slide\"}'></div>"
+    },
+    {
+      "label": "Grid layout (editorial style)",
+      "html": "<div data-island=\"ProductGallery\" data-props='{\"images\":[{\"url\":\"https://via.placeholder.com/600\"},{\"url\":\"https://via.placeholder.com/600\"},{\"url\":\"https://via.placeholder.com/600\"},{\"url\":\"https://via.placeholder.com/600\"}],\"layout\":\"grid\"}'></div>"
+    },
+    {
+      "label": "Autoplay gallery with variant sync",
+      "html": "<div data-island=\"ProductGallery\" data-props='{\"images\":[{\"url\":\"https://via.placeholder.com/600\"}],\"autoplay\":true,\"interval\":5000,\"listenForVariant\":true,\"transition\":\"zoom\"}'></div>"
+    }
+  ],
+  "props": {
+    "images": {
+      "type": "array",
+      "required": true,
+      "shape": {
+        "url": "string",
+        "alt": "?string"
+      }
+    },
+    "layout": {
+      "type": "enum",
+      "required": false,
+      "values": [
+        "horizontal",
+        "vertical",
+        "grid"
+      ],
+      "default": "horizontal"
+    },
+    "autoplay": {
+      "type": "boolean",
+      "required": false,
+      "default": "false"
+    },
+    "interval": {
+      "type": "number",
+      "required": false,
+      "default": "4000"
+    },
+    "transition": {
+      "type": "enum",
+      "required": false,
+      "values": [
+        "none",
+        "fade",
+        "slide",
+        "zoom",
+        "kenBurns"
+      ],
+      "default": "fade"
+    },
+    "listenForVariant": {
+      "type": "boolean",
+      "required": false,
+      "default": "false"
+    },
+    "maxHeight": {
+      "type": "string",
+      "required": false
+    },
+    "thumbPosition": {
+      "type": "enum",
+      "required": false,
+      "values": [
+        "bottom",
+        "right",
+        "left",
+        "top"
+      ]
+    },
+    "objectFit": {
+      "type": "enum",
+      "required": false,
+      "values": [
+        "cover",
+        "contain"
+      ],
+      "default": "cover"
+    }
+  },
+  "variants": [
+    "horizontal",
+    "vertical",
+    "grid"
+  ],
+  "css_vars": [
+    "--lx-accent-color"
+  ],
+  "parts": [
+    "main-image",
+    "root",
+    "thumbnail",
+    "thumbnail-strip"
+  ],
+  "example": "<div data-island=\"ProductGallery\" data-props='{\"images\":[{\"url\":\"example-url\"}]}'></div>"
+}

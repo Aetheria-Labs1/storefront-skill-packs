@@ -1,0 +1,51 @@
+{
+  "name": "CartSummary",
+  "category": "commerce",
+  "usage_hint": "Displays cart subtotal, optional tax/shipping/discount lines. Subscribes to shared cart state.",
+  "when_to_use": "Inside DrawerShell below CartLines to show order summary before checkout.",
+  "when_not_to_use": "Outside cart context or on pages without cart functionality.",
+  "defaultHydrate": "idle",
+  "combine_with": [
+    "DrawerShell",
+    "CartLines",
+    "CartCheckoutButton"
+  ],
+  "anti_patterns": [],
+  "examples": [],
+  "props": {
+    "showTax": {
+      "type": "boolean",
+      "required": false,
+      "default": "false"
+    },
+    "showShipping": {
+      "type": "boolean",
+      "required": false,
+      "default": "false"
+    },
+    "showDiscounts": {
+      "type": "boolean",
+      "required": false,
+      "default": "true"
+    },
+    "currency": {
+      "type": "string",
+      "required": false,
+      "default": "USD"
+    }
+  },
+  "variants": null,
+  "css_vars": [
+    "--lx-text-color"
+  ],
+  "parts": [
+    "line",
+    "line-label",
+    "line-value",
+    "root",
+    "subtotal",
+    "subtotal-label",
+    "subtotal-value"
+  ],
+  "example": "<div data-island=\"CartSummary\" data-props='{}'></div>"
+}

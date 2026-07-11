@@ -1,6 +1,0 @@
-{
-  "id": "trust-badges",
-  "html": "<section class=\"py-6 border-t border-b\" style=\"border-color: var(--lx-border-color)\"><div class=\"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8\"><div data-island=\"TrustBadgeBar\" data-props='{\"variant\":\"default\",\"badges\":{{BADGES}},\"layout\":\"horizontal\"}'></div></div></section>",
-  "css": "",
-  "js": ""
-}

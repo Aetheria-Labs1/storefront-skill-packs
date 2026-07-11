@@ -1,6 +1,0 @@
-{
-  "id": "text-button",
-  "html": "<div class=\"inline-flex\"><div data-island=\"WishlistButton\" data-props='{\"productId\":\"{{PRODUCT_ID}}\",\"variant\":\"text\",\"showCount\":true,\"position\":\"inline\"}'></div></div>",
-  "css": "",
-  "js": ""
-}

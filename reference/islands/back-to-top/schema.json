@@ -1,0 +1,57 @@
+{
+  "name": "BackToTop",
+  "category": "navigation",
+  "usage_hint": "Floating scroll-to-top button that appears after scrolling past threshold. Fixed bottom-right position.",
+  "when_to_use": "On long pages (>2 screens) where users need quick return to top. Auto-shows/hides based on scroll position. Respects reduced-motion preferences.",
+  "when_not_to_use": "On short pages (less than 1000px tall). When footer already has \"Back to top\" link. On mobile-first designs where scroll is fast.",
+  "defaultHydrate": "immediate",
+  "combine_with": [
+    "Navbar",
+    "Footer",
+    "long content pages"
+  ],
+  "anti_patterns": [
+    "Setting threshold too low (<400px) \u2014 button appears before user needs it",
+    "Using on pages with sticky sidebars that occupy bottom-right (z-index conflicts)",
+    "Multiple BackToTop instances \u2014 only one is needed per page"
+  ],
+  "examples": [
+    {
+      "label": "Standard back-to-top button",
+      "html": "<div data-island=\"BackToTop\" data-props='{\"threshold\":600,\"smooth\":true}'></div>"
+    },
+    {
+      "label": "Custom label for accessibility",
+      "html": "<div data-island=\"BackToTop\" data-props='{\"threshold\":800,\"smooth\":true,\"label\":\"Scroll to top of page\"}'></div>"
+    },
+    {
+      "label": "Instant scroll without animation",
+      "html": "<div data-island=\"BackToTop\" data-props='{\"threshold\":500,\"smooth\":false}'></div>"
+    }
+  ],
+  "props": {
+    "threshold": {
+      "type": "number",
+      "required": false,
+      "default": "600"
+    },
+    "smooth": {
+      "type": "boolean",
+      "required": false,
+      "default": "true"
+    },
+    "label": {
+      "type": "string",
+      "required": false
+    }
+  },
+  "variants": null,
+  "css_vars": [
+    "--lx-accent-color"
+  ],
+  "parts": [
+    "button",
+    "icon"
+  ],
+  "example": "<div data-island=\"BackToTop\" data-props='{}'></div>"
+}

@@ -1,0 +1,91 @@
+{
+  "name": "DrawerShell",
+  "category": "commerce",
+  "usage_hint": "Multi-mode container island that lazily hydrates child islands on open. Used as the Cart V2 shell or any deferred-content drawer/modal/sheet.",
+  "when_to_use": "Wrap CartLines, CartSummary, CartCheckoutButton, CartProgressBar, CartDiscountInput inside DrawerShell for lazy-loaded cart UI. Also usable for any deferred sidebar, bottom sheet, or modal pattern.",
+  "when_not_to_use": "Do not use for always-visible content. Not a replacement for inline sections. If content must be visible on page load, use regular islands.",
+  "defaultHydrate": "immediate",
+  "combine_with": [
+    "CartLines",
+    "CartSummary",
+    "CartCheckoutButton",
+    "CartProgressBar",
+    "CartDiscountInput"
+  ],
+  "anti_patterns": [
+    "Nesting DrawerShell inside another DrawerShell (recursive containers not supported)",
+    "Omitting data-island-container attribute (children would hydrate immediately, defeating lazy loading)",
+    "Using without any child islands (empty shell serves no purpose)"
+  ],
+  "examples": [],
+  "props": {
+    "mode": {
+      "type": "enum",
+      "required": false,
+      "values": [
+        "drawer-right",
+        "drawer-left",
+        "bottom-sheet",
+        "modal",
+        "fullscreen",
+        "dropdown"
+      ],
+      "default": "drawer-right"
+    },
+    "responsive": {
+      "type": "object",
+      "required": false,
+      "shape": {
+        "mobile": "?string",
+        "tablet": "?string"
+      }
+    },
+    "trigger": {
+      "type": "string",
+      "required": false,
+      "default": "cart:open"
+    },
+    "width": {
+      "type": "string",
+      "required": false,
+      "default": "400px"
+    },
+    "maxHeight": {
+      "type": "string",
+      "required": false,
+      "default": "85vh"
+    },
+    "overlay": {
+      "type": "boolean",
+      "required": false,
+      "default": "true"
+    },
+    "animate": {
+      "type": "boolean",
+      "required": false,
+      "default": "smooth"
+    },
+    "swipeToDismiss": {
+      "type": "boolean",
+      "required": false,
+      "default": "true"
+    },
+    "dragHandle": {
+      "type": "boolean",
+      "required": false,
+      "default": "true"
+    },
+    "__innerHTML": {
+      "type": "string",
+      "required": false,
+      "default": ""
+    }
+  },
+  "variants": null,
+  "css_vars": [
+    "--lx-border-color",
+    "--lx-text-color"
+  ],
+  "parts": [],
+  "example": "<div data-island=\"DrawerShell\" data-props='{}'></div>"
+}

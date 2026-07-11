@@ -12,7 +12,7 @@ import re
 import sys
 from pathlib import Path
 
-ISLANDS_DIR = Path("plugins/lexsis-storefront-skills/skills/storefront-engine/reference/islands")
+ISLANDS_DIR = Path("reference/islands")
 
 
 def pascal_to_kebab(name: str) -> str:

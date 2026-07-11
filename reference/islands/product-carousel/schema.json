@@ -1,0 +1,121 @@
+{
+  "name": "ProductCarousel",
+  "category": "commerce",
+  "usage_hint": "Horizontal scrolling product carousel with arrow navigation and responsive grid columns. Displays ProductCard instances with staggered fade-up animations.",
+  "when_to_use": "Use for \"Related Products\", \"You May Also Like\", \"Trending\", or \"Recently Viewed\" sections on PDP or landing pages. Provides quick product browsing without leaving the page.",
+  "when_not_to_use": "Not for static grids (use EditorialProductGrid). Not for full-width collections (use collection page with standard grid). Not for single product display (use ProductCard island directly).",
+  "defaultHydrate": "immediate",
+  "combine_with": [
+    "CartDrawer (REQUIRED if showQuickAdd:true)",
+    "BuyBox or other PDP components (common on PDP pages)"
+  ],
+  "anti_patterns": [
+    "Using with fewer than 4 products: carousel arrows are unnecessary, use a static grid instead",
+    "Setting showQuickAdd:true without CartDrawer: users get no cart feedback",
+    "Overriding columns prop in carousel context: carousel calculates responsive widths; columns prop doesn't apply here",
+    "Using cardVariant:\"horizontal\" in carousel: horizontal cards break carousel scroll layout"
+  ],
+  "examples": [
+    {
+      "label": "Related products carousel",
+      "html": "<div data-island=\"ProductCarousel\" data-props='{\"products\":[{\"id\":\"p1\",\"handle\":\"item1\",\"title\":\"Product 1\",\"price\":\"$49.00\",\"image\":\"https://via.placeholder.com/300\"},{\"id\":\"p2\",\"handle\":\"item2\",\"title\":\"Product 2\",\"price\":\"$59.00\",\"image\":\"https://via.placeholder.com/300\"},{\"id\":\"p3\",\"handle\":\"item3\",\"title\":\"Product 3\",\"price\":\"$69.00\",\"image\":\"https://via.placeholder.com/300\"},{\"id\":\"p4\",\"handle\":\"item4\",\"title\":\"Product 4\",\"price\":\"$79.00\",\"image\":\"https://via.placeholder.com/300\"}],\"title\":\"You May Also Like\",\"showQuickAdd\":true,\"showLearnMore\":true}'></div>"
+    },
+    {
+      "label": "Trending products with hover advance",
+      "html": "<div data-island=\"ProductCarousel\" data-props='{\"products\":[{\"id\":\"p1\",\"title\":\"Item 1\",\"price\":\"$29.00\",\"media\":[{\"src\":\"https://via.placeholder.com/300\"}]},{\"id\":\"p2\",\"title\":\"Item 2\",\"price\":\"$39.00\",\"media\":[{\"src\":\"https://via.placeholder.com/300\"}]}],\"title\":\"Trending Now\",\"mediaTransition\":\"zoom\",\"hoverAdvance\":true}'></div>"
+    },
+    {
+      "label": "Compact carousel without animations",
+      "html": "<div data-island=\"ProductCarousel\" data-props='{\"products\":[{\"id\":\"p1\",\"title\":\"A\",\"price\":\"$10\",\"image\":\"https://via.placeholder.com/300\"},{\"id\":\"p2\",\"title\":\"B\",\"price\":\"$20\",\"image\":\"https://via.placeholder.com/300\"}],\"cardVariant\":\"compact\",\"animate\":false}'></div>"
+    }
+  ],
+  "props": {
+    "products": {
+      "type": "array",
+      "required": true,
+      "shape": {
+        "id": "string",
+        "handle": "string",
+        "title": "string",
+        "price": "string",
+        "compareAtPrice": "?string",
+        "badge": "?string",
+        "variants": "?array<{id: string, title: string, price: string, available: boolean}>",
+        "media": "?array<{src: string, alt: ?string, poster: ?string}>",
+        "image": "?string"
+      }
+    },
+    "title": {
+      "type": "string",
+      "required": false
+    },
+    "showQuickAdd": {
+      "type": "boolean",
+      "required": false,
+      "default": "true"
+    },
+    "showWishlist": {
+      "type": "boolean",
+      "required": false,
+      "default": "false"
+    },
+    "showLearnMore": {
+      "type": "boolean",
+      "required": false,
+      "default": "true"
+    },
+    "showQuickView": {
+      "type": "boolean",
+      "required": false,
+      "default": "false"
+    },
+    "mediaTransition": {
+      "type": "enum",
+      "required": false,
+      "values": [
+        "none",
+        "fade",
+        "slide",
+        "zoom",
+        "kenBurns"
+      ],
+      "default": "fade"
+    },
+    "hoverAdvance": {
+      "type": "boolean",
+      "required": false,
+      "default": "true"
+    },
+    "cardVariant": {
+      "type": "enum",
+      "required": false,
+      "values": [
+        "default",
+        "compact"
+      ],
+      "default": "default"
+    },
+    "columns": {
+      "type": "number",
+      "required": false
+    },
+    "animate": {
+      "type": "boolean",
+      "required": false,
+      "default": "true"
+    }
+  },
+  "variants": null,
+  "css_vars": [
+    "--lx-text-color"
+  ],
+  "parts": [
+    "card-wrapper",
+    "heading",
+    "nav-next",
+    "nav-prev",
+    "root",
+    "scroll-container"
+  ],
+  "example": "<div data-island=\"ProductCarousel\" data-props='{\"products\":[{\"id\":\"example-id\",\"handle\":\"example-handle\",\"title\":\"example-title\",\"price\":\"example-price\"}]}'></div>"
+}

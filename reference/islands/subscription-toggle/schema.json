@@ -1,0 +1,80 @@
+{
+  "name": "SubscriptionToggle",
+  "category": "commerce",
+  "usage_hint": "Subscribe-and-save toggle that switches between one-time purchase and subscription pricing. Emits subscription:changed events to BuyBox.",
+  "when_to_use": "On product pages with subscription selling plans. Auto-emits state changes so BuyBox/AddToCart islands can update checkout behavior. Shows discount, frequency options, and benefits list.",
+  "when_not_to_use": "For products without subscription options. For simple quantity selectors use BuyBox quantity field. For tiered pricing use QuantityBreaks instead.",
+  "defaultHydrate": "immediate",
+  "combine_with": [
+    "BuyBox",
+    "AddToCart",
+    "ProductPrice (all listen for subscription:changed events)"
+  ],
+  "anti_patterns": [
+    "Not providing valid Shopify selling plan IDs \u2014 checkout will fail",
+    "Listing benefits that don't match actual subscription terms (misleading)",
+    "Using alongside QuantityBreaks (they conflict \u2014 choose one pricing model)"
+  ],
+  "examples": [
+    {
+      "label": "Monthly subscription with benefits",
+      "html": "<div data-island=\"SubscriptionToggle\" data-props='{\"oneTimePrice\":\"$29.99\",\"plans\":[{\"id\":\"gid://shopify/SellingPlan/123\",\"frequency\":\"Every month\",\"discount\":\"10%\",\"price\":\"$26.99\"}],\"benefits\":[\"Never run out\",\"Cancel anytime\",\"Free shipping\"],\"defaultMode\":\"subscribe\",\"label\":\"Purchase Options\"}'></div>"
+    },
+    {
+      "label": "Multiple frequency options",
+      "html": "<div data-island=\"SubscriptionToggle\" data-props='{\"oneTimePrice\":\"$49.99\",\"plans\":[{\"id\":\"gid://shopify/SellingPlan/456\",\"frequency\":\"Every 2 weeks\",\"discount\":\"5%\",\"price\":\"$47.49\"},{\"id\":\"gid://shopify/SellingPlan/457\",\"frequency\":\"Every month\",\"discount\":\"10%\",\"price\":\"$44.99\"},{\"id\":\"gid://shopify/SellingPlan/458\",\"frequency\":\"Every 3 months\",\"discount\":\"15%\",\"price\":\"$42.49\"}],\"benefits\":[\"Priority support\",\"Exclusive discounts\"],\"defaultMode\":\"one-time\"}'></div>"
+    },
+    {
+      "label": "Simple subscribe-and-save",
+      "html": "<div data-island=\"SubscriptionToggle\" data-props='{\"oneTimePrice\":\"$19.99\",\"plans\":[{\"id\":\"gid://shopify/SellingPlan/789\",\"frequency\":\"Monthly delivery\",\"discount\":\"15%\",\"price\":\"$16.99\"}]}'></div>"
+    }
+  ],
+  "props": {
+    "oneTimePrice": {
+      "type": "string",
+      "required": true
+    },
+    "plans": {
+      "type": "array",
+      "required": true,
+      "shape": {
+        "id": "string",
+        "frequency": "string",
+        "discount": "string",
+        "price": "string"
+      }
+    },
+    "benefits": {
+      "type": "array",
+      "required": false
+    },
+    "defaultMode": {
+      "type": "enum",
+      "required": false,
+      "values": [
+        "one-time",
+        "subscribe"
+      ],
+      "default": "one-time"
+    },
+    "label": {
+      "type": "string",
+      "required": false
+    }
+  },
+  "variants": null,
+  "css_vars": [
+    "--lx-accent-color",
+    "--lx-text-color"
+  ],
+  "parts": [
+    "benefit-item",
+    "benefits",
+    "frequency-select",
+    "label",
+    "option-one-time",
+    "option-subscribe",
+    "root"
+  ],
+  "example": "<div data-island=\"SubscriptionToggle\" data-props='{\"oneTimePrice\":\"example-oneTimePrice\",\"plans\":[{\"id\":\"example-id\",\"frequency\":\"example-frequency\",\"discount\":\"example-discount\",\"price\":\"example-price\"}]}'></div>"
+}

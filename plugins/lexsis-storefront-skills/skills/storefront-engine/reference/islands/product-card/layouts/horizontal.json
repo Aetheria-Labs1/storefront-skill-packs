@@ -1,6 +1,0 @@
-{
-  "id": "product-card-horizontal",
-  "html": "<div class=\"flex items-center gap-4 p-4 rounded-lg border\" style=\"border-color: var(--lx-border-color); background-color: var(--lx-bg-surface)\"><img src=\"{{IMAGE_URL}}\" alt=\"{{PRODUCT_TITLE}}\" class=\"w-20 h-20 rounded-md object-cover flex-shrink-0\" /><div class=\"flex-1 min-w-0\"><h3 class=\"text-sm font-medium truncate\" style=\"color: var(--lx-text-color)\">{{PRODUCT_TITLE}}</h3><p class=\"text-sm mt-1\" style=\"color: var(--lx-text-muted)\">{{PRODUCT_PRICE}}</p><div data-island=\"ProductCard\" data-props='{\"product\":{\"id\":\"{{PRODUCT_ID}}\",\"title\":\"{{PRODUCT_TITLE}}\",\"price\":\"{{PRODUCT_PRICE}}\"},\"variant\":\"horizontal\",\"showRating\":true}'></div></div></div>",
-  "css": "",
-  "js": ""
-}
