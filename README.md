@@ -30,7 +30,7 @@ codex plugin marketplace add Aetheria-Labs1/storefront-skills --ref main
 codex plugin add lexsis-storefront-skills@lexsis-storefront
 ```
 
-Codex selects workflows automatically from your request. Invoke a specific workflow with `$generate`, `$cro-analyzer`, `$generate-pdp`, or another `$skill-name`; custom `/generate` commands are Claude-only.
+Codex selects workflows automatically from your request. Invoke one of the 12 workflows with `$generate`, `$browser-analyze`, `$cart`, or another `$skill-name`; custom `/generate` commands are Claude-only.
 
 Codex Browser is optional. URL analysis and draft QA use it when available, otherwise skills fall back to Lexsis server-side design extraction.
 </details>
@@ -56,7 +56,7 @@ cp -r storefront-skills/cursor/rules/* .cursor/rules/
 
 | Plugin | Type | What It Adds |
 |--------|------|-------------|
-| `lexsis-storefront-skills` | **Core** | 32 Codex skills, 10 Claude commands, 257 references, and MCP config |
+| `lexsis-storefront-skills` | **Core** | 12 Codex skills, 10 Claude commands, 257 references, and MCP config |
 | `lexsis-beauty-skills` | Vertical | Beauty/skincare patterns |
 | `lexsis-supplements-skills` | Vertical | Supplement/wellness patterns |
 | `lexsis-fashion-skills` | Vertical | Fashion/apparel patterns |
@@ -73,12 +73,13 @@ Codex supports skills rather than plugin-defined slash commands. Use natural lan
 | Skill | What It Does |
 |-------|--------------|
 | `$generate` | Generate a Shopify page with planning, validation, and draft-first publishing |
-| `$cro-analyzer` | Audit an ecommerce URL and return a structured CRO blueprint |
-| `$page-builder` | Build a storefront from a brief or CRO blueprint |
+| `$browser-analyze` | Audit a storefront URL using Codex Browser when available |
 | `$analyze-page` / `$extract-island` | Analyze a reference page or turn a component into a reusable island layout |
-| `$generate-pdp`, `$generate-homepage`, `$generate-collection` | Use a focused page-type workflow |
-| `$cart`, `$setup-cart` | Configure Cart V2 and related islands |
-| `$experiment`, `$ab-test`, `$personalize-page` | Run experiments and create page variants |
+| `$cart` | Configure Cart V2 and related islands |
+| `$experiment` | Run experiments and create page variants |
+| `$optimize`, `$remix`, `$plan-page`, `$publish` | Optimize, adapt, plan, and safely publish pages |
+
+Page-type and specialist workflows such as `generate-pdp.md`, `generate-homepage.md`, `ab-test-variant.md`, and `cart-v2-management.md` remain shared references used by these skills. They are not duplicated as standalone Codex skills.
 
 ## Claude Code Commands (after installing core)
 

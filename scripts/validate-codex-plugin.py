@@ -15,47 +15,22 @@ CANONICAL_SKILLS = {
     "browser-analyze",
     "analyze-page",
     "cart",
-    "cro-analyzer",
     "experiment",
     "extract-island",
     "generate",
     "optimize",
-    "page-builder",
     "plan-page",
     "publish",
     "remix",
     "search-docs",
 }
-EXPLICIT_ALIASES = {
-    "generate-page",
-    "optimize-page",
-    "create-assets",
-    "run-experiment",
-    "generate-pdp",
-    "generate-homepage",
-    "generate-collection",
-    "generate-bundle",
-    "generate-editorial",
-    "generate-listicle",
-    "convert-ad",
-    "redesign-page",
-    "remix-competitor",
-    "personalize-page",
-    "ab-test",
-    "setup-brand",
-    "add-section",
-    "setup-cart",
-}
-EXPECTED_SKILLS = CANONICAL_SKILLS | EXPLICIT_ALIASES
+EXPECTED_SKILLS = CANONICAL_SKILLS
 WORKFLOW_ASSERTIONS = {
     "generate": ("validate_vibe_page", "publish_vibe_page", "Codex Browser", "explicitly approves"),
-    "cro-analyzer": ("CRO_BLUEPRINT", "Codex Browser", "extract_brand_design"),
-    "page-builder": ("ALWAYS publish as DRAFT first", "Codex Browser", "publish live"),
     "publish": ("draft: true", "explicit user approval"),
     "browser-analyze": ("extract_brand_design", "Fallback"),
-    "generate-pdp": ("generate-pdp.md", "draft"),
-    "ab-test": ("ab-test-variant.md", "hypothesis"),
-    "setup-cart": ("cart-v2-management.md", "validate"),
+    "experiment": ("create_ab_test", "statistical"),
+    "cart": ("Cart V2", "update_cart_config"),
 }
 
 
@@ -131,10 +106,8 @@ for skill_path in skill_paths:
     if 'value: "lexsis-ai"' not in metadata_text:
         fail(f"{metadata} must declare the lexsis-ai MCP dependency")
     explicit_only = "allow_implicit_invocation: false" in metadata_text
-    if directory_name in EXPLICIT_ALIASES and not explicit_only:
-        fail(f"{metadata} must disable implicit invocation for explicit alias {directory_name}")
-    if directory_name in CANONICAL_SKILLS and explicit_only:
-        fail(f"{metadata} must allow implicit invocation for canonical skill {directory_name}")
+    if explicit_only:
+        fail(f"{metadata} must allow implicit invocation for skill {directory_name}")
 
 if skill_names != EXPECTED_SKILLS:
     missing = sorted(EXPECTED_SKILLS - skill_names)
@@ -147,4 +120,4 @@ for skill_name, required_terms in WORKFLOW_ASSERTIONS.items():
     if missing_terms:
         fail(f"{skill_name} is missing workflow safeguards: {missing_terms}")
 
-print(f"Codex plugin valid: {len(skill_names)} skills, {len(CANONICAL_SKILLS)} canonical, {len(EXPLICIT_ALIASES)} aliases")
+print(f"Codex plugin valid: {len(skill_names)} skills and 257 shared references")

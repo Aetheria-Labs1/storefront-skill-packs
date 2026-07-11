@@ -1,6 +1,6 @@
 ---
 name: browser-analyze
-description: Use Codex Browser to analyze a URL for design extraction, CRO evidence, or competitor research. Use for reference URLs; use cro-analyzer for a structured CRO_BLUEPRINT.
+description: Use Codex Browser to analyze a URL for design extraction, CRO evidence, or competitor research. Use when a task provides a reference or storefront URL.
 ---
 
 # Browser-Powered Page Analysis
