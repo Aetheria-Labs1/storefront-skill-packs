@@ -1,0 +1,1 @@
+../../reference/vertical-beauty.md

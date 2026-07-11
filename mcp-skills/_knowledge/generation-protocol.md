@@ -1,0 +1,1 @@
+../../reference/generation-protocol.md

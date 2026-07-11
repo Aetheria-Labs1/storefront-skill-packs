@@ -1,0 +1,1 @@
+../../reference/personalization-variant.md
