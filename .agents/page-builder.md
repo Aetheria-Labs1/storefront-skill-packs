@@ -208,6 +208,7 @@ bundle-hero → included-items → savings-calculator → reviews → urgency-ct
 
 | Island | When to use |
 |--------|-------------|
+| `HeroMedia` | Full-bleed hero background (image/carousel/video + parallax/ken-burns effects). Uses `MediaLoop` primitive internally. |
 | `BuyBox` | Any page with add-to-cart (PDP, landing, bundle) |
 | `CartDrawer` / `DrawerShell` | Cart V2 drawer (set `use_cart_v2: true` in head) |
 | `ReviewCarousel` | Social proof sections |

@@ -99,6 +99,12 @@ Navigate to the page preview URL and verify:
 |---|---|---|---|
 | Hero (full-bleed) | none (HTML) | first | bg-image + overlay text + CTA button |
 | Hero (split) | none (HTML) | first | 2-col: image + text/CTA |
+| Hero (scrolling images) | none (CSS anim) | first | infinite horizontal scroll bg images + overlay text. CSS `translateX(-50%)` on duplicated slides |
+| Hero (before/after) | BeforeAfter | first | centered text top + card with 2× BeforeAfter sliders + numbered features list |
+| Hero (curved ribbon) | none (SVG) | first | SVG `<textPath>` on Bezier curves + `<animate>` for flowing text ribbons at bottom |
+| Hero (deck slider) | none (JS) | first | nth-child positioned cards. Active=full bg, 3-5=thumbnails. JS rotates DOM order on click |
+| Hero (organic blob) | none (SVG) | first | SVG `<clipPath clipPathUnits="objectBoundingBox">` organic shape mask. See `reference/blob-shapes.md` |
+| Hero (wavy edge) | none (SVG) | first | full-bleed bg + SVG wave top/bottom dividers. `preserveAspectRatio="none"` |
 | Product Showcase | ProductGallery + BuyBox | after hero | split layout, gallery left, buy right |
 | Testimonials/Reviews | ReviewCarousel | mid-page | card carousel, star ratings |
 | FAQ Accordion | FAQ | before footer | collapsible Q&A, schema.org markup |

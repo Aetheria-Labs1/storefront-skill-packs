@@ -240,3 +240,115 @@ The `data-scope` ensures VariantSelector's `variant:changed` emission only reach
   min-width: 2.5rem; text-align: center;
 }
 ```
+
+---
+
+## Hero: Infinite Scrolling Background Images (CSS-only)
+
+```html
+<section class="hero-scroll">
+  <div class="hero-scroll__media">
+    <div class="hero-scroll__track">
+      <!-- Duplicate all slides for seamless loop -->
+      <div class="hero-scroll__slide"><img src="..." alt=""></div>
+      <div class="hero-scroll__slide"><img src="..." alt=""></div>
+      <!-- ...duplicated set... -->
+      <div class="hero-scroll__slide"><img src="..." alt="" aria-hidden="true"></div>
+      <div class="hero-scroll__slide"><img src="..." alt="" aria-hidden="true"></div>
+    </div>
+  </div>
+  <div class="hero-scroll__content">
+    <h1>Heading</h1>
+    <p>Subtitle</p>
+    <a href="#">CTA</a>
+  </div>
+</section>
+```
+
+**CSS:**
+```css
+.hero-scroll { position: relative; min-height: 100svh; overflow: hidden; }
+.hero-scroll__media { position: absolute; inset: 0; display: flex; overflow: hidden; }
+.hero-scroll__track { display: flex; height: 100%; flex-shrink: 0; animation: scrollTrack 50s infinite linear; }
+.hero-scroll__slide { flex-shrink: 0; width: calc(100vw - 10rem); height: 100%; }
+.hero-scroll__slide img { width: 100%; height: 100%; object-fit: cover; }
+.hero-scroll__content { position: relative; z-index: 3; /* overlay text */ }
+@keyframes scrollTrack { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+```
+
+---
+
+## Hero: SVG Curved Ribbon Text (CSS-only)
+
+```html
+<section class="hero-ribbon">
+  <div class="hero-ribbon__content"><!-- heading + CTA --></div>
+  <div class="hero-ribbon__ribbons">
+    <svg viewBox="0 0 1048 594" fill="none">
+      <path id="curve-left" d="M0.597656 50.92...1046.43 565.235" stroke="none" stroke-width="60"></path>
+      <text x="-1048">
+        <textPath href="#curve-left">Repeated text content...</textPath>
+        <animate attributeName="x" from="-1048" to="0" dur="10s" repeatCount="indefinite" calcMode="linear"></animate>
+      </text>
+    </svg>
+  </div>
+</section>
+```
+
+Two SVGs in a 2-col grid create crossed ribbon effect. Text flows along Bezier curves with `<animate>`. Speed via `dur` attribute.
+
+---
+
+## Hero: Deck Card Slider (minimal JS)
+
+```html
+<section class="hero-deck">
+  <div class="hero-deck__track">
+    <div class="hero-deck__item" data-id="0">
+      <div class="hero-deck__image"><img src="..."></div>
+      <div class="hero-deck__content"><p class="hero-deck__title">Title</p></div>
+    </div>
+    <!-- more items... -->
+  </div>
+  <div class="hero-deck__buttons">
+    <button class="hero-deck__prev">←</button>
+    <button class="hero-deck__next">→</button>
+  </div>
+</section>
+```
+
+**CSS (nth-child positioning):**
+```css
+.hero-deck__item { position: absolute; width: 200px; height: 300px; top: 50%; transform: translateY(-50%); transition: all .5s; }
+.hero-deck__item:nth-child(1), .hero-deck__item:nth-child(2) { top: 0; left: 0; width: 100%; height: 100%; }
+.hero-deck__item:nth-child(2) .hero-deck__content { display: block; }
+.hero-deck__item:nth-child(3) { left: 55%; }
+.hero-deck__item:nth-child(4) { left: calc(55% + 220px); }
+.hero-deck__item:nth-child(n+6) { opacity: 0; }
+```
+
+**JS (DOM rotation):**
+```js
+next.onclick = () => track.appendChild(track.firstElementChild);
+prev.onclick = () => track.prepend(track.lastElementChild);
+```
+
+---
+
+## Hero: Organic Blob Shape (SVG clip-path)
+
+```html
+<svg width="0" height="0" aria-hidden="true">
+  <defs>
+    <clipPath id="hero-blob" clipPathUnits="objectBoundingBox">
+      <path d="M0.875,1 H0.124 C0.121,0.999..."></path>
+    </clipPath>
+  </defs>
+</svg>
+<div style="clip-path: url(#hero-blob); -webkit-clip-path: url(#hero-blob); min-height: 95vh;">
+  <img src="..." style="width:100%;height:100%;object-fit:cover">
+  <div class="content-overlay"><!-- heading + CTA --></div>
+</div>
+```
+
+See `reference/blob-shapes.md` for 6 preset shapes categorized by mood.

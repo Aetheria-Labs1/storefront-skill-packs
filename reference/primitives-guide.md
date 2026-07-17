@@ -26,6 +26,7 @@ Use for UI that needs ONLY class/attribute toggling — no React rendering.
 | Island | Purpose | Key Props |
 |--------|---------|-----------|
 | **MediaCarousel** | Image/video cycling | `media[]`, `transition`, `autoplay`, `hoverAdvance`, `showArrows`, `showDots`, `aspect` |
+| **HeroMedia** | Full-bleed hero background (image/carousel/video + effects) | `type`, `src`, `slides[]`, `videoSrc`, `effect`, `overlay`, `overlayColor`, `minHeight` |
 | **QuickAdd** | Add-to-cart button | `product`, `render: "button"\|"icon"\|"minimal"\|"custom-trigger"`, `iconSize` |
 | **Countdown** | Countdown timer | `endDate`, `style: "simple"\|"flip"\|"circular"\|"headless"`, `expiredAction` |
 | **VariantSelector** | Visual variant picker | `product`, `render: "swatches"\|"dropdown"\|"buttons"` |
@@ -56,7 +57,7 @@ BuyBox, CartDrawer, CartLines, CartSummary, CartCheckoutButton, CartProgressBar,
 |----------------|----------|
 | Navbar, SiteHeader, Footer | `immediate` (default, omit attr) |
 | CartDrawer, Cart* islands | `idle` |
-| BuyBox, ProductHero (above fold) | `immediate` |
+| BuyBox, ProductHero, HeroMedia (above fold) | `immediate` |
 | MediaCarousel in product grids | `visible` |
 | QuickAdd in product grids | `interaction` |
 | ReviewCarousel, SocialProofPopup | `visible` |

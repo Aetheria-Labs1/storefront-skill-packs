@@ -41,7 +41,7 @@ These rules are NON-NEGOTIABLE. Violating any produces broken output:
    - Commerce: `BuyBox`, `QuickAdd`, `ProductCard`, `ProductCarousel`, `ProductHero`, `ProductGallery`, `CartDrawer`, `DrawerShell`, `CartLines`, `CartCheckoutButton`, `CartSummary`, `CartProgressBar`, `CartDiscountInput`, `CartCrossSell`, `ProceedToCart`, `QuantityBreaks`, `SubscriptionToggle`
    - Navigation: `Navbar`, `MobileMenu`, `Footer`, `SiteHeader`, `AnnouncementBar`
    - Engagement: `FAQ`, `ReviewCarousel`, `CountdownTimer`, `SocialProofPopup`, `Tabs`, `EmailCapture`, `BackToTop`, `WishlistButton`
-   - Media: `ProductGallery`, `VideoPlayer`, `ImageZoom`, `BeforeAfter`
+   - Media: `HeroMedia`, `ProductGallery`, `VideoPlayer`, `ImageZoom`, `BeforeAfter`, `MediaCarousel`
    - Layout: `Modal`, `StickyBar`, `CompareTable`, `BundleBuilder`, `EditorialProductGrid`
    - Info: `DeliveryEstimate`, `InventoryIndicator`, `PaymentOptions`, `PDPInfoCards`, `SizeGuide`, `TrustBadgeBar`, `VariantSwatches`, `IngredientExplorer`, `OptionResolver`
 
